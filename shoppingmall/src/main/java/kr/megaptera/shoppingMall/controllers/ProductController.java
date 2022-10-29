@@ -16,6 +16,11 @@ public class ProductController {
   private ProductService productService;
   private ImageService imageService;
 
+  public ProductController(ProductService productService, ImageService imageService) {
+    this.productService = productService;
+    this.imageService = imageService;
+  }
+
   @GetMapping("/{id}")
   public ProductDto productDetail(
       @PathVariable("id") Long productId) {

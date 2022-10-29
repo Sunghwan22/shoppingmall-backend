@@ -22,6 +22,7 @@ public class BackdoorController {
     LocalDateTime now = LocalDateTime.now();
 
     jdbcTemplate.execute("DELETE FROM product");
+    jdbcTemplate.execute("DELETE FROM productImage");
 
     jdbcTemplate.update("" +
         "INSERT INTO product(" +
@@ -31,6 +32,12 @@ public class BackdoorController {
         " VALUES(1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "전자기기", now, 1200L, "상세설명", 120L, "애플", 5L, 25000L, "아이폰14", 1L,
         5000L, now, 1000L, 250L);
+
+    jdbcTemplate.update("" +
+        "INSERT INTO productImage(" +
+        "id, is_thumbnail_image, url)" +
+        "VALUES(1, ?, ?, ?)" ,
+        "true", 1, "https://test-s3-image.s3.ap-northeast-2.amazonaws.com/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA+2022-10-20+%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE+10.55.03.png");
 
     return "OK";
   }
