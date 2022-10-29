@@ -1,5 +1,7 @@
 package kr.megaptera.shoppingMall.dtos;
 
+import kr.megaptera.shoppingMall.models.ProductImage;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -78,7 +80,8 @@ public class ProductDto {
   public ProductDto(Long id, Long productNumber, String productName, String maker,
                     String category, LocalDateTime createdAt, LocalDateTime updatedAt,
                     Long views, Long cumulativeSales, Long likes, Long price,
-                    Long wishes, Long stock, Long maximumQuantity, String description) {
+                    Long wishes, Long stock, Long maximumQuantity, String description,
+                    List<ProductImageDto> productImages) {
 
     this.id = id;
     this.productNumber = productNumber;
@@ -95,6 +98,7 @@ public class ProductDto {
     this.stock = stock;
     this.maximumQuantity = maximumQuantity;
     this.description = description;
+    this.productImages = productImages;
   }
 
   public Long getId() {

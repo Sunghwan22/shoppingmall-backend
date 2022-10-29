@@ -6,6 +6,7 @@ import kr.megaptera.shoppingMall.repositoies.ProductImageRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -16,8 +17,7 @@ public class ImageService {
     this.productImageRepository = productImageRepository;
   }
 
-  public ProductImage findByProductId(Long productId) {
-    return productImageRepository.findByProductId(productId)
-        .orElseThrow(ProductImageNotFound::new);
+  public List<ProductImage> list(Long productId) {
+    return productImageRepository.findByProductId(productId);
   }
 }

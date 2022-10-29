@@ -1,6 +1,7 @@
 package kr.megaptera.shoppingMall.models;
 
 import kr.megaptera.shoppingMall.dtos.ProductDto;
+import kr.megaptera.shoppingMall.dtos.ProductImageDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -49,11 +51,19 @@ public class Product {
   public Product() {
   }
 
-  public Product(long id, long productNumber,
-                 String productName, String maker, String category,
-                 long views, long cumulativeSales, long likes,
-                 long price, long wish, long stock,
-                 long maximumQuantity, String description) {
+  public Product(long id,
+                 long productNumber,
+                 String productName,
+                 String maker,
+                 String category,
+                 long views,
+                 long cumulativeSales,
+                 long likes,
+                 long price,
+                 long wish,
+                 long stock,
+                 long maximumQuantity,
+                 String description) {
 
     this.id = id;
     this.productNumber = productNumber;
@@ -70,11 +80,11 @@ public class Product {
     this.description = description;
   }
 
-  public ProductDto toDto() {
+  public ProductDto toDto(List<ProductImageDto> productImages) {
     return new ProductDto(id, productNumber, productName, maker, category,
         createdAt, updatedAt, views,
         cumulativeSales, likes, price,
-        wish, stock, maximumQuantity, description);
+        wish, stock, maximumQuantity, description, productImages);
   }
 
   public String maker() {

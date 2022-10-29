@@ -7,5 +7,4 @@ public class Review {
   @Id
   @GeneratedValue
   private Long id;
-
 }
