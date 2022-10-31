@@ -18,6 +18,9 @@ public class ProductImage {
 
   private Boolean isThumbnailImage;
 
+  public ProductImage() {
+  }
+
   public ProductImage(Long id, Long productId, String url, Boolean isThumbnailImage) {
     this.id = id;
     this.productId = productId;

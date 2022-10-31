@@ -2,6 +2,7 @@ package kr.megaptera.shoppingMall.models;
 
 import kr.megaptera.shoppingMall.dtos.ProductDto;
 import kr.megaptera.shoppingMall.dtos.ProductImageDto;
+import kr.megaptera.shoppingMall.dtos.ProductOptionDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -80,11 +81,11 @@ public class Product {
     this.description = description;
   }
 
-  public ProductDto toDto(List<ProductImageDto> productImages) {
+  public ProductDto toDto(List<ProductImageDto> productImages, List<ProductOptionDto> productOptions) {
     return new ProductDto(id, productNumber, productName, maker, category,
         createdAt, updatedAt, views,
         cumulativeSales, likes, price,
-        wish, stock, maximumQuantity, description, productImages);
+        wish, stock, maximumQuantity, description, productImages, productOptions);
   }
 
   public String maker() {

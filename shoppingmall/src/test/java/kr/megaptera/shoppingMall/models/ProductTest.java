@@ -2,6 +2,7 @@ package kr.megaptera.shoppingMall.models;
 
 import kr.megaptera.shoppingMall.dtos.ProductDto;
 import kr.megaptera.shoppingMall.dtos.ProductImageDto;
+import kr.megaptera.shoppingMall.dtos.ProductOptionDto;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -18,7 +19,13 @@ class ProductTest {
         new ProductImageDto()
     );
 
-    ProductDto productDto = product.toDto(productImages);
+    List<ProductOptionDto> productOptions = List.of(
+        new ProductOptionDto(1L, 1L, 5000L, "블랙"),
+        new ProductOptionDto(2L, 1L, 5000L, "화이트"),
+        new ProductOptionDto(3L, 1L, 5000L, "골드")
+    );
+
+    ProductDto productDto = product.toDto(productImages, productOptions);
 
     assertThat(productDto.getMaker()).isEqualTo("애플");
     assertThat(productDto.getId()).isEqualTo(1L);

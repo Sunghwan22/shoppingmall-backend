@@ -1,6 +1,9 @@
 package kr.megaptera.shoppingMall.controllers;
 
+import kr.megaptera.shoppingMall.services.ImageService;
+import kr.megaptera.shoppingMall.services.ProductOptionService;
 import kr.megaptera.shoppingMall.services.ProductService;
+import kr.megaptera.shoppingMall.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -19,6 +22,15 @@ class ProductControllerTest {
 
   @MockBean
   private ProductService productService;
+
+  @MockBean
+  private ImageService imageService;
+
+  @MockBean
+  private UserService userService;
+
+  @MockBean
+  private ProductOptionService productOptionService;
 
   @Test
   void productDetail() throws Exception {
