@@ -1,9 +1,12 @@
 package kr.megaptera.shoppingMall.models;
 
+import kr.megaptera.shoppingMall.dtos.ProductOptionDto;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@Entity
 public class ProductOption {
   @Id
   @GeneratedValue
@@ -39,5 +42,9 @@ public class ProductOption {
 
   public String getDescription() {
     return description;
+  }
+
+  public ProductOptionDto toDto() {
+    return new ProductOptionDto(id, productId, addAmount , description);
   }
 }

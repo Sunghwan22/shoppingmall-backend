@@ -37,7 +37,7 @@ public class ProductDto {
 
   private Long maximumQuantity;
 
-  private List<String> options;
+  private List<ProductOptionDto> options;
 
   private List<ReviewDto> reviews;
 
@@ -47,16 +47,25 @@ public class ProductDto {
 
   private String description;
 
-
   public ProductDto() {
   }
 
   // todo 상세페이지를 GET 할 때 넘겨줘야 할 것 은 무엇인가
-  public ProductDto(Long id, String productName, String maker, String category,
-                    String lastModifiedDate, Long productNumber, Long views,
-                    Long cumulativeSales, Long likes, Long price, Long wishes,
-                    Long stock, Long maximumQuantity, List<String> options,
-                    List<ReviewDto> reviews, List<QuestionAndAnswerDto> questionAndAnswers,
+  public ProductDto(Long id,
+                    String productName,
+                    String maker,
+                    String category,
+                    String lastModifiedDate,
+                    Long productNumber,
+                    Long views,
+                    Long cumulativeSales,
+                    Long likes,
+                    Long price,
+                    Long wishes,
+                    Long stock,
+                    Long maximumQuantity,
+                    List<ReviewDto> reviews,
+                    List<QuestionAndAnswerDto> questionAndAnswers,
                     List<ProductImageDto> productImages) {
     this.id = id;
     this.productName = productName;
@@ -71,7 +80,6 @@ public class ProductDto {
     this.wishes = wishes;
     this.stock = stock;
     this.maximumQuantity = maximumQuantity;
-    this.options = options;
     this.reviews = reviews;
     this.questionAndAnswers = questionAndAnswers;
     this.productImages = productImages;
@@ -81,7 +89,8 @@ public class ProductDto {
                     String category, LocalDateTime createdAt, LocalDateTime updatedAt,
                     Long views, Long cumulativeSales, Long likes, Long price,
                     Long wishes, Long stock, Long maximumQuantity, String description,
-                    List<ProductImageDto> productImages) {
+                    List<ProductImageDto> productImages,
+                    List<ProductOptionDto> productOptions) {
 
     this.id = id;
     this.productNumber = productNumber;
@@ -99,6 +108,7 @@ public class ProductDto {
     this.maximumQuantity = maximumQuantity;
     this.description = description;
     this.productImages = productImages;
+    this.options = productOptions;
   }
 
   public Long getId() {
@@ -153,10 +163,6 @@ public class ProductDto {
     return maximumQuantity;
   }
 
-  public List<String> getOptions() {
-    return options;
-  }
-
   public List<ReviewDto> getReviews() {
     return reviews;
   }
@@ -167,6 +173,14 @@ public class ProductDto {
 
   public List<ProductImageDto> getProductImages() {
     return productImages;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public List<ProductOptionDto> getOptions() {
+    return options;
   }
 
   public String getCreatedAt() {
