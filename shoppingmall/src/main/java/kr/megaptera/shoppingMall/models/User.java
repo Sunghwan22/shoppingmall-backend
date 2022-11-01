@@ -7,8 +7,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "PERSON")
@@ -25,6 +29,10 @@ public class User {
 
   private String address;
 
+  @OneToMany
+  @JoinColumn(name = "PERSON_ID")
+  private List<Wish> wishList;
+
   @CreationTimestamp
   private LocalDateTime createdAt;
 
@@ -32,6 +40,34 @@ public class User {
   private LocalDateTime updatedAt;
 
   public User() {
+  }
+
+  public User(Long id) {
+    this.id = id;
+  }
+
+  public Long id() {
+    return id;
+  }
+
+  public String identifier() {
+    return identifier;
+  }
+
+  public String encodedPassword() {
+    return encodedPassword;
+  }
+
+  public String name() {
+    return name;
+  }
+
+  public String address() {
+    return address;
+  }
+
+  public List<Wish> wishList() {
+    return new ArrayList<>(wishList);
   }
 
   public User(Long id, String identifier, String encodedPassword, String name, String address) {

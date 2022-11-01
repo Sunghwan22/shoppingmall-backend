@@ -1,7 +1,5 @@
 package kr.megaptera.shoppingMall.dtos;
 
-import kr.megaptera.shoppingMall.models.ProductImage;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -47,7 +45,7 @@ public class ProductDto {
 
   private String description;
 
-  public ProductDto() {
+  public ProductDto(Long id, Long productNumber, String productName, String maker, String category, LocalDateTime createdAt, LocalDateTime updatedAt, Long views, Long cumulativeSales, Long likes, Long price, Long stock, Long maximumQuantity, String description, List<ProductImageDto> productImages, List<ProductOptionDto> productOptions) {
   }
 
   // todo 상세페이지를 GET 할 때 넘겨줘야 할 것 은 무엇인가

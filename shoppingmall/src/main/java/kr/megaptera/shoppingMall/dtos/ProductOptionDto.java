@@ -19,6 +19,12 @@ public class ProductOptionDto {
     this.description = description;
   }
 
+  public ProductOptionDto(Long id, Long addAmount, String description) {
+    this.id = id;
+    this.addAmount = addAmount;
+    this.description = description;
+  }
+
   public Long getId() {
     return id;
   }

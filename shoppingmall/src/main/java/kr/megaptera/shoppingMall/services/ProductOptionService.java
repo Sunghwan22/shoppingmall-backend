@@ -1,6 +1,6 @@
 package kr.megaptera.shoppingMall.services;
 
-import kr.megaptera.shoppingMall.models.ProductOption;
+import kr.megaptera.shoppingMall.models.Option;
 import kr.megaptera.shoppingMall.repositoies.ProductOptionRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class ProductOptionService {
     this.productOptionRepository = productOptionRepository;
   }
 
-  public List<ProductOption> list(Long productId) {
+  public List<Option> list(Long productId) {
     return productOptionRepository.findByProductId(productId);
   }
 }

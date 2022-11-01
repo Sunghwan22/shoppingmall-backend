@@ -1,7 +1,6 @@
 package kr.megaptera.shoppingMall.services;
 
-import kr.megaptera.shoppingMall.exceptions.ProductImageNotFound;
-import kr.megaptera.shoppingMall.models.ProductImage;
+import kr.megaptera.shoppingMall.models.Image;
 import kr.megaptera.shoppingMall.repositoies.ProductImageRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,7 @@ public class ImageService {
     this.productImageRepository = productImageRepository;
   }
 
-  public List<ProductImage> list(Long productId) {
+  public List<Image> list(Long productId) {
     return productImageRepository.findByProductId(productId);
   }
 }
