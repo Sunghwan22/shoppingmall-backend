@@ -16,6 +16,12 @@ public class ProductImageDto {
     this.isThumbnailImage = isThumbnailImage;
   }
 
+  public ProductImageDto(Long id, String url, Boolean isThumbnailImage) {
+    this.id = id;
+    this.url = url;
+    this.isThumbnailImage = isThumbnailImage;
+  }
+
   public Long getId() {
     return id;
   }

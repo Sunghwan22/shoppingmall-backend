@@ -13,7 +13,7 @@ class ProductTest {
   @Test
   void toDto() {
     Product product = new Product(1L, 1L, "아이폰14", "애플", "전자기기", 1000L, 120L,
-        1000L, 100L, 1500L, 5000L, 2L, "상품 설명");
+        1000L, 100L, 5000L, 2L, "상품 설명");
 
     List<ProductImageDto> productImages = List.of(
         new ProductImageDto()

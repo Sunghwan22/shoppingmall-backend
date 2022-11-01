@@ -1,8 +1,7 @@
 package kr.megaptera.shoppingMall.services;
 
-import kr.megaptera.shoppingMall.models.ProductImage;
-import kr.megaptera.shoppingMall.models.ProductOption;
-import kr.megaptera.shoppingMall.repositoies.ProductImageRepository;
+import kr.megaptera.shoppingMall.models.Option;
+import kr.megaptera.shoppingMall.models.Product;
 import kr.megaptera.shoppingMall.repositoies.ProductOptionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
-class ProductOptionServiceTest {
+class OptionServiceTest {
   private ProductOptionRepository productOptionRepository;
   private ProductOptionService productOptionService;
 
@@ -26,15 +25,17 @@ class ProductOptionServiceTest {
 
   @Test
   void optionList() {
-    List<ProductOption> productOptions = List.of(
-        new ProductOption(1L, 1L, 5000L, "블랙"),
-        new ProductOption(2L, 1L, 5000L, "화이트"),
-        new ProductOption(3L, 1L, 5000L, "골드")
+    Product product = new Product();
+
+    List<Option> productOptions = List.of(
+        new Option(1L, product, 5000L, "블랙"),
+        new Option(2L, product, 5000L, "화이트"),
+        new Option(3L, product, 5000L, "골드")
     );
 
     given(productOptionRepository.findByProductId(1L)).willReturn(productOptions);
 
-    List<ProductOption> foundProductOptions = productOptionService.list(1L);
+    List<Option> foundProductOptions = productOptionService.list(1L);
 
     assertThat(foundProductOptions).hasSize(3);
   }
