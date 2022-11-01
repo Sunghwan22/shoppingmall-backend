@@ -181,15 +181,15 @@ public class ProductDto {
     return options;
   }
 
-  public String getCreatedAt() {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-
-    return createdAt.format(formatter);
-  }
-
-  public String getUpdatedAt() {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-
-    return updatedAt.format(formatter);
-  }
+//  public String getCreatedAt() {
+//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+//
+//    return createdAt.format(formatter);
+//  }
+//
+//  public String getUpdatedAt() {
+//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+//
+//    return updatedAt.format(formatter);
+//  }
 }

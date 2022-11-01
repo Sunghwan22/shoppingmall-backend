@@ -26,8 +26,8 @@ class WishServiceTest {
         1000L, 100L, 5000L, 2L, "상품 설명");
 
     List<Wish> wishList = List.of(
-        new Wish(2L, user1, product1),
-        new Wish(1L, user2, product2)
+        new Wish(1L, user1, product1),
+        new Wish(2L, user2, product2)
     );
 
 

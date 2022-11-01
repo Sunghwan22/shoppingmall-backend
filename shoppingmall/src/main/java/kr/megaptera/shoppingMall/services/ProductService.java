@@ -11,6 +11,7 @@ import kr.megaptera.shoppingMall.repositoies.WishRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -44,21 +45,20 @@ public class ProductService {
     Wish foundWish = product.wishUserList().stream().filter(wish -> wish.user().id().equals(userId))
         .findFirst().orElse(null);
 
-//    List<Wish> foundWish = wishRepository.findAllByUser(user);
-//
-//    foundWish.stream().filter(wish -> wish.product().id().equals(productId))
-//        .findFirst().orElse(null);
-//
     if(foundWish == null) {
       Wish wish = new Wish(product, user);
 
       product.wishUserList().add(wish);
       wishRepository.save(wish);
+
+      user.wishList().add(wish);
     }
 
     if(foundWish != null) {
       wishRepository.delete(foundWish);
       product.wishUserList().remove(foundWish);
+
+      user.wishList().remove(foundWish);
     }
 
     return product.wishUserList().size();

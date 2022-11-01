@@ -10,13 +10,13 @@ import java.util.List;
 @Service
 @Transactional
 public class WishService {
-  private WishRepository wishRepository;
+  private final WishRepository wishRepository;
 
   public WishService(WishRepository wishRepository) {
     this.wishRepository = wishRepository;
   }
 
   public List<Wish> list(Long userId) {
-   return null;
+   return wishRepository.findAllByUser(userId);
   }
 }
