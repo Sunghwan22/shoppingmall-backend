@@ -1,36 +1,29 @@
 package kr.megaptera.shoppingMall.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import kr.megaptera.shoppingMall.dtos.ImageDto;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Image {
   @Id
   @GeneratedValue
-  @Column(name = "image_id")
   private Long id;
 
   private String url;
 
   private Boolean isThumbnailImage;
 
-  @JsonBackReference
-  @ManyToOne
-  @JoinColumn(name = "product_id")
-  private Product product;
+  private Long productId;
 
   public Image() {
   }
 
-  public Image(Long id, Product product, String url, Boolean isThumbnailImage) {
+  public Image(Long id, Long productId, String url, Boolean isThumbnailImage) {
     this.id = id;
-    this.product = product;
+    this.productId = productId;
     this.url = url;
     this.isThumbnailImage = isThumbnailImage;
   }
@@ -47,7 +40,11 @@ public class Image {
     return isThumbnailImage;
   }
 
-  public Product getProduct() {
-    return product;
+  public Long getProductId() {
+    return productId;
+  }
+
+  public ImageDto toDto() {
+    return new ImageDto(id, url, isThumbnailImage, productId);
   }
 }

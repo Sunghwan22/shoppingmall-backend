@@ -1,37 +1,30 @@
 package kr.megaptera.shoppingMall.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import kr.megaptera.shoppingMall.dtos.ProductOptionDto;
+import kr.megaptera.shoppingMall.dtos.OptionDto;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Option {
   @Id
   @GeneratedValue
-  @Column(name = "option_id")
   private Long id;
 
   private Long addAmount;
 
   private String description;
 
-  @JsonBackReference
-  @ManyToOne
-  @JoinColumn(name = "product_id")
-  private Product product;
+  private Long productId;
 
   public Option() {
   }
 
-  public Option(Long id, Product product, Long addAmount, String description) {
+  public Option(Long id, Long productId, Long addAmount, String description) {
     this.id = id;
-    this.product = product;
+    this.productId = productId;
     this.addAmount = addAmount;
     this.description = description;
   }
@@ -48,11 +41,11 @@ public class Option {
     return description;
   }
 
-  public Product getProduct() {
-    return product;
+  public Long productId() {
+    return productId;
   }
 
-  public ProductOptionDto toDto() {
-    return new ProductOptionDto(id, addAmount , description);
+  public OptionDto toDto() {
+    return new OptionDto(id, productId, addAmount, description);
   }
 }

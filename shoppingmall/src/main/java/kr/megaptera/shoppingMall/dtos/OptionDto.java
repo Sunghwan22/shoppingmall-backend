@@ -1,6 +1,8 @@
 package kr.megaptera.shoppingMall.dtos;
 
-public class ProductOptionDto {
+import kr.megaptera.shoppingMall.models.Product;
+
+public class OptionDto {
   private Long id;
 
   private Long productId;
@@ -9,18 +11,12 @@ public class ProductOptionDto {
 
   private String description;
 
-  public ProductOptionDto() {
+  public OptionDto() {
   }
 
-  public ProductOptionDto(Long id, Long productId, Long addAmount, String description) {
+  public OptionDto(Long id, Long productId, Long addAmount, String description) {
     this.id = id;
     this.productId = productId;
-    this.addAmount = addAmount;
-    this.description = description;
-  }
-
-  public ProductOptionDto(Long id, Long addAmount, String description) {
-    this.id = id;
     this.addAmount = addAmount;
     this.description = description;
   }

@@ -8,5 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface WishRepository extends JpaRepository<Wish, Long> {
-  List<Wish> findAllByUser(User user);
+  List<Wish> findAllByProductId(Long productId);
+
+  List<Wish> findAllByUserId(Long userId);
 }

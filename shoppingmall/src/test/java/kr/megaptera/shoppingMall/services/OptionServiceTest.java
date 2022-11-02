@@ -14,28 +14,28 @@ import static org.mockito.Mockito.mock;
 
 class OptionServiceTest {
   private ProductOptionRepository productOptionRepository;
-  private ProductOptionService productOptionService;
+  private OptionService optionService;
 
   @BeforeEach
   public void setup() {
     productOptionRepository = mock(ProductOptionRepository.class);
-    productOptionService = new ProductOptionService(productOptionRepository);
+    optionService = new OptionService(productOptionRepository);
 
   }
 
   @Test
   void optionList() {
-    Product product = new Product();
+    Long productId = 1L;
 
     List<Option> productOptions = List.of(
-        new Option(1L, product, 5000L, "블랙"),
-        new Option(2L, product, 5000L, "화이트"),
-        new Option(3L, product, 5000L, "골드")
+        new Option(1L, productId, 5000L, "블랙"),
+        new Option(2L, productId, 5000L, "화이트"),
+        new Option(3L, productId, 5000L, "골드")
     );
 
     given(productOptionRepository.findByProductId(1L)).willReturn(productOptions);
 
-    List<Option> foundProductOptions = productOptionService.list(1L);
+    List<Option> foundProductOptions = optionService.list(1L);
 
     assertThat(foundProductOptions).hasSize(3);
   }

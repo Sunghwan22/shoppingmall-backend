@@ -1,5 +1,6 @@
 package kr.megaptera.shoppingMall.services;
 
+import kr.megaptera.shoppingMall.dtos.ProductIdDto;
 import kr.megaptera.shoppingMall.exceptions.ProductNotFound;
 import kr.megaptera.shoppingMall.exceptions.UserNotFoundException;
 import kr.megaptera.shoppingMall.models.Product;
@@ -27,33 +28,8 @@ public class ProductService {
     this.userRepository = userRepository;
   }
 
-  public Product detail(Long productId) {
+  public Product detail(java.lang.Long productId) {
     return productRepository.findById(productId)
         .orElseThrow(ProductNotFound::new);
-  }
-
-  public int checkWishList(Long productId, Long userId) {
-    Product product = productRepository.findById(productId)
-        .orElseThrow(ProductNotFound::new);
-
-    User user = userRepository.findById(userId)
-        .orElseThrow(UserNotFoundException::new);
-
-    Wish foundWish = product.wishUserList().stream().filter(wish -> wish.getUser().id().equals(userId))
-        .findFirst().orElse(null);
-
-    if(foundWish == null) {
-      Wish wish = new Wish(product, user);
-
-      product.wishUserList().add(wish);
-      wishRepository.save(wish);
-    }
-
-    if(foundWish != null) {
-      wishRepository.delete(foundWish);
-      product.wishUserList().remove(foundWish);
-    }
-
-    return product.wishUserList().size();
   }
 }

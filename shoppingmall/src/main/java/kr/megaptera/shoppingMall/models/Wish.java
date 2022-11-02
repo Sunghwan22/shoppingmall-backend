@@ -1,54 +1,48 @@
 package kr.megaptera.shoppingMall.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import kr.megaptera.shoppingMall.dtos.WishDto;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Wish {
   @Id
   @GeneratedValue
-  @Column(name = "wish_id")
   private Long id;
 
-  @JsonBackReference
-  @ManyToOne
-  @JoinColumn(name = "user_id")
-  private User user;
+  private Long userId;
 
-  @JsonBackReference
-  @ManyToOne
-  @JoinColumn(name = "product_id")
-  private Product product;
+  private Long productId;
 
   public Wish() {
   }
 
-  public Wish(Long id, User user, Product product) {
+  public Wish(Long id, Long userId, Long productId) {
     this.id = id;
-    this.user = user;
-    this.product = product;
+    this.userId = userId;
+    this.productId = productId;
   }
 
-  public Wish(Product product, User user) {
-    this.product = product;
-    this.user = user;
+  public Wish(Long productId, Long userId) {
+    this.productId = productId;
+    this.userId = userId;
   }
 
   public Long getId() {
     return id;
   }
 
-  public User getUser() {
-    return user;
+  public Long getUserId() {
+    return userId;
   }
 
-  public Product getProduct() {
-    return product;
+  public Long getProductId() {
+    return productId;
+  }
+
+  public WishDto toDto() {
+    return new WishDto(id, productId, userId);
   }
 }
