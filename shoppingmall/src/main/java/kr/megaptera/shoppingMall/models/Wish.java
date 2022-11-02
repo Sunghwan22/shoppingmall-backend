@@ -2,6 +2,7 @@ package kr.megaptera.shoppingMall.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,16 +13,17 @@ import javax.persistence.ManyToOne;
 public class Wish {
   @Id
   @GeneratedValue
+  @Column(name = "wish_id")
   private Long id;
 
   @JsonBackReference
   @ManyToOne
-  @JoinColumn(name = "PERSON_ID")
+  @JoinColumn(name = "user_id")
   private User user;
 
   @JsonBackReference
   @ManyToOne
-  @JoinColumn(name = "PRODUCT_ID")
+  @JoinColumn(name = "product_id")
   private Product product;
 
   public Wish() {
@@ -38,15 +40,15 @@ public class Wish {
     this.user = user;
   }
 
-  public Long id() {
+  public Long getId() {
     return id;
   }
 
-  public User user() {
+  public User getUser() {
     return user;
   }
 
-  public Product product() {
+  public Product getProduct() {
     return product;
   }
 }

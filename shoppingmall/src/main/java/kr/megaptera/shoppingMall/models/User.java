@@ -4,10 +4,10 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
@@ -15,10 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "PERSON")
+@Table(name = "person")
 public class User {
   @Id
   @GeneratedValue
+  @Column(name = "user_id")
   private Long id;
 
   private String identifier;
@@ -29,8 +30,7 @@ public class User {
 
   private String address;
 
-  @OneToMany
-  @JoinColumn(name = "PERSON_ID")
+  @OneToMany(mappedBy = "user")
   private List<Wish> wishList;
 
   @CreationTimestamp

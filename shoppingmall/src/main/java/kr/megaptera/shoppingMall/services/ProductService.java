@@ -32,8 +32,6 @@ public class ProductService {
         .orElseThrow(ProductNotFound::new);
   }
 
-
-  // 어떻게 해줄 것이냐 wishRepository에서 userId를 가지고 있는 친구를 찾아서
   public int checkWishList(Long productId, Long userId) {
     Product product = productRepository.findById(productId)
         .orElseThrow(ProductNotFound::new);
@@ -41,14 +39,9 @@ public class ProductService {
     User user = userRepository.findById(userId)
         .orElseThrow(UserNotFoundException::new);
 
-    Wish foundWish = product.wishUserList().stream().filter(wish -> wish.user().id().equals(userId))
+    Wish foundWish = product.wishUserList().stream().filter(wish -> wish.getUser().id().equals(userId))
         .findFirst().orElse(null);
 
-//    List<Wish> foundWish = wishRepository.findAllByUser(user);
-//
-//    foundWish.stream().filter(wish -> wish.product().id().equals(productId))
-//        .findFirst().orElse(null);
-//
     if(foundWish == null) {
       Wish wish = new Wish(product, user);
 

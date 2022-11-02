@@ -38,6 +38,6 @@ class ImageServiceTest {
     List<Image> foundImages = imageService.list(1L);
 
     assertThat(foundImages).hasSize(1);
-    assertThat(foundImages.get(0).isThumbnailImage()).isEqualTo(true);
+    assertThat(foundImages.get(0).getThumbnailImage()).isEqualTo(true);
   }
 }
