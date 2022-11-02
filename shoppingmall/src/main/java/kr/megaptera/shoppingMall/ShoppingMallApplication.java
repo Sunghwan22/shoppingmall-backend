@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
@@ -30,6 +31,11 @@ public class ShoppingMallApplication {
   public WebMvcConfigurer webMvcConfigurer() {
     return new WebMvcConfigurer() {
       @Override
+      public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(authenticationInterceptor());
+      }
+
+      @Override
       public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**").allowedOrigins("*");
       }
@@ -45,7 +51,6 @@ public class ShoppingMallApplication {
   public PasswordEncoder passwordEncoder() {
     return new Argon2PasswordEncoder();
   }
-
 
   @Bean
   public JwtUtil jwtUtil() {

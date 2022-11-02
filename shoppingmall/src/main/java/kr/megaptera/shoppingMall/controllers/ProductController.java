@@ -1,21 +1,20 @@
 package kr.megaptera.shoppingMall.controllers;
 
 import kr.megaptera.shoppingMall.dtos.ProductDto;
-import kr.megaptera.shoppingMall.dtos.ProductImageDto;
-import kr.megaptera.shoppingMall.dtos.ProductOptionDto;
 import kr.megaptera.shoppingMall.dtos.WishNumberDto;
 import kr.megaptera.shoppingMall.models.Product;
-import kr.megaptera.shoppingMall.models.Image;
-import kr.megaptera.shoppingMall.models.Option;
 import kr.megaptera.shoppingMall.services.ImageService;
 import kr.megaptera.shoppingMall.services.ProductOptionService;
 import kr.megaptera.shoppingMall.services.ProductService;
 import kr.megaptera.shoppingMall.services.UserService;
 import kr.megaptera.shoppingMall.services.WishService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -45,22 +44,16 @@ public class ProductController {
       @PathVariable("id") Long productId) {
     Product product = productService.detail(productId);
 
-    List<ProductImageDto> productImageDtos = imageService.list(productId)
-        .stream().map(Image::toDto)
-        .collect(Collectors.toList());
-
-    List<ProductOptionDto> productOptionDtos = productOptionService.list(productId)
-        .stream().map(Option::toDto)
-        .collect(Collectors.toList());
-
-    return product.toDto(productImageDtos, productOptionDtos);
+    return product.toDto();
   }
 
-  @GetMapping("wishes/{id}")
+  @PostMapping("wishes/{id}")
+  @ResponseStatus(HttpStatus.CREATED)
   public WishNumberDto addWishList(
       @PathVariable("id") Long productId,
-      @RequestAttribute Long userId
+      @RequestAttribute("userId") Long userId
   ) {
+
     int wishNumber = productService.checkWishList(productId, userId);
 
     return new WishNumberDto(wishNumber);

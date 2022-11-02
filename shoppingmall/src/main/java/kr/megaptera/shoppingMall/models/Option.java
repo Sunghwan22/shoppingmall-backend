@@ -3,6 +3,7 @@ package kr.megaptera.shoppingMall.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import kr.megaptera.shoppingMall.dtos.ProductOptionDto;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,6 +14,7 @@ import javax.persistence.ManyToOne;
 public class Option {
   @Id
   @GeneratedValue
+  @Column(name = "option_id")
   private Long id;
 
   private Long addAmount;
@@ -21,7 +23,7 @@ public class Option {
 
   @JsonBackReference
   @ManyToOne
-  @JoinColumn(name = "PRODUCT_ID")
+  @JoinColumn(name = "product_id")
   private Product product;
 
   public Option() {
