@@ -9,10 +9,10 @@ import java.util.List;
 
 @Service
 @Transactional
-public class ProductOptionService {
+public class OptionService {
   private final ProductOptionRepository productOptionRepository;
 
-  public ProductOptionService(ProductOptionRepository productOptionRepository) {
+  public OptionService(ProductOptionRepository productOptionRepository) {
     this.productOptionRepository = productOptionRepository;
   }
 

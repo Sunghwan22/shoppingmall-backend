@@ -3,10 +3,8 @@ package kr.megaptera.shoppingMall.services;
 import kr.megaptera.shoppingMall.models.Image;
 import kr.megaptera.shoppingMall.models.Product;
 import kr.megaptera.shoppingMall.repositoies.ProductImageRepository;
-import kr.megaptera.shoppingMall.repositoies.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 
@@ -26,10 +24,10 @@ class ImageServiceTest {
 
   @Test
   void imageList() {
-    Product product = new Product();
+    Long productId = 1L;
 
     List<Image> images = List.of(
-        new Image(1L, product, "https://test-s3-image.s3.ap-northeast-2.amazonaws.com/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85" +
+        new Image(1L, productId, "https://test-s3-image.s3.ap-northeast-2.amazonaws.com/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85" +
             "%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA+2022-10-20+%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE+10.55.03.png",
             true));
 

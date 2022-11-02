@@ -6,5 +6,5 @@ import javax.persistence.Id;
 public class Review {
   @Id
   @GeneratedValue
-  private Long id;
+  private Product id;
 }

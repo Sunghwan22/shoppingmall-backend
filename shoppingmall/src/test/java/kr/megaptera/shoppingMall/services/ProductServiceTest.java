@@ -33,7 +33,7 @@ class ProductServiceTest {
   @Test
   void detail() {
     Product product = new Product(1L, 1L, "아이폰14", "애플", "전자기기", 1000L, 120L,
-        1000L, 100L, 5000L, 2L, "상품 설명");
+        1000L, 5000L, 2L, "상품 설명");
 
     given(productRepository.findById(1L)).willReturn(Optional.of(product));
 
@@ -41,57 +41,5 @@ class ProductServiceTest {
 
     assertThat(foundProduct).isNotNull();
     assertThat(foundProduct.maker()).isEqualTo("애플");
-  }
-
-  @Test
-  void createWishList() {
-    Long userId = 1L;
-    Long productId = 1L;
-// 이미 찜한 상태였으면 -1 이 되야함 근데 1이 왜돠ㅣㅁ?
-    Product product = new Product(productId);
-
-    given(productRepository.findById(productId)).willReturn(Optional.of(product));
-
-    User user = new User(userId);
-
-    given(userRepository.findById(userId)).willReturn(Optional.of(user));
-
-    int wishNumber = productService.checkWishList(productId, userId);
-
-    assertThat(wishNumber).isEqualTo(1L);
-  }
-
-  @Test
-  void alreadyExistWishList() {
-    Long userId = 1L;
-    Long productId = 1L;
-
-    Product product = new Product(productId);
-
-    given(productRepository.findById(productId)).willReturn(Optional.of(product));
-
-    User user1 = new User(userId);
-
-    given(userRepository.findById(userId)).willReturn(Optional.of(user1));
-
-
-    User user2 = new User(userId + 1);
-
-    given(userRepository.findById(userId)).willReturn(Optional.of(user2));
-
-    User user3 = new User(userId + 2);
-
-    given(userRepository.findById(userId)).willReturn(Optional.of(user3));
-
-
-    List<Wish> wishUserList = product.wishUserList();
-
-    wishUserList.add(new Wish(product, user1));
-    wishUserList.add(new Wish(product, user2));
-    wishUserList.add(new Wish(product, user3));
-
-    int wishNumber = productService.checkWishList(productId, userId);
-
-    assertThat(wishNumber).isEqualTo(2L);
   }
 }

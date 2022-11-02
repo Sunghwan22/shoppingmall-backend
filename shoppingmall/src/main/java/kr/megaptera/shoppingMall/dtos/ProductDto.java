@@ -1,13 +1,11 @@
 package kr.megaptera.shoppingMall.dtos;
 
-import kr.megaptera.shoppingMall.models.Image;
-import kr.megaptera.shoppingMall.models.Option;
-import kr.megaptera.shoppingMall.models.Wish;
-
 import java.util.List;
 
 public class ProductDto {
   private Long id;
+
+  private Long productNumber;
 
   private String productName;
 
@@ -27,13 +25,14 @@ public class ProductDto {
 
   private String description;
 
-  private List<Image> images;
+  private List<ImageDto> imageDtos;
 
-  private List<Option> options;
+  private List<OptionDto> optionDtos;
 
-  private List<Wish> wishUserList;
+  private List<WishDto> wishDtos;
 
-  private Long productNumber;
+  public ProductDto() {
+  }
 
   public ProductDto(Long id,
                     Long productNumber,
@@ -46,9 +45,9 @@ public class ProductDto {
                     Long stock,
                     Long maximumQuantity,
                     String description,
-                    List<Image> images,
-                    List<Option> options,
-                    List<Wish> wishUserList) {
+                    List<ImageDto> imageDtos,
+                    List<OptionDto> optionDtos,
+                    List<WishDto> wishDtos) {
     this.id = id;
     this.productNumber = productNumber;
     this.productName = productName;
@@ -60,16 +59,17 @@ public class ProductDto {
     this.stock = stock;
     this.maximumQuantity = maximumQuantity;
     this.description = description;
-    this.images = images;
-    this.options = options;
-    this.wishUserList = wishUserList;
-  }
-
-  public ProductDto() {
+    this.imageDtos = imageDtos;
+    this.optionDtos = optionDtos;
+    this.wishDtos = wishDtos;
   }
 
   public Long getId() {
     return id;
+  }
+
+  public Long getProductNumber() {
+    return productNumber;
   }
 
   public String getProductName() {
@@ -108,23 +108,19 @@ public class ProductDto {
     return description;
   }
 
-  public List<Image> getImages() {
-    return images;
+  public List<ImageDto> getImageDtos() {
+    return imageDtos;
   }
 
-  public List<Option> getOptions() {
-    return options;
+  public List<OptionDto> getOptionDtos() {
+    return optionDtos;
   }
 
-  public List<Wish> getWishUserList() {
-    return wishUserList;
+  public List<WishDto> getWishDtos() {
+    return wishDtos;
   }
 
-  public Long getProductNumber() {
-    return productNumber;
-  }
-
-  public int getWishes() {
-    return wishUserList.size();
+  public int wishes() {
+    return wishDtos.size();
   }
 }

@@ -10,13 +10,33 @@ import java.util.List;
 @Service
 @Transactional
 public class WishService {
-  private WishRepository wishRepository;
+  private final WishRepository wishRepository;
 
   public WishService(WishRepository wishRepository) {
     this.wishRepository = wishRepository;
   }
 
-  public List<Wish> list(Long userId) {
-   return null;
+  public List<Wish> listByProductId(Long productId) {
+    return wishRepository.findAllByProductId(productId);
+  }
+
+  public int checkWishList(Long productId, Long userId) {
+    List<Wish> productWishList = wishRepository.findAllByProductId(productId);
+
+    Wish foundWish = productWishList.stream()
+        .filter(wish -> wish.getUserId().equals(userId))
+        .findFirst().orElse(null);
+
+    if(foundWish == null) {
+      Wish wish = new Wish(userId, productId);
+
+      wishRepository.save(wish);
+    }
+
+    if(foundWish != null) {
+      wishRepository.delete(foundWish);
+    }
+
+    return productWishList.size();
   }
 }
