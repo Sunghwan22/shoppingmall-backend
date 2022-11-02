@@ -28,12 +28,6 @@ public class Product {
 
   private String category;
 
-  @CreationTimestamp
-  private LocalDateTime createdAt;
-
-  @UpdateTimestamp
-  private LocalDateTime updatedAt;
-
   private Long views;
 
   private Long cumulativeSales;
@@ -45,6 +39,14 @@ public class Product {
   private Long maximumQuantity;
 
   private String description;
+
+  private Long deliveryFee;
+
+  @CreationTimestamp
+  private LocalDateTime createdAt;
+
+  @UpdateTimestamp
+  private LocalDateTime updatedAt;
 
   public Product() {
   }
@@ -84,11 +86,15 @@ public class Product {
         maker, category,
         views, cumulativeSales,
         price, stock,
-        maximumQuantity,description,
+        maximumQuantity,description, deliveryFee,
         imageDtos, optionDtos, wishDtos);
   }
 
   public Long id() {
     return id;
+  }
+
+  public CartItem toCartItem(Long quantity, Option option) {
+    return new CartItem(id, productName, maker, category, price, stock, description, deliveryFee);
   }
 }

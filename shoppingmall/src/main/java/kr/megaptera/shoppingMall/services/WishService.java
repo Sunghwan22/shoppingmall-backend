@@ -21,21 +21,22 @@ public class WishService {
   }
 
   public int checkWishList(Long productId, Long userId) {
-    List<Wish> productWishList = wishRepository.findAllByProductId(productId);
+    List<Wish> userWishList = wishRepository.findAllByUserId(userId);
 
-    Wish foundWish = productWishList.stream()
-        .filter(wish -> wish.getUserId().equals(userId))
+    Wish foundWish = userWishList.stream()
+        .filter(wish -> wish.getProductId().equals(productId))
         .findFirst().orElse(null);
 
     if(foundWish == null) {
-      Wish wish = new Wish(userId, productId);
-
+      Wish wish = new Wish(productId, userId);
       wishRepository.save(wish);
     }
 
     if(foundWish != null) {
       wishRepository.delete(foundWish);
     }
+
+    List<Wish> productWishList = wishRepository.findAllByProductId(productId);
 
     return productWishList.size();
   }

@@ -69,12 +69,15 @@ public class ProductController {
   @ResponseStatus(HttpStatus.CREATED)
   public WishNumberDto addWishList(
       @RequestBody ProductIdDto productIdDto,
-      @RequestAttribute("userId") java.lang.Long userId
+      @RequestAttribute("userId") Long userId
   ) {
 
-    Long productId = productIdDto.getProductId();
+    System.out.println(userId);
 
-    int wishNumber = wishService.checkWishList(productId, userId);
+    Long productId = productIdDto.getProductId();
+    System.out.println(productId);
+
+   int wishNumber = wishService.checkWishList(productId, userId);
 
     return new WishNumberDto(wishNumber);
   }
