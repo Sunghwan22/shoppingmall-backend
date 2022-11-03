@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Image {
+public class ProductImage {
   @Id
   @GeneratedValue
   private Long id;
@@ -18,10 +18,10 @@ public class Image {
 
   private Long productId;
 
-  public Image() {
+  public ProductImage() {
   }
 
-  public Image(Long id, Long productId, String url, Boolean isThumbnailImage) {
+  public ProductImage(Long id, Long productId, String url, Boolean isThumbnailImage) {
     this.id = id;
     this.productId = productId;
     this.url = url;

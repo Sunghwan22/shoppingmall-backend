@@ -3,6 +3,8 @@ package kr.megaptera.shoppingMall.models;
 import kr.megaptera.shoppingMall.dtos.ImageDto;
 import kr.megaptera.shoppingMall.dtos.OptionDto;
 import kr.megaptera.shoppingMall.dtos.ProductDto;
+import kr.megaptera.shoppingMall.dtos.ReviewDto;
+import kr.megaptera.shoppingMall.dtos.ReviewImageDto;
 import kr.megaptera.shoppingMall.dtos.WishDto;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +16,7 @@ class ProductTest {
   @Test
   void toDto() {
     Product product = new Product(1L, 1L, "아이폰14", "애플", "전자기기", 1000L, 120L,
-        1000L, 5000L, 2L, "상품 설명");
+        1000L, 5000L, 2L, "상품 설명", 3000L);
 
     List<ImageDto> productImages = List.of(
         new ImageDto(1L, "imageUrl", true, 1L)
@@ -30,7 +32,15 @@ class ProductTest {
         new WishDto(1L, 1L, 1L)
     );
 
-    ProductDto productDto = product.toDto(productImages, productOptions, wishes);
+    List<ReviewDto> reviews = List.of(
+        new ReviewDto(1L, 1L, 1L, 1L, "블랙", "이것은 리뷰다", true)
+    );
+
+    List<ReviewImageDto> reviewImages = List.of(
+        new ReviewImageDto(1L, "imageUrl", 1L, 1L)
+    );
+
+    ProductDto productDto = product.toDto(productImages, productOptions, wishes, reviews, reviewImages);
 
     assertThat(productDto.getMaker()).isEqualTo("애플");
     assertThat(productDto.getId()).isEqualTo(1L);

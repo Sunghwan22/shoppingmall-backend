@@ -33,7 +33,7 @@ class ProductServiceTest {
   @Test
   void detail() {
     Product product = new Product(1L, 1L, "아이폰14", "애플", "전자기기", 1000L, 120L,
-        1000L, 5000L, 2L, "상품 설명");
+        1000L, 5000L, 2L, "상품 설명", 3000L);
 
     given(productRepository.findById(1L)).willReturn(Optional.of(product));
 

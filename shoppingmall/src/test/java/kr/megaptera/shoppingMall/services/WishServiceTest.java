@@ -42,8 +42,8 @@ class WishServiceTest {
     WishService wishService = new WishService(wishRepository);
 
     List<Wish> wishList = List.of(
-        new Wish(1L , userId, productId),
-        new Wish(2L , userId + 1, productId)
+        new Wish(1L, userId, productId),
+        new Wish(2L, userId + 1, productId + 1)
     );
 
     given(wishRepository.findAllByProductId(productId)).willReturn(wishList);
@@ -63,11 +63,11 @@ class WishServiceTest {
     WishService wishService = new WishService(wishRepository);
 
     List<Wish> wishList = List.of(
-        new Wish(1L , userId, productId),
-        new Wish(2L , userId + 1, productId)
+        new Wish(1L, userId, productId),
+        new Wish(2L, userId, productId + 1)
     );
 
-    given(wishRepository.findAllByProductId(productId)).willReturn(wishList);
+    given(wishRepository.findAllByUserId(userId)).willReturn(wishList);
 
     wishService.checkWishList(productId, userId);
 
