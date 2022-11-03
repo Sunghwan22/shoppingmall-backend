@@ -17,10 +17,75 @@ public class CartItem {
 
   private Long productId;
 
-  public CartItem(Long id, Long cartId, Long productId) {
-    this.id = id;
-    this.cartId = cartId;
+  private String productName;
+
+  private String maker;
+
+  private String category;
+
+  private Long cartItemPrice;
+
+  private Long stock;
+
+  private String description;
+
+  private Long deliveryFee;
+
+  private Long quantity;
+
+  private String optionName;
+
+  public CartItem() {
+  }
+
+  public CartItem(Long productId,
+                  String productName,
+                  String maker,
+                  String category,
+                  Long cartItemPrice,
+                  Long stock,
+                  String description,
+                  Long deliveryFee,
+                  Long quantity,
+                  String optionName,
+                  Long cartId) {
     this.productId = productId;
+    this.productName = productName;
+    this.maker = maker;
+    this.category = category;
+    this.cartItemPrice = cartItemPrice;
+    this.stock = stock;
+    this.description = description;
+    this.deliveryFee = deliveryFee;
+    this.quantity = quantity;
+    this.optionName = optionName;
+    this.cartId = cartId;
+  }
+
+  public CartItem(Long id,
+                  Long productId,
+                  String productName,
+                  String maker,
+                  String category,
+                  Long cartItemPrice,
+                  Long stock,
+                  String description,
+                  Long deliveryFee,
+                  Long quantity,
+                  String optionName,
+                  Long cartId) {
+    this.id = id;
+    this.productId = productId;
+    this.productName = productName;
+    this.maker = maker;
+    this.category = category;
+    this.cartItemPrice = cartItemPrice;
+    this.stock = stock;
+    this.description = description;
+    this.deliveryFee = deliveryFee;
+    this.quantity = quantity;
+    this.optionName = optionName;
+    this.cartId = cartId;
   }
 
   public Long getId() {
@@ -35,7 +100,44 @@ public class CartItem {
     return productId;
   }
 
-  public CartItemDto toDto() {
-    return null;
+  public String getProductName() {
+    return productName;
+  }
+
+  public String getMaker() {
+    return maker;
+  }
+
+  public String getCategory() {
+    return category;
+  }
+
+  public Long getCartItemPrice() {
+    return cartItemPrice;
+  }
+
+  public Long getStock() {
+    return stock;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public Long getDeliveryFee() {
+    return deliveryFee;
+  }
+
+  public Long getQuantity() {
+    return quantity;
+  }
+
+  public String getOptionName() {
+    return optionName;
+  }
+
+  public CartItemDto toDto(String thumbNailImage) {
+    return new CartItemDto(productId, productName, maker, category, cartItemPrice, stock, description
+        , deliveryFee, quantity, optionName, thumbNailImage);
   }
 }

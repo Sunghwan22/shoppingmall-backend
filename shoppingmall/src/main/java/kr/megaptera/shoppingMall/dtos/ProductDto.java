@@ -33,6 +33,9 @@ public class ProductDto {
 
   private List<WishDto> wishUserList;
 
+  private List<ReviewDto> reviews;
+  private List<ReviewImageDto> reviewImages;
+
   public ProductDto() {
   }
 
@@ -50,7 +53,9 @@ public class ProductDto {
                     Long deliveryFee,
                     List<ImageDto> imageDtos,
                     List<OptionDto> optionDtos,
-                    List<WishDto> wishDtos) {
+                    List<WishDto> wishDtos,
+                    List<ReviewDto> reviews,
+                    List<ReviewImageDto> reviewImages) {
     this.id = id;
     this.productNumber = productNumber;
     this.productName = productName;
@@ -66,6 +71,8 @@ public class ProductDto {
     this.images = imageDtos;
     this.options = optionDtos;
     this.wishUserList = wishDtos;
+    this.reviews = reviews;
+    this.reviewImages = reviewImages;
   }
 
   public Long getId() {
@@ -126,6 +133,14 @@ public class ProductDto {
 
   public List<WishDto> getWishUserList() {
     return wishUserList;
+  }
+
+  public List<ReviewDto> getReviews() {
+    return reviews;
+  }
+
+  public List<ReviewImageDto> getReviewImages() {
+    return reviewImages;
   }
 
   public int getWishes() {

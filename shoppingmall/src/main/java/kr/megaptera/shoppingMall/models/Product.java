@@ -3,6 +3,8 @@ package kr.megaptera.shoppingMall.models;
 import kr.megaptera.shoppingMall.dtos.ImageDto;
 import kr.megaptera.shoppingMall.dtos.OptionDto;
 import kr.megaptera.shoppingMall.dtos.ProductDto;
+import kr.megaptera.shoppingMall.dtos.ReviewDto;
+import kr.megaptera.shoppingMall.dtos.ReviewImageDto;
 import kr.megaptera.shoppingMall.dtos.WishDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -61,7 +63,8 @@ public class Product {
                  Long price,
                  Long stock,
                  Long maximumQuantity,
-                 String description) {
+                 String description,
+                 Long deliveryFee) {
 
     this.id = id;
     this.productNumber = productNumber;
@@ -74,27 +77,36 @@ public class Product {
     this.stock = stock;
     this.maximumQuantity = maximumQuantity;
     this.description = description;
+    this.deliveryFee = deliveryFee;
   }
 
   public String maker() {
     return maker;
   }
 
-  public ProductDto toDto(List<ImageDto> imageDtos, List<OptionDto> optionDtos, List<WishDto> wishDtos) {
+  public ProductDto toDto(List<ImageDto> imageDtos,
+                          List<OptionDto> optionDtos,
+                          List<WishDto> wishDtos,
+                          List<ReviewDto> reviewDtos, List<ReviewImageDto> reviewImageDtos) {
     return new ProductDto(
-        id, productNumber,productName,
+        id, productNumber, productName,
         maker, category,
         views, cumulativeSales,
         price, stock,
-        maximumQuantity,description, deliveryFee,
-        imageDtos, optionDtos, wishDtos);
+        maximumQuantity, description, deliveryFee,
+        imageDtos, optionDtos, wishDtos, reviewDtos, reviewImageDtos);
   }
 
   public Long id() {
     return id;
   }
 
-  public CartItem toCartItem(Long quantity, Option option) {
-    return new CartItem(id, productName, maker, category, price, stock, description, deliveryFee);
+  public CartItem toCartItem(Long quantity, Long addAmount, String optionName, Long cartId) {
+    Long cartItemPrice = (price + addAmount) * quantity;
+
+    return new CartItem(id, productName,
+        maker, category, cartItemPrice,
+        stock, description, deliveryFee,
+        quantity, optionName, cartId);
   }
 }

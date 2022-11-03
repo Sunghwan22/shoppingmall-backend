@@ -7,6 +7,9 @@ public class CreateCartItemDto {
 
   private Option option;
 
+  public CreateCartItemDto() {
+  }
+
   public CreateCartItemDto(Long quantity, Option option) {
     this.quantity = quantity;
     this.option = option;
