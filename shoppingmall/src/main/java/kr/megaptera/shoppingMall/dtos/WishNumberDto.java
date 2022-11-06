@@ -4,7 +4,6 @@ public class WishNumberDto  {
   private int wishNumber;
 
   public WishNumberDto(int wishNumber) {
-
     this.wishNumber = wishNumber;
   }
 

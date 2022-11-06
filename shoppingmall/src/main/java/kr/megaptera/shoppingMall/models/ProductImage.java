@@ -1,6 +1,6 @@
 package kr.megaptera.shoppingMall.models;
 
-import kr.megaptera.shoppingMall.dtos.ImageDto;
+import kr.megaptera.shoppingMall.dtos.ProductImageDto;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,7 +44,7 @@ public class ProductImage {
     return productId;
   }
 
-  public ImageDto toDto() {
-    return new ImageDto(id, url, isThumbnailImage, productId);
+  public ProductImageDto toDto() {
+    return new ProductImageDto(id, url, isThumbnailImage, productId);
   }
 }

@@ -16,7 +16,7 @@ public class ReviewImageService {
     this.reviewImageRepository = reviewImageRepository;
   }
 
-  public List<ReviewImage> listByProductId(Long productId) {
+  public List<ReviewImage> listByProductId(Long productId, Integer page) {
     return reviewImageRepository.findAllByProductId(productId);
   }
 }

@@ -27,14 +27,11 @@ public class ProductDto {
 
   private Long deliveryFee;
 
-  private List<ImageDto> images;
+  private List<ProductImageDto> productImages;
 
   private List<OptionDto> options;
 
   private List<WishDto> wishUserList;
-
-  private List<ReviewDto> reviews;
-  private List<ReviewImageDto> reviewImages;
 
   public ProductDto() {
   }
@@ -51,11 +48,9 @@ public class ProductDto {
                     Long maximumQuantity,
                     String description,
                     Long deliveryFee,
-                    List<ImageDto> imageDtos,
+                    List<ProductImageDto> productImages,
                     List<OptionDto> optionDtos,
-                    List<WishDto> wishDtos,
-                    List<ReviewDto> reviews,
-                    List<ReviewImageDto> reviewImages) {
+                    List<WishDto> wishDtos) {
     this.id = id;
     this.productNumber = productNumber;
     this.productName = productName;
@@ -68,11 +63,9 @@ public class ProductDto {
     this.maximumQuantity = maximumQuantity;
     this.description = description;
     this.deliveryFee = deliveryFee;
-    this.images = imageDtos;
+    this.productImages = productImages;
     this.options = optionDtos;
     this.wishUserList = wishDtos;
-    this.reviews = reviews;
-    this.reviewImages = reviewImages;
   }
 
   public Long getId() {
@@ -123,8 +116,8 @@ public class ProductDto {
     return deliveryFee;
   }
 
-  public List<ImageDto> getImages() {
-    return images;
+  public List<ProductImageDto> getImages() {
+    return productImages;
   }
 
   public List<OptionDto> getOptions() {
@@ -133,14 +126,6 @@ public class ProductDto {
 
   public List<WishDto> getWishUserList() {
     return wishUserList;
-  }
-
-  public List<ReviewDto> getReviews() {
-    return reviews;
-  }
-
-  public List<ReviewImageDto> getReviewImages() {
-    return reviewImages;
   }
 
   public int getWishes() {

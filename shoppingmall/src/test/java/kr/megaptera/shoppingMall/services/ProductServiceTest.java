@@ -19,15 +19,11 @@ import static org.mockito.Mockito.mock;
 class ProductServiceTest {
   private ProductRepository productRepository;
   private ProductService productService;
-  private WishRepository wishRepository;
-  private UserRepository userRepository;
 
   @BeforeEach
   public void setup() {
-    userRepository = mock(UserRepository.class);
-    wishRepository = mock(WishRepository.class);
     productRepository = mock(ProductRepository.class);
-    productService = new ProductService(productRepository, wishRepository, userRepository);
+    productService = new ProductService(productRepository);
   }
 
   @Test

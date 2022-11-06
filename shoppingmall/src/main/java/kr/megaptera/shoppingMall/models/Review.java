@@ -25,6 +25,8 @@ public class Review {
 
   private String content;
 
+  private String userNickName;
+
   private Boolean isBestReview;
 
   @CreationTimestamp
@@ -42,7 +44,8 @@ public class Review {
                 Long userId,
                 String optionName,
                 String content,
-                Boolean isBestReview) {
+                Boolean isBestReview,
+                String userNickName) {
     this.id = id;
     this.productId = productId;
     this.rating = rating;
@@ -50,6 +53,7 @@ public class Review {
     this.optionName = optionName;
     this.content = content;
     this.isBestReview = isBestReview;
+    this.userNickName = userNickName;
   }
 
   public Long getId() {
@@ -80,7 +84,16 @@ public class Review {
     return isBestReview;
   }
 
+  public LocalDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public String getUserNickName() {
+    return userNickName;
+  }
+
   public ReviewDto toDto() {
-    return new ReviewDto(id, productId, rating, userId, optionName, content, isBestReview);
+    return new ReviewDto(id, productId, rating,
+        userId, optionName, content, isBestReview, userNickName);
   }
 }

@@ -1,6 +1,6 @@
 package kr.megaptera.shoppingMall.dtos;
 
-public class ImageDto {
+public class ProductImageDto {
   private Long id;
 
   private String url;
@@ -9,7 +9,10 @@ public class ImageDto {
 
   private Long productId;
 
-  public ImageDto(Long id, String url, Boolean isThumbnailImage, Long productId) {
+  public ProductImageDto() {
+  }
+
+  public ProductImageDto(Long id, String url, Boolean isThumbnailImage, Long productId) {
     this.id = id;
     this.url = url;
     this.isThumbnailImage = isThumbnailImage;

@@ -33,7 +33,7 @@ class ReviewImageServiceTest {
     given(reviewImageRepository.findAllByProductId(productId))
         .willReturn(reviewImages);
 
-    List<ReviewImage> reviewImageList = reviewImageService.listByProductId(1L);
+    List<ReviewImage> reviewImageList = reviewImageService.listByProductId(1L, page);
 
     assertThat(reviewImageList).hasSize(2);
   }

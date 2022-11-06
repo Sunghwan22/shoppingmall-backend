@@ -1,10 +1,8 @@
 package kr.megaptera.shoppingMall.models;
 
-import kr.megaptera.shoppingMall.dtos.ImageDto;
+import kr.megaptera.shoppingMall.dtos.ProductImageDto;
 import kr.megaptera.shoppingMall.dtos.OptionDto;
 import kr.megaptera.shoppingMall.dtos.ProductDto;
-import kr.megaptera.shoppingMall.dtos.ReviewDto;
-import kr.megaptera.shoppingMall.dtos.ReviewImageDto;
 import kr.megaptera.shoppingMall.dtos.WishDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -84,21 +82,22 @@ public class Product {
     return maker;
   }
 
-  public ProductDto toDto(List<ImageDto> imageDtos,
+  public Long id() {
+    return id;
+  }
+
+  public ProductDto toDto(List<ProductImageDto> productImageDtos,
                           List<OptionDto> optionDtos,
-                          List<WishDto> wishDtos,
-                          List<ReviewDto> reviewDtos, List<ReviewImageDto> reviewImageDtos) {
+                          List<WishDto> wishDtos) {
     return new ProductDto(
         id, productNumber, productName,
         maker, category,
         views, cumulativeSales,
         price, stock,
         maximumQuantity, description, deliveryFee,
-        imageDtos, optionDtos, wishDtos, reviewDtos, reviewImageDtos);
-  }
-
-  public Long id() {
-    return id;
+        productImageDtos,
+        optionDtos,
+        wishDtos);
   }
 
   public CartItem toCartItem(Long quantity, Long addAmount, String optionName, Long cartId) {

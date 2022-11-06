@@ -50,6 +50,6 @@ public class CartController {
 
     String thumbNailImageUrl = imageService.findThumbNailImage(productId);
 
-    return cartItem.toDto(thumbNailImageUrl); // 이렇게 되면은 리스트로 CartItem을 주면 어떻게 되지?
+    return cartItem.toDto(thumbNailImageUrl);
   }
 }

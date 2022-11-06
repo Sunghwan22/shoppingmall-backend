@@ -46,6 +46,6 @@ public class ReviewImage {
   }
 
   public ReviewImageDto toDto() {
-    return new ReviewImageDto();
+    return new ReviewImageDto(id, reviewId, productId, url);
   }
 }
