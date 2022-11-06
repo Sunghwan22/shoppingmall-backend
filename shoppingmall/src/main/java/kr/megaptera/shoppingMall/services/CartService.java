@@ -1,6 +1,5 @@
 package kr.megaptera.shoppingMall.services;
 
-import kr.megaptera.shoppingMall.dtos.CartItemDto;
 import kr.megaptera.shoppingMall.dtos.CreateCartItemDto;
 import kr.megaptera.shoppingMall.exceptions.CartNotFoundException;
 import kr.megaptera.shoppingMall.exceptions.ProductNotFound;
@@ -45,9 +44,7 @@ public class CartService {
 
     cart.addCartItem();
 
-    cartItemRepository.save(cartItem);
-
-    return cartItem;
+    return cartItemRepository.save(cartItem);
   }
 
   public List<CartItem> list(Long userId) {

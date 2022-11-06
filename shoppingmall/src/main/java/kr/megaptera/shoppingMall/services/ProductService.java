@@ -17,15 +17,9 @@ import javax.transaction.Transactional;
 @Transactional
 public class ProductService {
   private final ProductRepository productRepository;
-  private final WishRepository wishRepository;
-  private final UserRepository userRepository;
 
-  public ProductService(ProductRepository productRepository,
-                        WishRepository wishRepository,
-                        UserRepository userRepository) {
+  public ProductService(ProductRepository productRepository) {
     this.productRepository = productRepository;
-    this.wishRepository = wishRepository;
-    this.userRepository = userRepository;
   }
 
   public Product detail(java.lang.Long productId) {

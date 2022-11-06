@@ -3,7 +3,7 @@ package kr.megaptera.shoppingMall.services;
 import kr.megaptera.shoppingMall.models.CartItem;
 import kr.megaptera.shoppingMall.models.ProductImage;
 import kr.megaptera.shoppingMall.repositoies.CartItemRepository;
-import kr.megaptera.shoppingMall.repositoies.ImageRepository;
+import kr.megaptera.shoppingMall.repositoies.ProductImageRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,15 +14,15 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 class ProductImageServiceTest {
-  private ImageRepository imageRepository;
+  private ProductImageRepository productImageRepository;
   private ImageService imageService;
   private CartItemRepository cartItemRepository;
 
   @BeforeEach
   public void setup() {
-    imageRepository = mock(ImageRepository.class);
+    productImageRepository = mock(ProductImageRepository.class);
     cartItemRepository = mock(CartItemRepository.class);
-    imageService = new ImageService(imageRepository);
+    imageService = new ImageService(productImageRepository);
   }
 
   @Test
@@ -34,7 +34,7 @@ class ProductImageServiceTest {
             "%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA+2022-10-20+%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE+10.55.03.png",
             true));
 
-    given(imageRepository.findAllByProductId(1L)).willReturn(productImages);
+    given(productImageRepository.findAllByProductId(1L)).willReturn(productImages);
 
     List<ProductImage> foundProductImages = imageService.list(1L);
 
@@ -50,7 +50,7 @@ class ProductImageServiceTest {
         new ProductImage(1L, productId, "imageUrl", true),
         new ProductImage(2L, productId, "image", false));
 
-    given(imageRepository.findAllByProductId(productId)).willReturn(productImages);
+    given(productImageRepository.findAllByProductId(productId)).willReturn(productImages);
 
 
     String thumbNailImage = imageService.findThumbNailImage(1L);
@@ -66,7 +66,7 @@ class ProductImageServiceTest {
         new ProductImage(1L, productId, "imageUrl", true),
         new ProductImage(2L, productId + 1, "image", true));
 
-    given(imageRepository.findByProductId(1L)).willReturn(productImages.get(0));
+    given(productImageRepository.findByProductId(1L)).willReturn(productImages.get(0));
 
     List<CartItem> cartItems =
         List.of(

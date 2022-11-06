@@ -1,7 +1,7 @@
 package kr.megaptera.shoppingMall.dtos;
 
 public class ReviewImageDto {
-  private Long reviewImageId;
+  private Long id;
 
   private String url;
 
@@ -12,15 +12,11 @@ public class ReviewImageDto {
   public ReviewImageDto() {
   }
 
-  public ReviewImageDto(Long ReviewImageId, String url, Long reviewId, Long productId) {
-    this.reviewImageId = ReviewImageId;
-    this.url = url;
+  public ReviewImageDto(Long id, Long reviewId, Long productId, String url) {
+    this.id = id;
     this.reviewId = reviewId;
     this.productId = productId;
-  }
-
-  public Long getReviewImageId() {
-    return reviewImageId;
+    this.url = url;
   }
 
   public String getUrl() {
@@ -33,5 +29,9 @@ public class ReviewImageDto {
 
   public Long getProductId() {
     return productId;
+  }
+
+  public Long getId() {
+    return id;
   }
 }

@@ -26,8 +26,8 @@ class ReviewServiceTest {
     Long productId = 1L;
 
     List<Review> reviews = List.of(
-        new Review(1L, productId, 1L, 1L, "블랙", "이것은 리뷰다", true),
-        new Review(2L, productId, 1L, 1L, "블랙", "이것은 리뷰다", false)
+        new Review(1L, productId, 1L, 1L, "블랙", "이것은 리뷰다", true, "닉네임"),
+        new Review(2L, productId, 1L, 1L, "블랙", "이것은 리뷰다", false, "닉네임")
     );
 
     given(reviewRepository.findAllByProductId(productId)).

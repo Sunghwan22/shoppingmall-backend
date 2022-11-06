@@ -1,8 +1,9 @@
 package kr.megaptera.shoppingMall.models;
 
-import kr.megaptera.shoppingMall.dtos.ImageDto;
+import kr.megaptera.shoppingMall.dtos.ProductImageDto;
 import kr.megaptera.shoppingMall.dtos.OptionDto;
 import kr.megaptera.shoppingMall.dtos.ProductDto;
+import kr.megaptera.shoppingMall.dtos.RecommendationDto;
 import kr.megaptera.shoppingMall.dtos.ReviewDto;
 import kr.megaptera.shoppingMall.dtos.ReviewImageDto;
 import kr.megaptera.shoppingMall.dtos.WishDto;
@@ -18,8 +19,8 @@ class ProductTest {
     Product product = new Product(1L, 1L, "아이폰14", "애플", "전자기기", 1000L, 120L,
         1000L, 5000L, 2L, "상품 설명", 3000L);
 
-    List<ImageDto> productImages = List.of(
-        new ImageDto(1L, "imageUrl", true, 1L)
+    List<ProductImageDto> productImages = List.of(
+        new ProductImageDto(1L, "imageUrl", true, 1L)
     );
 
     List<OptionDto> productOptions = List.of(
@@ -33,14 +34,18 @@ class ProductTest {
     );
 
     List<ReviewDto> reviews = List.of(
-        new ReviewDto(1L, 1L, 1L, 1L, "블랙", "이것은 리뷰다", true)
+        new ReviewDto(1L, 1L, 1L, 1L, "블랙", "이것은 리뷰다", true, "압도적승리감")
     );
 
     List<ReviewImageDto> reviewImages = List.of(
-        new ReviewImageDto(1L, "imageUrl", 1L, 1L)
+        new ReviewImageDto(1L, 1L, 1L, "imageUrl")
     );
 
-    ProductDto productDto = product.toDto(productImages, productOptions, wishes, reviews, reviewImages);
+    List<RecommendationDto> recommendationDtos = List.of(
+        new RecommendationDto(1L, 1L, 1L)
+    );
+
+    ProductDto productDto = product.toDto(productImages, productOptions, wishes);
 
     assertThat(productDto.getMaker()).isEqualTo("애플");
     assertThat(productDto.getId()).isEqualTo(1L);
