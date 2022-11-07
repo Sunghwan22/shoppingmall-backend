@@ -13,6 +13,7 @@ import kr.megaptera.shoppingMall.services.RecommendationService;
 import kr.megaptera.shoppingMall.services.ReviewImageService;
 import kr.megaptera.shoppingMall.services.ReviewService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/reviews")
@@ -45,17 +47,64 @@ public class reviewController {
       @PathVariable("id") Long productId,
       @RequestParam(required = false, defaultValue = "1") Integer page
   ) {
-    List<ReviewDto> reviewDtos = reviewService.listByProductId(productId,page)
+    List<ReviewDto> reviewDtos = reviewService.listByProductId(productId, page)
         .stream().map(Review::toDto).toList();
 
-    List<ReviewImageDto> reviewImageDtos = reviewImageService.listByProductId(productId,page)
+    List<ReviewImageDto> reviewImageDtos =
+        reviewImageService.listByProductId(productId)
         .stream().map(ReviewImage::toDto).toList();
 
     List<RecommendationDto> recommendationDtos
-        = recommendationService.listAllByReviewId(reviewService.listByProductId(productId,page))
+        = recommendationService
+        .listAllByReviewId(reviewService.listByProductId(productId, page))
         .stream().map(Recommendation::toDto).toList();
 
-    return new ReviewsDto(reviewDtos, reviewImageDtos, recommendationDtos);
+    int totalReviewsNumber = reviewService.totalReviewsNumber(productId);
+
+    double totalRating = reviewService.totalRating(productId);
+
+    int pageNumber = reviewService.pages(productId);
+
+    return new ReviewsDto(
+        reviewDtos,
+        reviewImageDtos,
+        recommendationDtos,
+        pageNumber,
+        totalReviewsNumber,
+        totalRating);
+  }
+
+//  @GetMapping("best/{id}")
+//  public ReviewsDto bestReviewList(
+//      @PathVariable("id") Long productId
+//  ) {
+//
+//    List<ReviewDto> bestReviewDtos = reviewService.bestReviewsByProductId(productId)
+//        .stream().map(Review::toDto).toList();
+//
+//    List<RecommendationDto> recommendationDtos
+//        = recommendationService
+//        .listAllByReviewId(reviewService.bestReviewsByProductId(productId))
+//        .stream().map(Recommendation::toDto).toList();
+//
+//    return new ReviewsDto(bestReviewDtos, recommendationDtos)
+//  }
+
+  @GetMapping("/detail/{id}")
+  public ReviewDto reviewDetail(
+      @PathVariable("id") Long reviewId
+  ) {
+    ReviewDto reviewDto = reviewService.detail(reviewId).toDto();
+
+    ReviewImageDto reviewImageDto = reviewImageService.findByReviewId(reviewId)
+        .toDto();
+
+    List<RecommendationDto> recommendationsDto =
+        recommendationService.findByReviewId(reviewId)
+            .stream().map(Recommendation::toDto)
+            .toList();
+
+    return new ReviewDto(reviewDto, reviewImageDto, recommendationsDto);
   }
 
   @PostMapping("/recommendation/{id}")
@@ -64,10 +113,10 @@ public class reviewController {
       @PathVariable("id") Long reviewId,
       @RequestAttribute("userId") Long userId,
       @RequestBody ProductIdDto productIdDto
-   ) {
-    recommendationService.createRecommendation(reviewId, userId);
-
+  ) {
     Long productId = productIdDto.getProductId();
+
+    recommendationService.createRecommendation(reviewId, userId);
 
     List<RecommendationDto> recommendationDtos
         = recommendationService

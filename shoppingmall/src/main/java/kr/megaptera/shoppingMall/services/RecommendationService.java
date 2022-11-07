@@ -4,6 +4,7 @@ import kr.megaptera.shoppingMall.dtos.RecommendationDto;
 import kr.megaptera.shoppingMall.models.Recommendation;
 import kr.megaptera.shoppingMall.models.Review;
 import kr.megaptera.shoppingMall.repositoies.RecommendationRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,6 +19,27 @@ public class RecommendationService {
 
   public RecommendationService(RecommendationRepository recommendationRepository) {
     this.recommendationRepository = recommendationRepository;
+  }
+
+  public List<Recommendation> listAllByReviewId(Page<Review> reviewList) {
+    List<Recommendation> recommendations = new ArrayList<>();
+
+    List<Long> reviewIdList = reviewList.stream().map(Review::getId)
+        .toList();
+
+    for (Long reviewId : reviewIdList) {
+
+      Optional<Recommendation> recommendation =
+          recommendationRepository.findByReviewId(reviewId);
+
+      if (recommendation.isEmpty()) {
+        continue;
+      }
+
+      recommendations.add(recommendation.get());
+    }
+
+    return recommendations;
   }
 
   public List<Recommendation> listAllByReviewId(List<Review> reviewList) {
@@ -61,5 +83,9 @@ public class RecommendationService {
     return recommendationRepository
         .findAllByReviewId(reviewId).stream().map(
             Recommendation::toDto).toList();
+  }
+
+  public List<Recommendation> findByReviewId(Long reviewId) {
+    return recommendationRepository.findAllByReviewId(reviewId);
   }
 }
