@@ -6,6 +6,9 @@ import kr.megaptera.shoppingMall.repositoies.RecommendationRepository;
 import kr.megaptera.shoppingMall.repositoies.ReviewRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,8 +42,12 @@ class RecommendationServiceTest {
         new Review(reviewId, productId, 1L, userId, "블랙", "이것은 리뷰다", true, "닉네임")
     );
 
-    given(reviewRepository.findAllByProductId(productId))
-        .willReturn(reviews);
+    int page = 1;
+
+    Pageable pageable = PageRequest.of(page, 8);
+
+    given(reviewRepository.findAllByProductId(productId, pageable))
+        .willReturn(new PageImpl<>(reviews, pageable, 8));
 
     given(recommendationRepository.findByReviewId(reviewId))
         .willReturn(Optional.of(new Recommendation(1L, userId, reviewId)));

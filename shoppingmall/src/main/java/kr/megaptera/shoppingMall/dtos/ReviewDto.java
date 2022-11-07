@@ -19,15 +19,13 @@ public class ReviewDto {
 
   private Boolean isBestReview;
 
-  private String createdAt;
-
   private String userNickName;
 
-  private List<ReviewDto> reviews;
+  private ReviewDto review;
 
-  private List<ReviewImageDto> reviewImages;
+  private ReviewImageDto reviewImageDto;
 
-  private List<RecommendationDto> recommendations;
+  private List<RecommendationDto> recommendationsDto;
 
   public ReviewDto() {
   }
@@ -46,12 +44,10 @@ public class ReviewDto {
     this.userNickName = userNickName;
   }
 
-  public ReviewDto(List<ReviewDto> reviews,
-                   List<ReviewImageDto> reviewImages,
-                   List<RecommendationDto> recommendations) {
-    this.reviews = reviews;
-    this.reviewImages = reviewImages;
-    this.recommendations = recommendations;
+  public ReviewDto(ReviewDto review, ReviewImageDto reviewImageDto, List<RecommendationDto> recommendationsDto) {
+    this.review = review;
+    this.reviewImageDto = reviewImageDto;
+    this.recommendationsDto = recommendationsDto;
   }
 
   public Long getId() {
@@ -86,16 +82,16 @@ public class ReviewDto {
     return userNickName;
   }
 
-  public List<ReviewDto> getReviews() {
-    return reviews;
+  public ReviewDto getReview() {
+    return review;
   }
 
-  public List<ReviewImageDto> getReviewImages() {
-    return reviewImages;
+  public ReviewImageDto getReviewImage() {
+    return reviewImageDto;
   }
 
-  public List<RecommendationDto> getRecommendations() {
-    return recommendations;
+  public List<RecommendationDto> getReviewRecommendations() {
+    return recommendationsDto;
   }
 
   public String getCreatedAt() {

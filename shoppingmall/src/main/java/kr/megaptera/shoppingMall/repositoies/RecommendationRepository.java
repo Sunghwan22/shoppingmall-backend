@@ -10,6 +10,4 @@ public interface RecommendationRepository extends JpaRepository<Recommendation, 
   Optional<Recommendation> findByReviewId(Long reviewId);
 
   List<Recommendation> findAllByReviewId(Long reviewId);
-
-
 }

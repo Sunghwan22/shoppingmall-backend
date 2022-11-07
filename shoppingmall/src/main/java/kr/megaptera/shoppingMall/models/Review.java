@@ -1,6 +1,8 @@
 package kr.megaptera.shoppingMall.models;
 
+import kr.megaptera.shoppingMall.dtos.RecommendationDto;
 import kr.megaptera.shoppingMall.dtos.ReviewDto;
+import kr.megaptera.shoppingMall.dtos.ReviewImageDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -8,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Review {
@@ -93,7 +96,9 @@ public class Review {
   }
 
   public ReviewDto toDto() {
-    return new ReviewDto(id, productId, rating,
-        userId, optionName, content, isBestReview, userNickName);
+    return new ReviewDto(
+        id, productId, rating,
+        userId, optionName, content,
+        isBestReview, userNickName);
   }
 }
