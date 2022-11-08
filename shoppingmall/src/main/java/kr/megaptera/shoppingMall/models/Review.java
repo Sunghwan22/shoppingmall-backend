@@ -1,15 +1,15 @@
 package kr.megaptera.shoppingMall.models;
 
-import kr.megaptera.shoppingMall.dtos.RecommendationDto;
 import kr.megaptera.shoppingMall.dtos.ReviewDto;
-import kr.megaptera.shoppingMall.dtos.ReviewImageDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,6 +31,12 @@ public class Review {
   private String userNickName;
 
   private Boolean isBestReview;
+
+  @ElementCollection
+  private List<Recommendation> recommendations = new ArrayList<>();
+
+  @ElementCollection
+  private List<ReviewImage> reviewImages = new ArrayList<>();
 
   @CreationTimestamp
   private LocalDateTime createdAt;
@@ -59,39 +65,39 @@ public class Review {
     this.userNickName = userNickName;
   }
 
-  public Long getId() {
+  public Long id() {
     return id;
   }
 
-  public Long getProductId() {
+  public Long productId() {
     return productId;
   }
 
-  public Long getRating() {
+  public Long rating() {
     return rating;
   }
 
-  public Long getUserId() {
+  public Long userId() {
     return userId;
   }
 
-  public String getOptionName() {
+  public String optionName() {
     return optionName;
   }
 
-  public String getContent() {
+  public String content() {
     return content;
   }
 
-  public Boolean getBestReview() {
+  public Boolean isBestReview() {
     return isBestReview;
   }
 
-  public LocalDateTime getCreatedAt() {
+  public LocalDateTime createdAt() {
     return createdAt;
   }
 
-  public String getUserNickName() {
+  public String userNickName() {
     return userNickName;
   }
 
@@ -99,6 +105,6 @@ public class Review {
     return new ReviewDto(
         id, productId, rating,
         userId, optionName, content,
-        isBestReview, userNickName);
+        isBestReview, userNickName, reviewImages, recommendations);
   }
 }

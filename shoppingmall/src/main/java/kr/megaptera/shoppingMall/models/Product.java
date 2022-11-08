@@ -7,10 +7,12 @@ import kr.megaptera.shoppingMall.dtos.WishDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -48,11 +50,23 @@ public class Product {
   @UpdateTimestamp
   private LocalDateTime updatedAt;
 
+  @ElementCollection
+  List<ProductImage> productImages = new ArrayList<>();
+
+  @ElementCollection
+  List<Option> options = new ArrayList<>();
+
+  @ElementCollection
+  List<Wish> wishes = new ArrayList<>();
+
   public Product() {
   }
 
   public Product(Long id,
                  Long productNumber,
+                 List<ProductImage> productImages,
+                 List<Option> options,
+                 List<Wish> wishes,
                  String productName,
                  String maker,
                  String category,
@@ -63,9 +77,11 @@ public class Product {
                  Long maximumQuantity,
                  String description,
                  Long deliveryFee) {
-
     this.id = id;
     this.productNumber = productNumber;
+    this.productImages = productImages;
+    this.options = options;
+    this.wishes = wishes;
     this.productName = productName;
     this.maker = maker;
     this.category = category;
@@ -78,26 +94,19 @@ public class Product {
     this.deliveryFee = deliveryFee;
   }
 
-  public String maker() {
-    return maker;
-  }
-
   public Long id() {
     return id;
   }
 
-  public ProductDto toDto(List<ProductImageDto> productImageDtos,
-                          List<OptionDto> optionDtos,
-                          List<WishDto> wishDtos) {
+  public ProductDto toDto() {
     return new ProductDto(
         id, productNumber, productName,
         maker, category,
         views, cumulativeSales,
         price, stock,
         maximumQuantity, description, deliveryFee,
-        productImageDtos,
-        optionDtos,
-        wishDtos);
+        productImages, options, wishes, createdAt, updatedAt
+        );
   }
 
   public CartItem toCartItem(Long quantity, Long addAmount, String optionName, Long cartId) {
@@ -107,5 +116,29 @@ public class Product {
         maker, category, cartItemPrice,
         stock, description, deliveryFee,
         quantity, optionName, cartId);
+  }
+
+  public List<Wish> wishes() {
+    return wishes;
+  }
+
+  public String maker() {
+    return maker;
+  }
+
+  public int WishesNumber() {
+    return wishes.size();
+  }
+
+  public List<ProductImage> getProductImages() {
+    return productImages;
+  }
+
+  public List<Option> getOptions() {
+    return options;
+  }
+
+  public List<Wish> getWishes() {
+    return wishes;
   }
 }

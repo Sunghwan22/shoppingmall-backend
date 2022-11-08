@@ -1,5 +1,8 @@
 package kr.megaptera.shoppingMall.dtos;
 
+import kr.megaptera.shoppingMall.models.Recommendation;
+import kr.megaptera.shoppingMall.models.ReviewImage;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -21,19 +24,23 @@ public class ReviewDto {
 
   private String userNickName;
 
-  private ReviewDto review;
+  private List<ReviewImage> reviewImages;
 
-  private ReviewImageDto reviewImageDto;
-
-  private List<RecommendationDto> recommendationsDto;
+  private List<Recommendation> recommendations;
 
   public ReviewDto() {
   }
 
-  public ReviewDto(Long id, Long productId,
-                   Long rating, Long userId,
-                   String optionName, String content,
-                   Boolean isBestReview, String userNickName) {
+  public ReviewDto(Long id,
+                   Long productId,
+                   Long rating,
+                   Long userId,
+                   String optionName,
+                   String content,
+                   Boolean isBestReview,
+                   String userNickName,
+                   List<ReviewImage> reviewImages,
+                   List<Recommendation> recommendations) {
     this.id = id;
     this.productId = productId;
     this.rating = rating;
@@ -42,12 +49,8 @@ public class ReviewDto {
     this.content = content;
     this.isBestReview = isBestReview;
     this.userNickName = userNickName;
-  }
-
-  public ReviewDto(ReviewDto review, ReviewImageDto reviewImageDto, List<RecommendationDto> recommendationsDto) {
-    this.review = review;
-    this.reviewImageDto = reviewImageDto;
-    this.recommendationsDto = recommendationsDto;
+    this.reviewImages = reviewImages;
+    this.recommendations = recommendations;
   }
 
   public Long getId() {
@@ -82,16 +85,12 @@ public class ReviewDto {
     return userNickName;
   }
 
-  public ReviewDto getReview() {
-    return review;
+  public List<ReviewImage> getReviewImages() {
+    return reviewImages;
   }
 
-  public ReviewImageDto getReviewImage() {
-    return reviewImageDto;
-  }
-
-  public List<RecommendationDto> getReviewRecommendations() {
-    return recommendationsDto;
+  public List<Recommendation> getRecommendations() {
+    return recommendations;
   }
 
   public String getCreatedAt() {

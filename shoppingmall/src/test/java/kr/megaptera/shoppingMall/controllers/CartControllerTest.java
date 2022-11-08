@@ -2,7 +2,10 @@ package kr.megaptera.shoppingMall.controllers;
 
 import kr.megaptera.shoppingMall.models.Cart;
 import kr.megaptera.shoppingMall.models.CartItem;
+import kr.megaptera.shoppingMall.models.Option;
 import kr.megaptera.shoppingMall.models.Product;
+import kr.megaptera.shoppingMall.models.ProductImage;
+import kr.megaptera.shoppingMall.models.Wish;
 import kr.megaptera.shoppingMall.repositoies.CartItemRepository;
 import kr.megaptera.shoppingMall.repositoies.CartRepository;
 import kr.megaptera.shoppingMall.repositoies.ProductRepository;
@@ -17,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -48,7 +52,19 @@ class CartControllerTest {
   void createCartItem() throws Exception {
     String accessToken = jwtUtil.encode(1L);
 
-    Product product = new Product(1L, 1L, "아이폰14", "애플", "전자기기", 1000L, 120L,
+    List<Option> options = List.of(
+        new Option(3000L, "블랙")
+    );
+
+    List<ProductImage> productImages = List.of(
+        new ProductImage("url", true)
+    );
+
+    List<Wish> wishes = List.of(
+        new Wish(1L)
+    );
+
+    Product product = new Product(1L, 1L, productImages, options, wishes, "아이폰14", "애플", "전자기기", 1000L, 120L,
         1000L, 5000L, 2L, "상품 설명", 3000L);
 
     given(productRepository.findById(1L)).willReturn(Optional.of(product));

@@ -6,30 +6,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity
-public class ProductImage {
-  @Id
-  @GeneratedValue
-  private Long id;
 
+public class ProductImage {
   private String url;
 
   private Boolean isThumbnailImage;
 
-  private Long productId;
-
   public ProductImage() {
   }
 
-  public ProductImage(Long id, Long productId, String url, Boolean isThumbnailImage) {
-    this.id = id;
-    this.productId = productId;
+  public ProductImage(String url, Boolean isThumbnailImage) {
     this.url = url;
     this.isThumbnailImage = isThumbnailImage;
-  }
-
-  public Long getId() {
-    return id;
   }
 
   public String getUrl() {
@@ -40,11 +28,15 @@ public class ProductImage {
     return isThumbnailImage;
   }
 
-  public Long getProductId() {
-    return productId;
+  @Override
+  public boolean equals(Object other) {
+    ProductImage otherProductImage  = (ProductImage) other;
+
+    return this.url.equals(otherProductImage.url) &&
+        this.isThumbnailImage.equals(otherProductImage.isThumbnailImage);
   }
 
   public ProductImageDto toDto() {
-    return new ProductImageDto(id, url, isThumbnailImage, productId);
+    return new ProductImageDto(url, isThumbnailImage);
   }
 }

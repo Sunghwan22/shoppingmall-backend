@@ -7,30 +7,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity
-public class ReviewImage {
-  @Id
-  @GeneratedValue
-  private Long id;
 
+public class ReviewImage {
   private String url;
 
   private Long reviewId;
 
-  private Long productId;
-
   public ReviewImage() {
   }
 
-  public ReviewImage(Long id, String url, Long reviewId, Long productId) {
-    this.id = id;
+  public ReviewImage(String url, Long reviewId) {
     this.url = url;
     this.reviewId = reviewId;
-    this.productId = productId;
-  }
-
-  public Long getId() {
-    return id;
   }
 
   public Long getReviewId() {
@@ -39,13 +27,5 @@ public class ReviewImage {
 
   public String getUrl() {
     return url;
-  }
-
-  public Long getProductId() {
-    return productId;
-  }
-
-  public ReviewImageDto toDto() {
-    return new ReviewImageDto(id, reviewId, productId, url);
   }
 }

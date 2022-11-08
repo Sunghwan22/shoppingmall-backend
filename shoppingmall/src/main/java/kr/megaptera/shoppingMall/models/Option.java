@@ -7,30 +7,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity
-public class Option {
-  @Id
-  @GeneratedValue
-  private Long id;
 
+public class Option {
   private Long addAmount;
 
   private String description;
 
-  private Long productId;
-
   public Option() {
   }
 
-  public Option(Long id, Long productId, Long addAmount, String description) {
-    this.id = id;
-    this.productId = productId;
+  public Option(Long addAmount, String description) {
     this.addAmount = addAmount;
     this.description = description;
-  }
-
-  public Long getId() {
-    return id;
   }
 
   public Long getAddAmount() {
@@ -41,11 +29,15 @@ public class Option {
     return description;
   }
 
-  public Long productId() {
-    return productId;
+  @Override
+  public boolean equals(Object other) {
+    Option otherOption = (Option) other;
+
+    return this.addAmount.equals(otherOption.addAmount) &&
+        this.description.equals(((Option) other).description);
   }
 
   public OptionDto toDto() {
-    return new OptionDto(id, productId, addAmount, description);
+    return new OptionDto(addAmount, description);
   }
 }

@@ -31,15 +31,9 @@ import java.util.stream.Collectors;
 @RequestMapping("/reviews")
 public class reviewController {
   private final ReviewService reviewService;
-  private final ReviewImageService reviewImageService;
-  private final RecommendationService recommendationService;
 
-  public reviewController(ReviewService reviewService,
-                          ReviewImageService reviewImageService,
-                          RecommendationService recommendationService) {
+  public reviewController(ReviewService reviewService) {
     this.reviewService = reviewService;
-    this.reviewImageService = reviewImageService;
-    this.recommendationService = recommendationService;
   }
 
   @GetMapping("/{id}")
@@ -47,31 +41,11 @@ public class reviewController {
       @PathVariable("id") Long productId,
       @RequestParam(required = false, defaultValue = "1") Integer page
   ) {
-    List<ReviewDto> reviewDtos = reviewService.listByProductId(productId, page)
-        .stream().map(Review::toDto).toList();
-
-    List<ReviewImageDto> reviewImageDtos =
-        reviewImageService.listByProductId(productId)
-        .stream().map(ReviewImage::toDto).toList();
-
-    List<RecommendationDto> recommendationDtos
-        = recommendationService
-        .listAllByReviewId(reviewService.listByProductId(productId, page))
-        .stream().map(Recommendation::toDto).toList();
-
-    int totalReviewsNumber = reviewService.totalReviewsNumber(productId);
-
-    double totalRating = reviewService.totalRating(productId);
+    List<Review> review = reviewService.listByProductId(productId, page);
 
     int pageNumber = reviewService.pages(productId);
 
-    return new ReviewsDto(
-        reviewDtos,
-        reviewImageDtos,
-        recommendationDtos,
-        pageNumber,
-        totalReviewsNumber,
-        totalRating);
+    return review.toDto();
   }
 
 //  @GetMapping("best/{id}")

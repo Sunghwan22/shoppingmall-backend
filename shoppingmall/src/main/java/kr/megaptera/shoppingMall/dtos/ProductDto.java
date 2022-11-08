@@ -1,5 +1,12 @@
 package kr.megaptera.shoppingMall.dtos;
 
+import kr.megaptera.shoppingMall.models.Option;
+import kr.megaptera.shoppingMall.models.ProductImage;
+import kr.megaptera.shoppingMall.models.Wish;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ProductDto {
@@ -27,11 +34,15 @@ public class ProductDto {
 
   private Long deliveryFee;
 
-  private List<ProductImageDto> productImages;
+  private List<ProductImage> productImages;
 
-  private List<OptionDto> options;
+  private List<Option> options;
 
-  private List<WishDto> wishUserList;
+  private List<Wish> wishes;
+
+  private LocalDateTime createdAt;
+
+  private LocalDateTime updatedAt;
 
   public ProductDto() {
   }
@@ -48,9 +59,11 @@ public class ProductDto {
                     Long maximumQuantity,
                     String description,
                     Long deliveryFee,
-                    List<ProductImageDto> productImages,
-                    List<OptionDto> optionDtos,
-                    List<WishDto> wishDtos) {
+                    List<ProductImage> productImages,
+                    List<Option> options,
+                    List<Wish> wishes,
+                    LocalDateTime createdAt,
+                    LocalDateTime updatedAt) {
     this.id = id;
     this.productNumber = productNumber;
     this.productName = productName;
@@ -64,8 +77,10 @@ public class ProductDto {
     this.description = description;
     this.deliveryFee = deliveryFee;
     this.productImages = productImages;
-    this.options = optionDtos;
-    this.wishUserList = wishDtos;
+    this.options = options;
+    this.wishes = wishes;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
   public Long getId() {
@@ -116,19 +131,27 @@ public class ProductDto {
     return deliveryFee;
   }
 
-  public List<ProductImageDto> getImages() {
+  public List<ProductImage> getProductImages() {
     return productImages;
   }
 
-  public List<OptionDto> getOptions() {
+  public List<Option> getOptions() {
     return options;
   }
 
-  public List<WishDto> getWishUserList() {
-    return wishUserList;
+  public List<Wish> getWishes() {
+    return wishes;
   }
 
-  public int getWishes() {
-    return wishUserList.size();
+  public String getCreatedAt() {
+    LocalDate now = LocalDate.now();
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
+    return now.format(formatter);
+  }
+
+  public LocalDateTime getUpdatedAt() {
+    return updatedAt;
   }
 }
