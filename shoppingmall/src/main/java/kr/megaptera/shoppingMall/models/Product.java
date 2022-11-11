@@ -1,9 +1,8 @@
 package kr.megaptera.shoppingMall.models;
 
-import kr.megaptera.shoppingMall.dtos.ProductImageDto;
 import kr.megaptera.shoppingMall.dtos.OptionDto;
 import kr.megaptera.shoppingMall.dtos.ProductDto;
-import kr.megaptera.shoppingMall.dtos.WishDto;
+import kr.megaptera.shoppingMall.dtos.ProductImageDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -17,128 +16,146 @@ import java.util.List;
 
 @Entity
 public class Product {
-  @Id
-  @GeneratedValue
-  private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-  @GeneratedValue
-  private Long productNumber;
+    @GeneratedValue
+    private Long productNumber;
 
-  private String productName;
+    private String productName;
 
-  private String maker;
+    private String maker;
 
-  private String category;
+    private String category;
 
-  private Long views;
+    private Long views;
 
-  private Long cumulativeSales;
+    private Long cumulativeSales;
 
-  private Long price;
+    private Long price;
 
-  private Long stock;
+    private Long stock;
 
-  private Long maximumQuantity;
+    private Long maximumQuantity;
 
-  private String description;
+    private String description;
 
-  private Long deliveryFee;
+    private Long deliveryFee;
 
-  @CreationTimestamp
-  private LocalDateTime createdAt;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
-  @UpdateTimestamp
-  private LocalDateTime updatedAt;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
-  @ElementCollection
-  List<ProductImage> productImages = new ArrayList<>();
+    @ElementCollection
+    List<ProductImage> images = new ArrayList<>();
 
-  @ElementCollection
-  List<Option> options = new ArrayList<>();
+    @ElementCollection
+    List<Option> options = new ArrayList<>();
 
-  @ElementCollection
-  List<Wish> wishes = new ArrayList<>();
+    public Product() {
+    }
 
-  public Product() {
-  }
+    public Product(Long id,
+                   Long productNumber,
+                   List<ProductImage> images,
+                   List<Option> options,
+                   String productName,
+                   String maker,
+                   String category,
+                   Long views,
+                   Long cumulativeSales,
+                   Long price,
+                   Long stock,
+                   Long maximumQuantity,
+                   String description,
+                   Long deliveryFee) {
+        this.id = id;
+        this.productNumber = productNumber;
+        this.images = images;
+        this.options = options;
+        this.productName = productName;
+        this.maker = maker;
+        this.category = category;
+        this.views = views;
+        this.cumulativeSales = cumulativeSales;
+        this.price = price;
+        this.stock = stock;
+        this.maximumQuantity = maximumQuantity;
+        this.description = description;
+        this.deliveryFee = deliveryFee;
+    }
 
-  public Product(Long id,
-                 Long productNumber,
-                 List<ProductImage> productImages,
-                 List<Option> options,
-                 List<Wish> wishes,
-                 String productName,
-                 String maker,
-                 String category,
-                 Long views,
-                 Long cumulativeSales,
-                 Long price,
-                 Long stock,
-                 Long maximumQuantity,
-                 String description,
-                 Long deliveryFee) {
-    this.id = id;
-    this.productNumber = productNumber;
-    this.productImages = productImages;
-    this.options = options;
-    this.wishes = wishes;
-    this.productName = productName;
-    this.maker = maker;
-    this.category = category;
-    this.views = views;
-    this.cumulativeSales = cumulativeSales;
-    this.price = price;
-    this.stock = stock;
-    this.maximumQuantity = maximumQuantity;
-    this.description = description;
-    this.deliveryFee = deliveryFee;
-  }
-
-  public Long id() {
-    return id;
-  }
-
-  public ProductDto toDto() {
-    return new ProductDto(
-        id, productNumber, productName,
-        maker, category,
-        views, cumulativeSales,
-        price, stock,
-        maximumQuantity, description, deliveryFee,
-        productImages, options, wishes, createdAt, updatedAt
+    public ProductDto toDto(
+        List<OptionDto> optionDtos,
+        List<ProductImageDto> productImageDtos) {
+        return new ProductDto(
+            id, productNumber, productName,
+            maker, category,
+            views, cumulativeSales,
+            price, stock,
+            maximumQuantity, description, deliveryFee,
+            createdAt, updatedAt, optionDtos, productImageDtos
         );
-  }
+    }
 
-  public CartItem toCartItem(Long quantity, Long addAmount, String optionName, Long cartId) {
-    Long cartItemPrice = (price + addAmount) * quantity;
+    public CartItem toCartItem(
+        Long quantity,
+        Long addAmount,
+        String optionName,
+        Long cartId,
+        ProductImage cartItemImage
+    ) {
+        Long cartItemPrice = (price + addAmount) * quantity;
 
-    return new CartItem(id, productName,
-        maker, category, cartItemPrice,
-        stock, description, deliveryFee,
-        quantity, optionName, cartId);
-  }
+        return new CartItem(id, productName,
+            maker, category, cartItemPrice,
+            stock, description, deliveryFee,
+            quantity, optionName, cartId, cartItemImage);
+    }
 
-  public List<Wish> wishes() {
-    return wishes;
-  }
+    public static Product fake(Long productId) {
+        List<ProductImage> productImages = List.of(
+            new ProductImage("url", true),
+            new ProductImage("url", false)
+        );
 
-  public String maker() {
-    return maker;
-  }
+        List<Option> productOptions = List.of(
+            new Option(3000L, "상품 설명")
+        );
 
-  public int WishesNumber() {
-    return wishes.size();
-  }
+        return new Product(
+            productId,
+            1L,
+            productImages,
+            productOptions,
+            "아이폰14",
+            "애플",
+            "전자기기",
+            1000L,
+            120L,
+            1000L,
+            5000L,
+            2L,
+            "상품 설명",
+            3000L);
+    }
 
-  public List<ProductImage> getProductImages() {
-    return productImages;
-  }
+    public Long id() {
+        return id;
+    }
 
-  public List<Option> getOptions() {
-    return options;
-  }
+    public String maker() {
+        return maker;
+    }
 
-  public List<Wish> getWishes() {
-    return wishes;
-  }
+    public List<ProductImage> images() {
+        return images;
+    }
+
+    public List<Option> options() {
+        return options;
+    }
 }

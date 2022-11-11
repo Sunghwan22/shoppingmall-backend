@@ -1,5 +1,6 @@
 package kr.megaptera.shoppingMall.services;
 
+import kr.megaptera.shoppingMall.dtos.ProductDto;
 import kr.megaptera.shoppingMall.models.Option;
 import kr.megaptera.shoppingMall.models.Product;
 import kr.megaptera.shoppingMall.models.ProductImage;
@@ -31,80 +32,13 @@ class ProductServiceTest {
 
   @Test
   void detail() {
-    List<Option> options = List.of(
-        new Option(3000L, "블랙")
-    );
-
-    List<ProductImage> productImages = List.of(
-        new ProductImage("url", true)
-    );
-
-    List<Wish> wishes = List.of(
-        new Wish(1L)
-    );
-
-    Product product = new Product(1L, 1L,productImages, options, wishes, "아이폰14", "애플", "전자기기", 1000L, 120L,
-        1000L, 5000L, 2L, "상품 설명", 3000L);
+    Product product = Product.fake(1L);
 
     given(productRepository.findById(1L)).willReturn(Optional.of(product));
 
-    Product foundProduct = productService.detail(1L);
+    ProductDto foundProduct = productService.detail(1L);
 
     assertThat(foundProduct).isNotNull();
-    assertThat(foundProduct.maker()).isEqualTo("애플");
-  }
-
-  @Test
-  void createWish() {
-    Long userId = 1L;
-    Long productId = 1L;
-
-    List<Option> options = List.of(
-        new Option(3000L, "블랙")
-    );
-
-    List<ProductImage> productImages = List.of(
-        new ProductImage("url", true)
-    );
-
-    List<Wish> wishes = new ArrayList<>();
-
-    wishes.add(new Wish(2L));
-
-    Product product = new Product(productId, 1L,productImages, options, wishes, "아이폰14", "애플", "전자기기", 1000L, 120L,
-        1000L, 5000L, 2L, "상품 설명", 3000L);
-
-    given(productRepository.findById(1L)).willReturn(Optional.of(product));
-
-    int wishNumber = productService.createWish(productId, userId);
-
-    assertThat(wishNumber).isEqualTo(2);
-  }
-
-  @Test
-  void alreadyExistWish() {
-    Long userId = 1L;
-    Long productId = 1L;
-
-    List<Option> options = List.of(
-        new Option(3000L, "블랙")
-    );
-
-    List<ProductImage> productImages = List.of(
-        new ProductImage("url", true)
-    );
-
-    List<Wish> wishes = new ArrayList<>();
-
-    wishes.add(new Wish(1L));
-
-    Product product = new Product(productId, 1L,productImages, options, wishes, "아이폰14", "애플", "전자기기", 1000L, 120L,
-        1000L, 5000L, 2L, "상품 설명", 3000L);
-
-    given(productRepository.findById(1L)).willReturn(Optional.of(product));
-
-    int wishNumber = productService.createWish(productId, userId);
-
-    assertThat(wishNumber).isEqualTo(0);
+    assertThat(foundProduct.getMaker()).isEqualTo("애플");
   }
 }

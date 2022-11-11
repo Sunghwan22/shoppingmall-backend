@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "person")
+@Table(name = "users")
 public class User {
   @Id
   @GeneratedValue
@@ -31,7 +31,7 @@ public class User {
   @UpdateTimestamp
   private LocalDateTime updatedAt;
 
-  public User() {
+  private User() {
   }
 
   public Long id() {

@@ -1,12 +1,12 @@
 package kr.megaptera.shoppingMall.services;
 
 import kr.megaptera.shoppingMall.dtos.OptionDto;
+import kr.megaptera.shoppingMall.dtos.ProductDto;
 import kr.megaptera.shoppingMall.dtos.ProductImageDto;
 import kr.megaptera.shoppingMall.exceptions.ProductNotFound;
 import kr.megaptera.shoppingMall.models.Option;
 import kr.megaptera.shoppingMall.models.Product;
 import kr.megaptera.shoppingMall.models.ProductImage;
-import kr.megaptera.shoppingMall.models.Wish;
 import kr.megaptera.shoppingMall.repositoies.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,38 +22,43 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Product detail(Long productId) {
+    public ProductDto detail(Long productId) {
         Product product = productRepository.findById(productId)
             .orElseThrow(ProductNotFound::new);
 
-        List<OptionDto> optionDtos = product.getOptions()
+        List<OptionDto> optionDtos = product.options()
             .stream().map(Option::toDto).toList();
+
+        List<ProductImageDto> productImageDtos = product.images()
+            .stream().map(ProductImage::toDto).toList();
+
+        return product.toDto(optionDtos,productImageDtos);
     }
 
     private List<ProductImageDto> getProductImageDtos(Product product) {
-        return product.getProductImages()
+        return product.images()
             .stream().map(ProductImage::toDto).toList();
     }
 
-    public int createWish(Long productId, Long userId) {
-        Product foundProduct = productRepository.findById(productId)
-            .orElseThrow(ProductNotFound::new);
-
-        List<Wish> foundWishes = foundProduct.wishes().stream().filter(
-            wish -> wish.getUserId().equals(userId)).toList();
-
-        if (foundWishes.size() == 0) {
-            Wish wish = new Wish(userId);
-
-            foundProduct.wishes().add(wish);
-        }
-
-        if (foundWishes.size() != 0) {
-            Wish wish = new Wish(userId);
-
-            foundProduct.wishes().remove(wish);
-
-        }
-        return foundProduct.wishes().size();
-    }
+//    public int createWish(Long productId, Long userId) {
+//        Product foundProduct = productRepository.findById(productId)
+//            .orElseThrow(ProductNotFound::new);
+//
+//        List<Wish> foundWishes = foundProduct.wishes().stream().filter(
+//            wish -> wish.getUserId().equals(userId)).toList();
+//
+//        if (foundWishes.size() == 0) {
+//            Wish wish = new Wish(userId);
+//
+//            foundProduct.wishes().add(wish);
+//        }
+//
+//        if (foundWishes.size() != 0) {
+//            Wish wish = new Wish(userId);
+//
+//            foundProduct.wishes().remove(wish);
+//
+//        }
+//        return foundProduct.wishes().size();
+//    }
 }

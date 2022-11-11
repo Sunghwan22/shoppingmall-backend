@@ -1,31 +1,25 @@
 package kr.megaptera.shoppingMall.models;
 
-import jdk.jfr.Enabled;
 import kr.megaptera.shoppingMall.dtos.ReviewImageDto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.Embeddable;
 
-
+@Embeddable
 public class ReviewImage {
   private String url;
-
-  private Long reviewId;
 
   public ReviewImage() {
   }
 
-  public ReviewImage(String url, Long reviewId) {
+  public ReviewImage(String url) {
     this.url = url;
-    this.reviewId = reviewId;
-  }
-
-  public Long getReviewId() {
-    return reviewId;
   }
 
   public String getUrl() {
     return url;
+  }
+
+  public ReviewImageDto toDto() {
+    return new ReviewImageDto(url);
   }
 }

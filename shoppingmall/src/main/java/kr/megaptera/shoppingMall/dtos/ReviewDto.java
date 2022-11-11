@@ -1,13 +1,13 @@
 package kr.megaptera.shoppingMall.dtos;
 
-import kr.megaptera.shoppingMall.models.Recommendation;
-import kr.megaptera.shoppingMall.models.ReviewImage;
+import kr.megaptera.shoppingMall.models.Review;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ReviewDto {
+
   private Long id;
 
   private Long productId;
@@ -24,9 +24,9 @@ public class ReviewDto {
 
   private String userNickName;
 
-  private List<ReviewImage> reviewImages;
+  private List<ReviewImageDto> reviewImages;
 
-  private List<Recommendation> recommendations;
+  private List<RecommendationDto> recommendations;
 
   public ReviewDto() {
   }
@@ -39,8 +39,8 @@ public class ReviewDto {
                    String content,
                    Boolean isBestReview,
                    String userNickName,
-                   List<ReviewImage> reviewImages,
-                   List<Recommendation> recommendations) {
+                   List<ReviewImageDto> reviewImageDtos,
+                   List<RecommendationDto> recommendationDtos) {
     this.id = id;
     this.productId = productId;
     this.rating = rating;
@@ -49,8 +49,8 @@ public class ReviewDto {
     this.content = content;
     this.isBestReview = isBestReview;
     this.userNickName = userNickName;
-    this.reviewImages = reviewImages;
-    this.recommendations = recommendations;
+    this.reviewImages = reviewImageDtos;
+    this.recommendations = recommendationDtos;
   }
 
   public Long getId() {
@@ -85,12 +85,12 @@ public class ReviewDto {
     return userNickName;
   }
 
-  public List<ReviewImage> getReviewImages() {
-    return reviewImages;
+  public List<RecommendationDto> getRecommendations() {
+    return recommendations;
   }
 
-  public List<Recommendation> getRecommendations() {
-    return recommendations;
+  public List<ReviewImageDto> getReviewImages() {
+    return reviewImages;
   }
 
   public String getCreatedAt() {
