@@ -2,50 +2,52 @@ package kr.megaptera.shoppingMall.models;
 
 import kr.megaptera.shoppingMall.dtos.OptionDto;
 
+import javax.persistence.Embeddable;
+import java.util.List;
+import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-@Entity
+@Embeddable
 public class Option {
-  @Id
-  @GeneratedValue
-  private Long id;
+    private Long addAmount;
 
-  private Long addAmount;
+    private String description;
 
-  private String description;
+    public Option() {
+    }
 
-  private Long productId;
+    public Option(Long addAmount, String description) {
+        this.addAmount = addAmount;
+        this.description = description;
+    }
 
-  public Option() {
-  }
+    public Long getAddAmount() {
+        return addAmount;
+    }
 
-  public Option(Long id, Long productId, Long addAmount, String description) {
-    this.id = id;
-    this.productId = productId;
-    this.addAmount = addAmount;
-    this.description = description;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public Long getId() {
-    return id;
-  }
+    public static List<Option> fake() {
+        return List.of(
+            new Option(3000L, "상품 설명")
+        );
+    }
 
-  public Long getAddAmount() {
-    return addAmount;
-  }
+    @Override
+    public boolean equals(Object other) {
+        Option otherOption = (Option) other;
 
-  public String getDescription() {
-    return description;
-  }
+        return this.addAmount.equals(otherOption.addAmount) &&
+            this.description.equals(((Option) other).description);
+    }
 
-  public Long productId() {
-    return productId;
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(addAmount, description);
+    }
 
-  public OptionDto toDto() {
-    return new OptionDto(id, productId, addAmount, description);
-  }
+    public OptionDto toDto() {
+        return new OptionDto(addAmount, description);
+    }
 }

@@ -1,12 +1,11 @@
 package kr.megaptera.shoppingMall.controllers;
 
 import kr.megaptera.shoppingMall.models.Cart;
-import kr.megaptera.shoppingMall.models.CartItem;
 import kr.megaptera.shoppingMall.models.Product;
 import kr.megaptera.shoppingMall.repositoies.CartItemRepository;
 import kr.megaptera.shoppingMall.repositoies.CartRepository;
 import kr.megaptera.shoppingMall.repositoies.ProductRepository;
-import kr.megaptera.shoppingMall.services.CartService;
+import kr.megaptera.shoppingMall.services.CreateCartItemService;
 import kr.megaptera.shoppingMall.utils.JwtUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,55 +25,54 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(CartController.class)
 class CartControllerTest {
-  @Autowired
-  private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-  @SpyBean
-  private CartService cartService;
+    @MockBean
+    private CreateCartItemService createCartItemService;
 
-  @MockBean
-  private CartRepository cartRepository;
+    @MockBean
+    private CartRepository cartRepository;
 
-  @MockBean
-  private ProductRepository productRepository;
+    @MockBean
+    private ProductRepository productRepository;
 
-  @MockBean
-  private CartItemRepository cartItemRepository;
+    @MockBean
+    private CartItemRepository cartItemRepository;
 
-  @SpyBean
-  private JwtUtil jwtUtil;
+    @SpyBean
+    private JwtUtil jwtUtil;
 
-  @Test
-  void createCartItem() throws Exception {
-    String accessToken = jwtUtil.encode(1L);
+    @Test
+    void createCartItem() throws Exception {
+        Long productId = 1L;
+        Long userId = 1L;
 
-    Product product = new Product(1L, 1L, "아이폰14", "애플", "전자기기", 1000L, 120L,
-        1000L, 5000L, 2L, "상품 설명", 3000L);
+        String accessToken = jwtUtil.encode(1L);
 
-    given(productRepository.findById(1L)).willReturn(Optional.of(product));
+        Product product = Product.fake(productId);
 
-    Cart cart = new Cart(1L, 1L, 1L);
+        given(productRepository.findById(productId)).willReturn(Optional.of(product));
 
-    given(cartRepository.findByUserId(1L))
-        .willReturn(Optional.of(cart));
+        Cart cart = new Cart(1L, userId);
 
-    mockMvc.perform(MockMvcRequestBuilders.post("/cart/product/1")
-            .header("Authorization", "Bearer " + accessToken)
-            .accept(MediaType.APPLICATION_JSON)
-            .contentType(MediaType.APPLICATION_JSON)
-            .content("{" +
-                "\"quantity\":\"1\"," +
-                "\"option\":" +
-                "{" +
-                "\"id\":\"1\"," +
-                "\"productId\":\"1\"," +
-                "\"addAmount\":\"5000\"," +
-                "\"description\":\"블랙\"" +
-                "}" +
-                "}"))
-        .andExpect(status().isCreated());
+        given(cartRepository.findByUserId(userId))
+            .willReturn(Optional.of(cart));
 
-    verify(cartItemRepository).save(any(CartItem.class));
-    verify(cartService).createCartItem(any(), any(), any());
-  }
+        mockMvc.perform(MockMvcRequestBuilders.post("/carts/cartItems/products/1")
+                .header("Authorization", "Bearer " + accessToken)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{" +
+                    "\"quantity\":\"1\"," +
+                    "\"option\":" +
+                    "{" +
+                    "\"addAmount\":\"5000\"," +
+                    "\"description\":\"블랙\"" +
+                    "}" +
+                    "}"))
+            .andExpect(status().isCreated());
+
+        verify(createCartItemService).create(any(), any(), any());
+    }
 }

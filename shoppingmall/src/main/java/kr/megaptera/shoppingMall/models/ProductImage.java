@@ -2,49 +2,61 @@ package kr.megaptera.shoppingMall.models;
 
 import kr.megaptera.shoppingMall.dtos.ProductImageDto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.Embeddable;
+import java.util.List;
+import java.util.Objects;
 
-@Entity
+@Embeddable
 public class ProductImage {
-  @Id
-  @GeneratedValue
-  private Long id;
+    private String url;
 
-  private String url;
+    private Boolean isThumbnailImage;
 
-  private Boolean isThumbnailImage;
+    public ProductImage() {
+    }
 
-  private Long productId;
+    public ProductImage(String url, Boolean isThumbnailImage) {
+        this.url = url;
+        this.isThumbnailImage = isThumbnailImage;
+    }
 
-  public ProductImage() {
-  }
+    public String getUrl() {
+        return url;
+    }
 
-  public ProductImage(Long id, Long productId, String url, Boolean isThumbnailImage) {
-    this.id = id;
-    this.productId = productId;
-    this.url = url;
-    this.isThumbnailImage = isThumbnailImage;
-  }
+    public Boolean getThumbnailImage() {
+        return isThumbnailImage;
+    }
 
-  public Long getId() {
-    return id;
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(url, isThumbnailImage);
+    }
 
-  public String getUrl() {
-    return url;
-  }
+    @Override
+    public boolean equals(Object other) {
+        ProductImage otherProductImage = (ProductImage) other;
 
-  public Boolean getThumbnailImage() {
-    return isThumbnailImage;
-  }
+        return this.url.equals(otherProductImage.url) &&
+            this.isThumbnailImage.equals(otherProductImage.isThumbnailImage);
+    }
 
-  public Long getProductId() {
-    return productId;
-  }
+    @Override
+    public String toString() {
+        return "ProductImage{" +
+            "url='" + url + '\'' +
+            ", isThumbnailImage=" + isThumbnailImage +
+            '}';
+    }
 
-  public ProductImageDto toDto() {
-    return new ProductImageDto(id, url, isThumbnailImage, productId);
-  }
+    public static List<ProductImage> fake() {
+        return List.of(
+            new ProductImage("url", true),
+            new ProductImage("url", false)
+        );
+    }
+
+    public ProductImageDto toDto() {
+        return new ProductImageDto(url, isThumbnailImage);
+    }
 }

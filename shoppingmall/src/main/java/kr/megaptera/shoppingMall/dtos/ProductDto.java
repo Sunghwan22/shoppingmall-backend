@@ -1,134 +1,149 @@
 package kr.megaptera.shoppingMall.dtos;
 
+import kr.megaptera.shoppingMall.models.Option;
+import kr.megaptera.shoppingMall.models.ProductImage;
+import kr.megaptera.shoppingMall.models.Wish;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ProductDto {
-  private Long id;
+    private Long id;
 
-  private Long productNumber;
+    private Long productNumber;
 
-  private String productName;
+    private String productName;
 
-  private String maker;
+    private String maker;
 
-  private String category;
+    private String category;
 
-  private Long views;
+    private Long views;
 
-  private Long cumulativeSales;
+    private Long cumulativeSales;
 
-  private Long price;
+    private Long price;
 
-  private Long stock;
+    private Long stock;
 
-  private Long maximumQuantity;
+    private Long maximumQuantity;
 
-  private String description;
+    private String description;
 
-  private Long deliveryFee;
+    private Long deliveryFee;
 
-  private List<ProductImageDto> productImages;
+    private List<OptionDto> options;
 
-  private List<OptionDto> options;
+    private List<ProductImageDto> productImages;
 
-  private List<WishDto> wishUserList;
+    private LocalDateTime createdAt;
 
-  public ProductDto() {
-  }
+    private LocalDateTime updatedAt;
 
-  public ProductDto(Long id,
-                    Long productNumber,
-                    String productName,
-                    String maker,
-                    String category,
-                    Long views,
-                    Long cumulativeSales,
-                    Long price,
-                    Long stock,
-                    Long maximumQuantity,
-                    String description,
-                    Long deliveryFee,
-                    List<ProductImageDto> productImages,
-                    List<OptionDto> optionDtos,
-                    List<WishDto> wishDtos) {
-    this.id = id;
-    this.productNumber = productNumber;
-    this.productName = productName;
-    this.maker = maker;
-    this.category = category;
-    this.views = views;
-    this.cumulativeSales = cumulativeSales;
-    this.price = price;
-    this.stock = stock;
-    this.maximumQuantity = maximumQuantity;
-    this.description = description;
-    this.deliveryFee = deliveryFee;
-    this.productImages = productImages;
-    this.options = optionDtos;
-    this.wishUserList = wishDtos;
-  }
+    public ProductDto() {
+    }
 
-  public Long getId() {
-    return id;
-  }
+    public ProductDto(Long id,
+                      Long productNumber,
+                      String productName,
+                      String maker,
+                      String category,
+                      Long views,
+                      Long cumulativeSales,
+                      Long price,
+                      Long stock,
+                      Long maximumQuantity,
+                      String description,
+                      Long deliveryFee,
+                      LocalDateTime createdAt,
+                      LocalDateTime updatedAt,
+                      List<OptionDto> options,
+                      List<ProductImageDto> productImages) {
+        this.id = id;
+        this.productNumber = productNumber;
+        this.productName = productName;
+        this.maker = maker;
+        this.category = category;
+        this.views = views;
+        this.cumulativeSales = cumulativeSales;
+        this.price = price;
+        this.stock = stock;
+        this.maximumQuantity = maximumQuantity;
+        this.description = description;
+        this.deliveryFee = deliveryFee;
+        this.productImages = productImages;
+        this.options = options;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
-  public Long getProductNumber() {
-    return productNumber;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  public String getProductName() {
-    return productName;
-  }
+    public Long getProductNumber() {
+        return productNumber;
+    }
 
-  public String getMaker() {
-    return maker;
-  }
+    public String getProductName() {
+        return productName;
+    }
 
-  public String getCategory() {
-    return category;
-  }
+    public String getMaker() {
+        return maker;
+    }
 
-  public Long getViews() {
-    return views;
-  }
+    public String getCategory() {
+        return category;
+    }
 
-  public Long getCumulativeSales() {
-    return cumulativeSales;
-  }
+    public Long getViews() {
+        return views;
+    }
 
-  public Long getPrice() {
-    return price;
-  }
+    public Long getCumulativeSales() {
+        return cumulativeSales;
+    }
 
-  public Long getStock() {
-    return stock;
-  }
+    public Long getPrice() {
+        return price;
+    }
 
-  public Long getMaximumQuantity() {
-    return maximumQuantity;
-  }
+    public Long getStock() {
+        return stock;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    public Long getMaximumQuantity() {
+        return maximumQuantity;
+    }
 
-  public Long getDeliveryFee() {
-    return deliveryFee;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public List<ProductImageDto> getImages() {
-    return productImages;
-  }
+    public Long getDeliveryFee() {
+        return deliveryFee;
+    }
 
-  public List<OptionDto> getOptions() {
-    return options;
-  }
+    public List<OptionDto> getOptions() {
+        return options;
+    }
 
-  public List<WishDto> getWishUserList() {
-    return wishUserList;
-  }
+    public List<ProductImageDto> getProductImages() {
+        return productImages;
+    }
 
-  public int getWishes() {
-    return wishUserList.size();
-  }
+    public String getCreatedAt() {
+        LocalDate now = LocalDate.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
+        return now.format(formatter);
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 }

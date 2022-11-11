@@ -21,7 +21,7 @@ public class CartItemDto {
 
   private String optionName;
 
-  private String thumbNailImage;
+  private ProductImageDto thumbNailImage;
 
   public CartItemDto() {
   }
@@ -36,7 +36,7 @@ public class CartItemDto {
                      Long deliveryFee,
                      Long quantity,
                      String optionName,
-                     String thumbNailImage) {
+                     ProductImageDto thumbNailImage) {
     this.productId = productId;
     this.productName = productName;
     this.maker = maker;
@@ -90,7 +90,7 @@ public class CartItemDto {
     return optionName;
   }
 
-  public String getThumbNailImage() {
+  public ProductImageDto getThumbNailImage() {
     return thumbNailImage;
   }
 }

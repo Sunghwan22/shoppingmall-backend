@@ -14,15 +14,10 @@ public class Cart {
 
   private Long cartItemCount = 0L;
 
-  public Cart() {
+  private Cart() {
   }
 
   public Cart(Long id, Long userId) {
-    this.id = id;
-    this.userId = userId;
-  }
-
-  public Cart(Long id, Long cartId, Long userId) {
     this.id = id;
     this.userId = userId;
   }

@@ -1,6 +1,7 @@
 package kr.megaptera.shoppingMall.models;
 
 import kr.megaptera.shoppingMall.dtos.CartItemDto;
+import kr.megaptera.shoppingMall.dtos.ProductImageDto;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,136 +9,113 @@ import javax.persistence.Id;
 
 @Entity
 public class CartItem {
-  @Id
-  @GeneratedValue
-  private Long id;
-  // cartRepositor에서 findByUserId로 카트를 찾은 다음에 cartItem을 create할 때 cartId도 같이 넘겨줘서
-  // cart.cartItemId 를 통해서 카트 아이템을 찾는다?
-  private Long cartId;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-  private Long productId;
+    private Long cartId;
 
-  private String productName;
+    private Long productId;
 
-  private String maker;
+    private String productName;
 
-  private String category;
+    private String maker;
 
-  private Long cartItemPrice;
+    private String category;
 
-  private Long stock;
+    private Long cartItemPrice;
 
-  private String description;
+    private Long stock;
 
-  private Long deliveryFee;
+    private String description;
 
-  private Long quantity;
+    private Long deliveryFee;
 
-  private String optionName;
+    private Long quantity;
 
-  public CartItem() {
-  }
+    private String optionName;
 
-  public CartItem(Long productId,
-                  String productName,
-                  String maker,
-                  String category,
-                  Long cartItemPrice,
-                  Long stock,
-                  String description,
-                  Long deliveryFee,
-                  Long quantity,
-                  String optionName,
-                  Long cartId) {
-    this.productId = productId;
-    this.productName = productName;
-    this.maker = maker;
-    this.category = category;
-    this.cartItemPrice = cartItemPrice;
-    this.stock = stock;
-    this.description = description;
-    this.deliveryFee = deliveryFee;
-    this.quantity = quantity;
-    this.optionName = optionName;
-    this.cartId = cartId;
-  }
+    private ProductImage image;
 
-  public CartItem(Long id,
-                  Long productId,
-                  String productName,
-                  String maker,
-                  String category,
-                  Long cartItemPrice,
-                  Long stock,
-                  String description,
-                  Long deliveryFee,
-                  Long quantity,
-                  String optionName,
-                  Long cartId) {
-    this.id = id;
-    this.productId = productId;
-    this.productName = productName;
-    this.maker = maker;
-    this.category = category;
-    this.cartItemPrice = cartItemPrice;
-    this.stock = stock;
-    this.description = description;
-    this.deliveryFee = deliveryFee;
-    this.quantity = quantity;
-    this.optionName = optionName;
-    this.cartId = cartId;
-  }
+    private CartItem() {
+    }
 
-  public Long getId() {
-    return id;
-  }
+    public CartItem(Long productId,
+                    String productName,
+                    String maker,
+                    String category,
+                    Long cartItemPrice,
+                    Long stock,
+                    String description,
+                    Long deliveryFee,
+                    Long quantity,
+                    String optionName,
+                    Long cartId,
+                    ProductImage cartItemImage) {
+        this.productId = productId;
+        this.productName = productName;
+        this.maker = maker;
+        this.category = category;
+        this.cartItemPrice = cartItemPrice;
+        this.stock = stock;
+        this.description = description;
+        this.deliveryFee = deliveryFee;
+        this.quantity = quantity;
+        this.optionName = optionName;
+        this.cartId = cartId;
+        this.image = cartItemImage;
+    }
 
-  public Long getCartId() {
-    return cartId;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  public Long getProductId() {
-    return productId;
-  }
+    public Long getCartId() {
+        return cartId;
+    }
 
-  public String getProductName() {
-    return productName;
-  }
+    public Long getProductId() {
+        return productId;
+    }
 
-  public String getMaker() {
-    return maker;
-  }
+    public String getProductName() {
+        return productName;
+    }
 
-  public String getCategory() {
-    return category;
-  }
+    public String getMaker() {
+        return maker;
+    }
 
-  public Long getCartItemPrice() {
-    return cartItemPrice;
-  }
+    public String getCategory() {
+        return category;
+    }
 
-  public Long getStock() {
-    return stock;
-  }
+    public Long getCartItemPrice() {
+        return cartItemPrice;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    public Long getStock() {
+        return stock;
+    }
 
-  public Long getDeliveryFee() {
-    return deliveryFee;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public Long getQuantity() {
-    return quantity;
-  }
+    public Long getDeliveryFee() {
+        return deliveryFee;
+    }
 
-  public String getOptionName() {
-    return optionName;
-  }
+    public Long getQuantity() {
+        return quantity;
+    }
 
-  public CartItemDto toDto(String thumbNailImage) {
-    return new CartItemDto(productId, productName, maker, category, cartItemPrice, stock, description
-        , deliveryFee, quantity, optionName, thumbNailImage);
-  }
+    public String getOptionName() {
+        return optionName;
+    }
+
+    public CartItemDto toDto(ProductImageDto thumbNailImage) {
+        return new CartItemDto(productId, productName, maker, category, cartItemPrice, stock, description
+            , deliveryFee, quantity, optionName, thumbNailImage);
+    }
 }
