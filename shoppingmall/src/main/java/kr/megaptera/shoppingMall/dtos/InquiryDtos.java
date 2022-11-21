@@ -5,23 +5,23 @@ import java.util.List;
 public class InquiryDtos {
     private List<InquiryDto> inquiries;
 
-    private Integer page;
+    private Integer pages;
 
     private int totalInquiryNumber;
 
-    public InquiryDtos(List<InquiryDto> inquiries, Integer page, int totalInquiryNumber) {
+    public InquiryDtos(List<InquiryDto> inquiries, Integer pages, int totalInquiryNumber) {
         this.inquiries = inquiries;
-        this.page = page;
+        this.pages = pages;
         this.totalInquiryNumber = totalInquiryNumber;
     }
 
-    public InquiryDtos(List<InquiryDto> myInquiryList, Integer page) {
+    public InquiryDtos(List<InquiryDto> myInquiryList, Integer pages) {
         this.inquiries = myInquiryList;
-        this.page = page;
+        this.pages = pages;
     }
 
-    public Integer getPage() {
-        return page;
+    public Integer getPages() {
+        return pages;
     }
 
     public int getTotalInquiryNumber() {

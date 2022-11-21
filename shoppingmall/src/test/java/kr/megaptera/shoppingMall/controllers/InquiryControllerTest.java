@@ -3,6 +3,7 @@ package kr.megaptera.shoppingMall.controllers;
 import kr.megaptera.shoppingMall.models.Inquiry;
 import kr.megaptera.shoppingMall.repositoies.InquiryRepository;
 import kr.megaptera.shoppingMall.services.CreateInquiryService;
+import kr.megaptera.shoppingMall.services.GetInquiryDetailService;
 import kr.megaptera.shoppingMall.services.GetInquiryListService;
 import kr.megaptera.shoppingMall.services.GetMyInquiryListService;
 import kr.megaptera.shoppingMall.utils.JwtUtil;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
@@ -40,6 +42,9 @@ class InquiryControllerTest {
 
     @MockBean
     private CreateInquiryService createInquiryService;
+
+    @MockBean
+    private GetInquiryDetailService getInquiryDetailService;
 
     @SpyBean
     private JwtUtil jwtUtil;
@@ -131,5 +136,53 @@ class InquiryControllerTest {
                     "\"isSecret\":" + "" + true +
                     "}"))
             .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void getInquiryDetail() throws Exception {
+        Inquiry inquiry = Inquiry.fake(true, 1L);
+
+        given(inquiryRepository.findById(1L))
+            .willReturn(Optional.of(inquiry));
+
+        Long userId = 1L;
+
+        String accessToken = jwtUtil.encode(userId);
+
+        given(getInquiryDetailService.detail(1L, userId))
+            .willReturn(inquiry.toDto());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/inquiries/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer " + accessToken))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString(
+                "문의 내용"
+            )));
+        // todo 컨트롤러 한글 디코딩 하는 법 알아보기
+    }
+
+    @Test
+    void getInquiryDetailWith() throws Exception {
+        Inquiry inquiry = Inquiry.fake(true, 1L);
+
+        given(inquiryRepository.findById(1L))
+            .willReturn(Optional.of(inquiry));
+
+        Long userId = 1L;
+
+        String accessToken = jwtUtil.encode(userId);
+
+        given(getInquiryDetailService.detail(1L, userId))
+            .willReturn(inquiry.toDto());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/inquiries/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer " + accessToken))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString(
+                "문의 내용")));
     }
 }

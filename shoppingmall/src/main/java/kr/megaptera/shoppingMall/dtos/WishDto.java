@@ -5,7 +5,7 @@ public class WishDto {
   private Long productId;
   private Long userId;
 
-  public WishDto(Long id, Long productId) {
+  public WishDto(Long id, Long productId, Long userId) {
     this.id = id;
     this.productId = productId;
     this.userId = userId;

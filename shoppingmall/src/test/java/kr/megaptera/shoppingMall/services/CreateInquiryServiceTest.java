@@ -4,24 +4,31 @@ import kr.megaptera.shoppingMall.dtos.CreateInquiryDto;
 import kr.megaptera.shoppingMall.dtos.InquiryDto;
 import kr.megaptera.shoppingMall.exceptions.InquiryContentBlankException;
 import kr.megaptera.shoppingMall.models.Inquiry;
+import kr.megaptera.shoppingMall.models.User;
 import kr.megaptera.shoppingMall.repositoies.InquiryRepository;
+import kr.megaptera.shoppingMall.repositoies.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 class CreateInquiryServiceTest {
-    private InquiryRepository inquiryRepository;
-    private CreateInquiryService createInquiryService;
+    InquiryRepository inquiryRepository;
+    CreateInquiryService createInquiryService;
+    UserRepository userRepository;
 
     @BeforeEach
     void setup() {
         inquiryRepository = mock(InquiryRepository.class);
-        createInquiryService = new CreateInquiryService(inquiryRepository);
+        userRepository = mock(UserRepository.class);
+        createInquiryService = new CreateInquiryService(inquiryRepository, userRepository);
     }
 
     @Test
@@ -30,7 +37,12 @@ class CreateInquiryServiceTest {
         Long userId = 1L;
 
         CreateInquiryDto createInquiryDto =
-            new CreateInquiryDto(userId, productId, "상품 문의", "본인 두두등장", true);
+            new CreateInquiryDto("상품 문의", true);
+
+        User user = new User(userId, "tidls45", "tjdghks245@", "닉네임", "스울특벽별시");
+
+        given(userRepository.findById(userId))
+            .willReturn(Optional.of(user));
 
         InquiryDto inquiryDto =
             createInquiryService.createInquiry(productId, userId, createInquiryDto);
@@ -47,8 +59,13 @@ class CreateInquiryServiceTest {
         Long productId = 1L;
         Long userId = 1L;
 
+        User user = new User(userId, "tidls45", "tjdghks245@", "닉네임", "스울특벽별시");
+
+        given(userRepository.findById(userId))
+            .willReturn(Optional.of(user));
+
         CreateInquiryDto createInquiryDto =
-            new CreateInquiryDto(userId, productId, "", "본인 두두등장", true);
+            new CreateInquiryDto("",  true);
 
         assertThrows(InquiryContentBlankException.class, () -> {
             createInquiryService.createInquiry(productId, userId, createInquiryDto);

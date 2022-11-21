@@ -6,6 +6,7 @@ import kr.megaptera.shoppingMall.dtos.InquiryDto;
 import kr.megaptera.shoppingMall.dtos.InquiryDtos;
 import kr.megaptera.shoppingMall.exceptions.InquiryContentBlankException;
 import kr.megaptera.shoppingMall.services.CreateInquiryService;
+import kr.megaptera.shoppingMall.services.GetInquiryDetailService;
 import kr.megaptera.shoppingMall.services.GetInquiryListService;
 import kr.megaptera.shoppingMall.services.GetMyInquiryListService;
 import org.springframework.http.HttpStatus;
@@ -27,20 +28,22 @@ public class InquiryController {
     private final GetInquiryListService getInquiryListService;
     private final GetMyInquiryListService getMyInquiryListService;
     private final CreateInquiryService createInquiryService;
+    private final GetInquiryDetailService getInquiryDetailService;
 
-    public InquiryController(
-        GetInquiryListService getInquiryListService,
-        GetMyInquiryListService getMyInquiryListService,
-        CreateInquiryService createInquiryService) {
+    public InquiryController(GetInquiryListService getInquiryListService,
+                             GetMyInquiryListService getMyInquiryListService,
+                             CreateInquiryService createInquiryService,
+                             GetInquiryDetailService getInquiryDetailService) {
         this.getInquiryListService = getInquiryListService;
         this.getMyInquiryListService = getMyInquiryListService;
         this.createInquiryService = createInquiryService;
+        this.getInquiryDetailService = getInquiryDetailService;
     }
 
     @GetMapping("/products/{id}")
     public InquiryDtos inquiryList(
         @PathVariable("id") Long productId,
-        @RequestAttribute("userId") Long userId,
+        @RequestAttribute(value = "userId", required = false) Long userId,
         @RequestParam(required = false, defaultValue = "1") Integer page) {
 
         return getInquiryListService.getInquiryList(productId, userId, page);
@@ -63,6 +66,13 @@ public class InquiryController {
         @RequestBody @Validated CreateInquiryDto createInquiryDto) {
 
         return createInquiryService.createInquiry(productId, userId, createInquiryDto);
+    }
+
+    @GetMapping("/{inquiry_id}")
+    public InquiryDto detail(
+        @PathVariable("inquiry_id") Long inquiryId,
+        @RequestAttribute(value = "userId", required = false) Long userId) {
+        return getInquiryDetailService.detail(inquiryId, userId);
     }
 
     @ExceptionHandler(InquiryContentBlankException.class)

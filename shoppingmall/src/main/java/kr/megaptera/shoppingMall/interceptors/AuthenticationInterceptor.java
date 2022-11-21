@@ -24,9 +24,12 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
     String authorization = request.getHeader("Authorization");
 
-    System.out.println(authorization);
-
     if(authorization == null) {
+      return true;
+    }
+
+    if(authorization.length() == 6) {
+      request.setAttribute("userId", null);
       return true;
     }
 
@@ -37,8 +40,12 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     String accessToken = authorization.substring("Bearer ".length());
 
     try {
-      Long userId = jwtUtil.decode(accessToken);
+      if(accessToken.isBlank()) {
+        request.setAttribute("userId", null);
+        return true;
+      }
 
+      Long userId = jwtUtil.decode(accessToken);
 
       request.setAttribute("userId", userId);
       return true;

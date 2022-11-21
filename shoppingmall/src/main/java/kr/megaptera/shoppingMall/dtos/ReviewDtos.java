@@ -3,41 +3,42 @@ package kr.megaptera.shoppingMall.dtos;
 import java.util.List;
 
 public class ReviewDtos {
-  private List<ReviewDto> reviews;
 
-  private int pages;
+    private int pages;
 
-  private double totalRating;
+    private double totalRating;
 
-  private int totalReviewNumber;
+    private int totalReviewNumber;
 
-  public ReviewDtos(List<ReviewDto> reviewDtos) {
-    this.reviews = reviewDtos;
-  }
+    private List<ReviewDto> reviews;
 
-  public ReviewDtos(List<ReviewDto> reviews,
-                    int pages,
-                    double totalRating,
-                    int totalReviewNumber) {
-    this.reviews = reviews;
-    this.pages = pages;
-    this.totalRating = totalRating;
-    this.totalReviewNumber = totalReviewNumber;
-  }
+    public ReviewDtos(List<ReviewDto> reviewDtos) {
+        this.reviews = reviewDtos;
+    }
 
-  public List<ReviewDto> getReviews() {
-    return reviews;
-  }
+    public ReviewDtos(List<ReviewDto> reviews,
+                      int pages,
+                      double totalRating,
+                      int totalReviewNumber) {
+        this.reviews = reviews;
+        this.pages = pages;
+        this.totalRating = totalRating;
+        this.totalReviewNumber = totalReviewNumber;
+    }
 
-  public int getPages() {
-    return pages;
-  }
+    public List<ReviewDto> getReviews() {
+        return reviews;
+    }
 
-  public double getTotalRating() {
-    return totalRating;
-  }
+    public int getPages() {
+        return pages;
+    }
 
-  public int getTotalReviewNumber() {
-    return totalReviewNumber;
-  }
+    public double getTotalRating() {
+        return totalRating;
+    }
+
+    public int getTotalReviewNumber() {
+        return totalReviewNumber;
+    }
 }
