@@ -1,5 +1,6 @@
 package kr.megaptera.shoppingMall.models;
 
+import kr.megaptera.shoppingMall.dtos.AnswerDto;
 import kr.megaptera.shoppingMall.dtos.InquiryDto;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -7,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Inquiry {
@@ -66,6 +68,10 @@ public class Inquiry {
         this.answerStatus = answerStatus;
     }
 
+    public Inquiry(Long productId, String content, boolean isSecret, String answerStatus) {
+
+    }
+
     public static Inquiry fake(boolean secret, Long userId) {
         Long productId = 1L;
 
@@ -100,11 +106,16 @@ public class Inquiry {
 
     public InquiryDto toDto() {
         return new InquiryDto(id, userId, productId, answerStatus,
-            content, userNickName);
+            content, userNickName, isSecret);
     }
 
     public InquiryDto toSecretDto() {
         return new InquiryDto(id, userId, productId, answerStatus,
-            "🔒비밀글 입니다", userNickName);
+            "🔒비밀글 입니다", userNickName, isSecret);
+    }
+
+    public InquiryDto toDto(List<AnswerDto> findAnswerDto) {
+        return new InquiryDto(id, userId, productId, answerStatus,
+            content, userNickName, isSecret, findAnswerDto);
     }
 }

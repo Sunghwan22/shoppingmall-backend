@@ -2,6 +2,7 @@ package kr.megaptera.shoppingMall.dtos;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class InquiryDto {
     private Long id;
@@ -16,6 +17,8 @@ public class InquiryDto {
 
     private boolean isSecret;
 
+    private List<AnswerDto> findAnswerDto;
+
     private String userNickName;
 
     public InquiryDto(Long id,
@@ -23,7 +26,8 @@ public class InquiryDto {
                       Long productId,
                       String answerStatus,
                       String content,
-                      String userNickName) {
+                      String userNickName,
+                      boolean isSecret) {
 
         this.id = id;
         this.userId = userId;
@@ -31,6 +35,30 @@ public class InquiryDto {
         this.answerStatus = answerStatus;
         this.content = content;
         this.userNickName = userNickName;
+        this.isSecret = isSecret;
+    }
+
+    public InquiryDto(
+        Long id,
+        Long userId,
+        Long productId,
+        String answerStatus,
+        String content,
+        String userNickName,
+        boolean isSecret,
+        List<AnswerDto> findAnswerDto) {
+        this.id = id;
+        this.userId = userId;
+        this.productId = productId;
+        this.answerStatus = answerStatus;
+        this.content = content;
+        this.userNickName = userNickName;
+        this.isSecret = isSecret;
+        this.findAnswerDto = findAnswerDto;
+    }
+
+    public InquiryDto() {
+
     }
 
     public Long getId() {
@@ -59,6 +87,10 @@ public class InquiryDto {
 
     public boolean getIsSecret() {
         return isSecret;
+    }
+
+    public List<AnswerDto> getAnswers() {
+        return findAnswerDto;
     }
 
     public String getCreatedAt() {

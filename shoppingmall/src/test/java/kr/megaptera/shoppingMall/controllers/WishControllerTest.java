@@ -3,6 +3,7 @@ package kr.megaptera.shoppingMall.controllers;
 import kr.megaptera.shoppingMall.models.Wish;
 import kr.megaptera.shoppingMall.repositoies.WishRepository;
 import kr.megaptera.shoppingMall.services.CreateWishService;
+import kr.megaptera.shoppingMall.services.GetProductWishesService;
 import kr.megaptera.shoppingMall.utils.JwtUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +33,15 @@ class WishControllerTest {
     @MockBean
     private WishRepository wishRepository;
 
+    @MockBean
+    private GetProductWishesService getProductWishesService;
+
     @SpyBean
     private JwtUtil jwtUtil;
 
     @Test
     void createWishes() throws Exception {
-        Long productId =1L;
+        Long productId = 1L;
         Long userId = 1L;
 
         String accessToken = jwtUtil.encode(1L);
@@ -58,7 +62,7 @@ class WishControllerTest {
 
     @Test
     void alreadyExistWishes() throws Exception {
-        Long productId =1L;
+        Long productId = 1L;
         Long userId = 1L;
 
         String accessToken = jwtUtil.encode(1L);
@@ -80,5 +84,26 @@ class WishControllerTest {
             )));
 
         verify(createWishService).create(productId, userId);
+    }
+
+    @Test
+    void getProductWishes() throws Exception {
+        Long productId = 1L;
+        Long userId = 1L;
+
+        List<Wish> wishes = List.of(
+            new Wish(1L, productId, userId),
+            new Wish(2L, productId, userId + 1)
+        );
+
+        given(wishRepository.findAllByProductId(productId))
+            .willReturn(wishes);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/wishes/products/1"))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString(
+                "")));
+
+        verify(getProductWishesService).getProductWishes(1L);
     }
 }

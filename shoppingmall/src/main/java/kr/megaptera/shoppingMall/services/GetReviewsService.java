@@ -8,14 +8,15 @@ import kr.megaptera.shoppingMall.models.Recommendation;
 import kr.megaptera.shoppingMall.models.Review;
 import kr.megaptera.shoppingMall.models.ReviewImage;
 import kr.megaptera.shoppingMall.repositoies.ReviewRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+
 
 @Service
 @Transactional
@@ -28,23 +29,38 @@ public class GetReviewsService {
     }
 
     public ReviewDtos getReviews(Long productId, Integer page) {
-        Sort sort = Sort.by("id");
-        pageable = PageRequest.of(page - 1, 4, sort);
+        List<Review> reviewsPerPage = new ArrayList<>();
 
-        Page<Review> reviews =
-            reviewRepository.findAllByProductId(productId, pageable);
+        List<Review> reviews =
+            reviewRepository.findAllByProductId(productId)
+                .stream().filter(review -> !review.isBestReview())
+                .toList();
 
-        List<ReviewDto> reviewDtos = reviews.stream()
-            .filter(review -> review.isBestReview().equals(false))
+        Collections.sort(reviews, Collections.reverseOrder());
+
+        for(int i = 4 * (page - 1); i < page * 4; i+=1) {
+            if(reviews.size() == i) {
+                break;
+            }
+
+            reviewsPerPage.add(reviews.get(i));
+        }
+
+        List<ReviewDto> reviewDtos = reviewsPerPage.stream()
             .map(review -> review.toDto(
                 reviewImageDtos(review),
                 recommendationDtos(review))).toList();
 
-        int pages = this.pages(productId);
+        int pages = reviews.size() / 4;
+
+        if(reviews.size() % 4 != 0) {
+            pages = reviews.size() / 4 + 1;
+        }
 
         double totalRating = this.totalRating(productId);
 
-        int totalReviewNumber = reviewRepository.findAllByProductId(productId).size();
+        int totalReviewNumber = reviewRepository.findAllByProductId(productId)
+            .size();
 
         return new ReviewDtos(reviewDtos, pages, totalRating, totalReviewNumber);
     }

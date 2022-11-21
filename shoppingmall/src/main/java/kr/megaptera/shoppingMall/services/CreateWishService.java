@@ -34,6 +34,8 @@ public class CreateWishService {
             wishRepository.delete(foundWish);
         }
 
-        return wishesByProductId.stream().map(Wish::toDto).toList();
+        List<Wish> updateWishes = wishRepository.findAllByProductId(productId);
+
+        return updateWishes.stream().map(Wish::toDto).toList();
     }
 }

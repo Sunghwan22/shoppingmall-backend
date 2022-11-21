@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ReviewDto {
-
   private Long id;
 
   private Long productId;

@@ -37,6 +37,6 @@ public class Wish {
   }
 
   public WishDto toDto() {
-    return new WishDto(productId, userId);
+    return new WishDto(id, productId, userId);
   }
 }

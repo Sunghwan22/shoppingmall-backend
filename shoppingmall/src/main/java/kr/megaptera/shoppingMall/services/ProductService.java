@@ -39,26 +39,4 @@ public class ProductService {
         return product.images()
             .stream().map(ProductImage::toDto).toList();
     }
-
-//    public int createWish(Long productId, Long userId) {
-//        Product foundProduct = productRepository.findById(productId)
-//            .orElseThrow(ProductNotFound::new);
-//
-//        List<Wish> foundWishes = foundProduct.wishes().stream().filter(
-//            wish -> wish.getUserId().equals(userId)).toList();
-//
-//        if (foundWishes.size() == 0) {
-//            Wish wish = new Wish(userId);
-//
-//            foundProduct.wishes().add(wish);
-//        }
-//
-//        if (foundWishes.size() != 0) {
-//            Wish wish = new Wish(userId);
-//
-//            foundProduct.wishes().remove(wish);
-//
-//        }
-//        return foundProduct.wishes().size();
-//    }
 }

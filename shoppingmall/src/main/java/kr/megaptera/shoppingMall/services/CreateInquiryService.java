@@ -3,8 +3,11 @@ package kr.megaptera.shoppingMall.services;
 import kr.megaptera.shoppingMall.dtos.CreateInquiryDto;
 import kr.megaptera.shoppingMall.dtos.InquiryDto;
 import kr.megaptera.shoppingMall.exceptions.InquiryContentBlankException;
+import kr.megaptera.shoppingMall.exceptions.UserNotFoundException;
 import kr.megaptera.shoppingMall.models.Inquiry;
+import kr.megaptera.shoppingMall.models.User;
 import kr.megaptera.shoppingMall.repositoies.InquiryRepository;
+import kr.megaptera.shoppingMall.repositoies.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -12,10 +15,14 @@ import javax.transaction.Transactional;
 @Service
 @Transactional
 public class CreateInquiryService {
-    private InquiryRepository inquiryRepository;
+    private final InquiryRepository inquiryRepository;
+    private final UserRepository userRepository;
 
-    public CreateInquiryService(InquiryRepository inquiryRepository) {
+    public CreateInquiryService(
+        InquiryRepository inquiryRepository,
+        UserRepository userRepository) {
         this.inquiryRepository = inquiryRepository;
+        this.userRepository = userRepository;
     }
 
     public InquiryDto createInquiry(
@@ -23,7 +30,10 @@ public class CreateInquiryService {
         Long userId,
         CreateInquiryDto createInquiryDto) {
 
-        if(createInquiryDto.getContent().isBlank()) {
+        User user = userRepository.findById(userId)
+            .orElseThrow(UserNotFoundException::new);
+
+        if (createInquiryDto.getContent().isBlank()) {
             throw new InquiryContentBlankException();
         }
 
@@ -31,7 +41,7 @@ public class CreateInquiryService {
             productId,
             userId,
             createInquiryDto.getContent(),
-            createInquiryDto.getUserNickName(),
+            user.name(),
             createInquiryDto.getIsSecret(),
             "미답변");
 

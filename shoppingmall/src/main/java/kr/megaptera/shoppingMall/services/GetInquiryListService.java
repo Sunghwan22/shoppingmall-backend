@@ -38,15 +38,17 @@ public class GetInquiryListService {
         }
 
         filteredInquiryList.addAll(inquiryList.stream().filter(
-                inquiry -> inquiry.isSecret() && !inquiry.userId().equals(userId))
+            inquiry -> inquiry.isSecret() && !inquiry.userId().equals(userId))
             .toList().stream().map(Inquiry::toSecretDto).toList());
 
         filteredInquiryList.addAll(inquiryList.stream().filter(
             inquiry -> !inquiry.isSecret()).toList().stream().map(
             Inquiry::toDto).toList());
 
+        int pages = inquiryRepository.findAllByProductId(productId, pageable).getTotalPages();
+
         int totalInquiryNumber = inquiryRepository.findAllByProductId(productId).size();
 
-        return new InquiryDtos(filteredInquiryList, page, totalInquiryNumber);
+        return new InquiryDtos(filteredInquiryList, pages, totalInquiryNumber);
     }
 }
