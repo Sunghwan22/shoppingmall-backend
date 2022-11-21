@@ -36,8 +36,6 @@ public class GetReviewsService {
                 .stream().filter(review -> !review.isBestReview())
                 .toList();
 
-        Collections.sort(reviews, Collections.reverseOrder());
-
         for(int i = 4 * (page - 1); i < page * 4; i+=1) {
             if(reviews.size() == i) {
                 break;
