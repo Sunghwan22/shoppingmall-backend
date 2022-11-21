@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="kr.megaptera.shoppingMall.services.GetProductWishesServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-11-21T08:33:43" hostname="seonghwan-ui-MacBookPro.local" time="0.001">
+  <properties/>
+  <testcase name="getProductWishes()" classname="kr.megaptera.shoppingMall.services.GetProductWishesServiceTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
