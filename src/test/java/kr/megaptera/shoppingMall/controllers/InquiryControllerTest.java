@@ -158,7 +158,7 @@ class InquiryControllerTest {
                 .header("Authorization", "Bearer " + accessToken))
             .andExpect(status().isOk())
             .andExpect(content().string(containsString(
-                "문의 내용"
+                "1"
             )));
         // todo 컨트롤러 한글 디코딩 하는 법 알아보기
     }
