@@ -13,16 +13,12 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
-
 
 @Service
 @Transactional
 public class GetReviewsService {
     private final ReviewRepository reviewRepository;
-    private Pageable pageable;
 
     public GetReviewsService(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
@@ -35,8 +31,6 @@ public class GetReviewsService {
             reviewRepository.findAllByProductId(productId)
                 .stream().filter(review -> !review.isBestReview())
                 .toList();
-
-        Collections.sort(reviews, Collections.reverseOrder());
 
         for(int i = 4 * (page - 1); i < page * 4; i+=1) {
             if(reviews.size() == i) {
@@ -73,10 +67,6 @@ public class GetReviewsService {
     private List<ReviewImageDto> reviewImageDtos(Review review) {
         return review.images().stream().map(
             ReviewImage::toDto).toList();
-    }
-
-    public int pages(Long productId) {
-        return reviewRepository.findAllByProductId(productId, pageable).getTotalPages();
     }
 
     public double totalRating(Long productId) {
