@@ -158,4 +158,20 @@ public class Product {
     public List<Option> options() {
         return options;
     }
+
+    public String name() {
+        return productName;
+    }
+
+    public Long price() {
+        return price;
+    }
+
+    public LocalDateTime createdAt() {
+        return createdAt;
+    }
+
+    public Long cumulativeSales() {
+        return cumulativeSales;
+    }
 }

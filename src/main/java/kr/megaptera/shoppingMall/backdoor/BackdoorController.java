@@ -40,17 +40,30 @@ public class BackdoorController {
             "INSERT INTO product_images(" +
             "product_id, is_thumbnail_image, url)" +
             "VALUES(?, ?, ?)",
-        1L, "false", "https://test-s3-image.s3.ap-northeast-2.amazonaws.com/%E1%84%89%E1%" +
-            "85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1" +
-            "%86%BA+2022-10-20+%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE+10.55.03.png");
+        1L, "false", "https://test-s3-image.s3.ap-northeast-2.amazonaws.com/%E1%" +
+            "84%83%E1%85%A1%E1%84%8B%E1%85%AE%E1%86%AB%E1%84%85%E1%85%A9%E1%84%83%E1%85%B3.jpeg");
 
     jdbcTemplate.update("" +
             "INSERT INTO product_images(" +
             "product_id, is_thumbnail_image, url)" +
             "VALUES(? , ?, ?)",
-        1L, "true", "https://test-s3-image.s3.ap-northeast-2.amazonaws.com/%E1%84%89%E1%" +
-            "85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1" +
-            "%86%BA+2022-10-20+%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE+10.55.03.png");
+        1L, "true", "https://test-s3-image.s3.ap-northeast-2.amazonaws.com/%E1%" +
+            "84%8B%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%91%E1%85%A9%E1%86%AB14.jpg");
+
+    jdbcTemplate.update("" +
+            "INSERT INTO product_images(" +
+            "product_id, is_thumbnail_image, url)" +
+            "VALUES(?, ?, ?)",
+        1L, "false", "https://test-s3-image.s3.ap-northeast-2.amazonaws.com/images.jpeg");
+
+
+    jdbcTemplate.update("" +
+            "INSERT INTO product_images(" +
+            "product_id, is_thumbnail_image, url)" +
+            "VALUES(?, ?, ?)",
+        1L, "false", "https://test-s3-image.s3.ap-northeast-2.amazonaws.com/%E1" +
+            "%84%83%E1%85%A1%E1%84%8B%E1%85%AE%E1%8" +
+            "6%AB%E1%84%85%E1%85%A9%E1%84%83%E1%85%B3+(1).jpeg");
 
     jdbcTemplate.update("" +
             "INSERT INTO product_options(" +

@@ -1,5 +1,6 @@
 package kr.megaptera.shoppingMall.controllers;
 
+import kr.megaptera.shoppingMall.annotations.MockMvcEncoding;
 import kr.megaptera.shoppingMall.models.Inquiry;
 import kr.megaptera.shoppingMall.repositoies.InquiryRepository;
 import kr.megaptera.shoppingMall.services.CreateInquiryService;
@@ -27,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(InquiryController.class)
+@MockMvcEncoding
 class InquiryControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -160,7 +162,6 @@ class InquiryControllerTest {
             .andExpect(content().string(containsString(
                 "1"
             )));
-        // todo 컨트롤러 한글 디코딩 하는 법 알아보기
     }
 
     @Test
