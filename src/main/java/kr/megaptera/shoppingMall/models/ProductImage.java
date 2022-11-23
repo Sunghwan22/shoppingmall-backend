@@ -59,4 +59,10 @@ public class ProductImage {
     public ProductImageDto toDto() {
         return new ProductImageDto(url, isThumbnailImage);
     }
+
+    public static ProductImage alternativeImage() {
+        return new ProductImage(
+            "https://test-s3-image.s3.ap-northeast-2.amazonaws.com/NO+IMAGE.gif"
+            , true);
+    }
 }
