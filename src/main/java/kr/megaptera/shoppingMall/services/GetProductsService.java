@@ -1,5 +1,6 @@
 package kr.megaptera.shoppingMall.services;
 
+import kr.megaptera.shoppingMall.dtos.ProductAlternativeImageDto;
 import kr.megaptera.shoppingMall.dtos.ProductImageDto;
 import kr.megaptera.shoppingMall.dtos.ProductListDto;
 import kr.megaptera.shoppingMall.models.Product;
@@ -35,7 +36,9 @@ public class GetProductsService {
     }
 
     public List<ProductListDto> getProducts(Integer page) {
-        Sort sort = Sort.by("createdAt");
+        String alterNativeImage = "https://test-s3-image.s3.ap-northeast-2.amazonaws.com/NO+IMAGE.gif";
+
+        Sort sort = Sort.by("id");
          pageable = PageRequest.of(page - 1, 6, sort);
 
         List<ProductListDto> productListDtos = new ArrayList<>();
@@ -57,7 +60,11 @@ public class GetProductsService {
             ProductImageDto productImageDto = product.images()
                 .stream().filter(ProductImage::getThumbnailImage)
                 .findFirst().map(ProductImage::toDto)
-                .orElseThrow();
+                .orElse(new ProductAlternativeImageDto(
+                    alterNativeImage,
+                    true
+                ));
+//
 
             ProductListDto productListDto = new ProductListDto(
                 product.id(), productImageDto, product.name(), product.price(),
@@ -66,6 +73,7 @@ public class GetProductsService {
 
             productListDtos.add(productListDto);
         }
+
 
         return productListDtos;
     }
