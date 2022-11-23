@@ -174,4 +174,8 @@ public class Product {
     public Long cumulativeSales() {
         return cumulativeSales;
     }
+
+    public Long deliveryFee() {
+        return deliveryFee;
+    }
 }
