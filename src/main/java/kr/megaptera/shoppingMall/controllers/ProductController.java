@@ -2,6 +2,7 @@ package kr.megaptera.shoppingMall.controllers;
 
 import kr.megaptera.shoppingMall.dtos.ProductDto;
 import kr.megaptera.shoppingMall.dtos.ProductListDto;
+import kr.megaptera.shoppingMall.dtos.ProductListDtos;
 import kr.megaptera.shoppingMall.services.GetProductsService;
 import kr.megaptera.shoppingMall.services.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,9 +34,14 @@ public class ProductController {
     }
 
     @GetMapping()
-    public List<ProductListDto> products(
+    public ProductListDtos products(
         @RequestParam(required = false, defaultValue = "1") Integer page
     ) {
-        return getProductsService.getProducts(page);
+
+        List<ProductListDto> productListDtos = getProductsService.getProducts(page);
+
+        int pages = getProductsService.pages();
+
+        return new ProductListDtos(productListDtos, pages);
     }
 }

@@ -23,6 +23,7 @@ public class GetProductsService {
     private final ProductRepository productRepository;
     private final ReviewRepository reviewRepository;
     private final WishRepository wishRepository;
+    private Pageable pageable;
 
     public GetProductsService(
         ProductRepository productRepository,
@@ -35,7 +36,7 @@ public class GetProductsService {
 
     public List<ProductListDto> getProducts(Integer page) {
         Sort sort = Sort.by("createdAt");
-        Pageable pageable = PageRequest.of(page - 1, 6, sort);
+         pageable = PageRequest.of(page - 1, 6, sort);
 
         List<ProductListDto> productListDtos = new ArrayList<>();
 
@@ -59,13 +60,17 @@ public class GetProductsService {
                 .orElseThrow();
 
             ProductListDto productListDto = new ProductListDto(
-                productImageDto, product.name(), product.price(),
-                product.cumulativeSales(), product.createdAt()
-                , reviewNumber, wishNumber);
+                product.id(), productImageDto, product.name(), product.price(),
+                product.cumulativeSales(), product.createdAt(),
+                product.deliveryFee(), reviewNumber, wishNumber);
 
             productListDtos.add(productListDto);
         }
 
         return productListDtos;
+    }
+
+    public int pages() {
+        return productRepository.findAll(pageable).getTotalPages();
     }
 }
