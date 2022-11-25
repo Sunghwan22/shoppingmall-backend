@@ -4,6 +4,8 @@ import kr.megaptera.shoppingMall.models.User;
 import kr.megaptera.shoppingMall.repositoies.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -14,6 +16,7 @@ import static org.mockito.Mockito.mock;
 class UserServiceTest {
   private UserRepository userRepository;
   private UserService userService;
+  private PasswordEncoder passwordEncoder;
 
   @BeforeEach
   public void setup() {
@@ -23,7 +26,9 @@ class UserServiceTest {
 
   @Test
   void findById() {
-    User user = new User(1L, "tidls45", "tjdghks245", "조성환", "스을특별시");
+    passwordEncoder = new Argon2PasswordEncoder();
+
+    User user = User.fake();
 
     given(userRepository.findById(1L)).willReturn(Optional.of(user));
 
@@ -32,5 +37,9 @@ class UserServiceTest {
     assertThat(foundUser.id()).isEqualTo(1L);
     assertThat(foundUser.identifier()).isEqualTo("tidls45");
     assertThat(foundUser.name()).isEqualTo("조성환");
+
+    user.changePassword("Tjdghks245@",passwordEncoder);
+
+    System.out.println(user.encodedPassword());
   }
 }

@@ -337,23 +337,6 @@ public class BackdoorController {
         return "OK";
     }
 
-    @GetMapping("setup-user")
-    public String setupUser() {
-        LocalDateTime now = LocalDateTime.now();
-
-        jdbcTemplate.execute("DELETE FROM users");
-
-        jdbcTemplate.update("" +
-                "INSERT INTO users(" +
-                "id, address, created_at, encoded_password, identifier, " +
-                "name, updated_at)" +
-                " VALUES(1, ?, ?, ?, ?, ?, ?)",
-            "스을특별시", now, passwordEncoder.encode("tjdghks245@"), "tidls45", "본인 등장", now
-        );
-
-        return "OK";
-    }
-
     @GetMapping("setup-wishes")
     public String setupWishes() {
         jdbcTemplate.execute("DELETE FROM wishes");
@@ -377,6 +360,35 @@ public class BackdoorController {
                 "id, product_id, user_id)" +
                 " VALUES(3, ?, ?)",
             1L, 3L
+        );
+
+        return "OK";
+    }
+
+    @GetMapping("/setup-user")
+    public String setupUser() {
+        LocalDateTime now = LocalDateTime.now();
+
+        jdbcTemplate.execute("DELETE FROM users");
+
+        jdbcTemplate.update("" +
+                "INSERT INTO users(" +
+                "id, full_address, jibun_address, zone_code, detail_address,"  +
+                "encoded_password, identifier, name, phone_number, updated_at, created_at)" +
+                " VALUES(1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "울산광역시 정광로 3번길 20", "울산광역시 남구 1233-12번지", 44637L, "2층 왼쪽",
+            "$argon2id$v=19$m=4096,t=3,p=1$q9lNW02J6Et3G/1ruyWk5g$dkWqsOxhUt4jt3LyXXVuTmEWrR/zsgLeQfJF134biqo",
+            "tidls45", "조성환", "01031447938", now, now
+        );
+
+        jdbcTemplate.update("" +
+                "INSERT INTO users(" +
+                "id, full_address, jibun_address, zone_code, detail_address,"  +
+                "encoded_password, identifier, name, phone_number, updated_at, created_at)" +
+                " VALUES(1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "울산광역시 정광로 3번길 20", "울산광역시 남구 1233-12번지", 44637L, "2층 왼쪽",
+            "$argon2id$v=19$m=4096,t=3,p=1$q9lNW02J6Et3G/1ruyWk5g$dkWqsOxhUt4jt3LyXXVuTmEWrR/zsgLeQfJF134biqo",
+            "tidls45", "조성환", "01031447938", now, now
         );
 
         return "OK";
