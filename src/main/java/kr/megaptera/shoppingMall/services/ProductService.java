@@ -23,20 +23,28 @@ public class ProductService {
     }
 
     public ProductDto detail(Long productId) {
+        String alternativeImage = "https://test-s3-image.s3.ap-no" +
+            "rtheast-2.amazonaws.com/NO+IMAGE.gif";
+
         Product product = productRepository.findById(productId)
             .orElseThrow(ProductNotFound::new);
 
         List<OptionDto> optionDtos = product.options()
             .stream().map(Option::toDto).toList();
 
+        if (product.images().size() == 0 || product.images().size() == 0) {
+            product.images().add(new ProductImage(
+                alternativeImage, true
+            ));
+
+            product.images().add(new ProductImage(
+                alternativeImage, false
+            ));
+        }
+
         List<ProductImageDto> productImageDtos = product.images()
             .stream().map(ProductImage::toDto).toList();
 
-        return product.toDto(optionDtos,productImageDtos);
-    }
-
-    private List<ProductImageDto> getProductImageDtos(Product product) {
-        return product.images()
-            .stream().map(ProductImage::toDto).toList();
+        return product.toDto(optionDtos, productImageDtos);
     }
 }

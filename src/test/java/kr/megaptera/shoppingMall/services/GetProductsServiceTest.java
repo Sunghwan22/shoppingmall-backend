@@ -56,7 +56,7 @@ class GetProductsServiceTest {
 
         int page = 1;
 
-        Sort sort = Sort.by("createdAt");
+        Sort sort = Sort.by("id");
         Pageable pageable = PageRequest.of(page - 1, 6, sort);
 
         given(productRepository.findAll(pageable))

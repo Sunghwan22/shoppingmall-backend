@@ -36,7 +36,7 @@ public class GetProductsService {
     }
 
     public List<ProductListDto> getProducts(Integer page) {
-        String alterNativeImage = "https://test-s3-image.s3.ap-northeast-2.amazonaws.com/NO+IMAGE.gif";
+        String alternativeImage = "https://test-s3-image.s3.ap-northeast-2.amazonaws.com/NO+IMAGE.gif";
 
         Sort sort = Sort.by("id");
          pageable = PageRequest.of(page - 1, 6, sort);
@@ -61,7 +61,7 @@ public class GetProductsService {
                 .stream().filter(ProductImage::getThumbnailImage)
                 .findFirst().map(ProductImage::toDto)
                 .orElse(new ProductAlternativeImageDto(
-                    alterNativeImage,
+                    alternativeImage,
                     true
                 ));
 //

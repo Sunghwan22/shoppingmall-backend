@@ -39,7 +39,7 @@ class CreateInquiryServiceTest {
         CreateInquiryDto createInquiryDto =
             new CreateInquiryDto("상품 문의", true);
 
-        User user = new User(userId, "tidls45", "tjdghks245@", "닉네임", "스울특벽별시");
+        User user = User.fake();
 
         given(userRepository.findById(userId))
             .willReturn(Optional.of(user));
@@ -59,7 +59,7 @@ class CreateInquiryServiceTest {
         Long productId = 1L;
         Long userId = 1L;
 
-        User user = new User(userId, "tidls45", "tjdghks245@", "닉네임", "스울특벽별시");
+        User user = User.fake();
 
         given(userRepository.findById(userId))
             .willReturn(Optional.of(user));
