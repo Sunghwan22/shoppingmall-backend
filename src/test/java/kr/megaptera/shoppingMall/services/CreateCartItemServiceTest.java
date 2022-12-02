@@ -48,16 +48,18 @@ class CreateCartItemServiceTest {
         given(cartRepository.findByUserId(userId)).willReturn(Optional.of(cart));
 
         CreateCartItemDto createCartItemDto = new CreateCartItemDto(
-            1L, new Option(3000L, "옵션명")
+            1L, new Option(3000L, "옵션명"), 33000L
         );
 
         CartItemDto cartItemDto =
             createCartItemService.create(productId, userId, createCartItemDto);
 
         assertThat(cartItemDto).isNotNull();
-        assertThat(cartItemDto.getCartItemPrice()).isEqualTo(4000);
-        assertThat(cartItemDto.getThumbNailImage().getUrl()).isEqualTo("url");
-        assertThat(cartItemDto.getThumbNailImage().getThumbnailImage()).isEqualTo(true);
+        assertThat(cartItemDto.getTotalPayment()).isEqualTo(33000L);
+        assertThat(cartItemDto.getName()).isEqualTo("아이폰14");
+        assertThat(cartItemDto.getQuantity()).isEqualTo(1L);
+        assertThat(cartItemDto.getAddAmount()).isEqualTo(3000L);
+        assertThat(cartItemDto.getDescription()).isEqualTo("옵션명");
 
         verify(cart).addCartItem();
         verify(cartItemRepository).save(any(CartItem.class));

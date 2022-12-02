@@ -1,6 +1,5 @@
 package kr.megaptera.shoppingMall.services;
 
-import kr.megaptera.shoppingMall.controllers.LoginRequestDto;
 import kr.megaptera.shoppingMall.dtos.LoginResultDto;
 import kr.megaptera.shoppingMall.exceptions.LoginFailed;
 import kr.megaptera.shoppingMall.models.Address;
@@ -46,7 +45,7 @@ class LoginServiceTest {
         LoginResultDto loginResultDto = loginService.login("tidls45", "Tjdghks245@");
 
         assertThat(loginResultDto.getAccessToken()).isNotNull();
-        assertThat(loginResultDto.getAddressDto().getZoneCode()).isEqualTo(44637L);
+        assertThat(loginResultDto.getAddress().getZoneCode()).isEqualTo(44637L);
         assertThat(loginResultDto.getPhoneNumber()).isEqualTo("010-3144-7938");
         assertThat(loginResultDto.getName()).isEqualTo("조성환");
     }
@@ -62,10 +61,9 @@ class LoginServiceTest {
 
         assertThat(loginResultDto.getName()).isEqualTo("조성환");
         assertThat(loginResultDto.getPhoneNumber()).isEqualTo("010-3144-7938");
-        assertThat(loginResultDto.getAddressDto().getZoneCode()).isEqualTo(44637L);
-        assertThat(loginResultDto.getAddressDto().getFullAddress()).isEqualTo("울산광역시 정광로 3번길 20");
-        assertThat(loginResultDto.getAddressDto().getJibunAddress()).isEqualTo("울산광역시 남구 무거동 1233-12번지");
-        assertThat(loginResultDto.getAddressDto().getDetailAddress()).isEqualTo("2층 왼쪽집");
+        assertThat(loginResultDto.getAddress().getZoneCode()).isEqualTo(44637L);
+        assertThat(loginResultDto.getAddress().getFullAddress()).isEqualTo("울산광역시 정광로 3번길 20");
+        assertThat(loginResultDto.getAddress().getJibunAddress()).isEqualTo("울산광역시 남구 무거동 1233-12번지");
     }
 
     @Test
@@ -83,10 +81,9 @@ class LoginServiceTest {
 
         assertThat(loginResultDto.getName()).isEqualTo("조성환");
         assertThat(loginResultDto.getPhoneNumber()).isEqualTo("010-3144-7938");
-        assertThat(loginResultDto.getAddressDto().getZoneCode()).isEqualTo(44637L);
-        assertThat(loginResultDto.getAddressDto().getFullAddress()).isEqualTo("울산광역시 정광로 3번길 20");
-        assertThat(loginResultDto.getAddressDto().getJibunAddress()).isEqualTo("울산광역시 남구 무거동 1233-12번지");
-        assertThat(loginResultDto.getAddressDto().getDetailAddress()).isEqualTo("");
+        assertThat(loginResultDto.getAddress().getZoneCode()).isEqualTo(44637L);
+        assertThat(loginResultDto.getAddress().getFullAddress()).isEqualTo("울산광역시 정광로 3번길 20");
+        assertThat(loginResultDto.getAddress().getJibunAddress()).isEqualTo("울산광역시 남구 무거동 1233-12번지");
     }
 
     @Test

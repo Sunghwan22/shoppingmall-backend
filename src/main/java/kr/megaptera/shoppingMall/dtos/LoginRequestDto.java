@@ -1,9 +1,16 @@
-package kr.megaptera.shoppingMall.controllers;
+package kr.megaptera.shoppingMall.dtos;
+
+import javax.validation.constraints.NotBlank;
 
 public class LoginRequestDto {
+    @NotBlank
     private String identifier;
 
+    @NotBlank
     private String password;
+
+    private LoginRequestDto() {
+    }
 
     public LoginRequestDto(String identifier, String password) {
         this.identifier = identifier;

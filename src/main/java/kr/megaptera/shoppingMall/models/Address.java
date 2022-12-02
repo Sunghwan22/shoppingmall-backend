@@ -13,8 +13,6 @@ public class Address {
 
     private String jibunAddress;
 
-    private String detailAddress;
-
     private Address() {
     }
 
@@ -26,11 +24,16 @@ public class Address {
         this.zoneCode = zoneCode;
         this.fullAddress = fullAddress;
         this.jibunAddress = jibunAddress;
-        this.detailAddress = detailAddress;
+    }
+
+    public Address(Long zoneCode, String fullAddress, String jibunAddress) {
+        this.zoneCode = zoneCode;
+        this.fullAddress = fullAddress;
+        this.jibunAddress = jibunAddress;
     }
 
     public AddressDto toDto() {
-        return new AddressDto(zoneCode, fullAddress, jibunAddress, detailAddress);
+        return new AddressDto(zoneCode, fullAddress, jibunAddress);
     }
 
     @Override
@@ -38,12 +41,14 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return Objects.equals(zoneCode, address.zoneCode) && Objects.equals(fullAddress, address.fullAddress) && Objects.equals(jibunAddress, address.jibunAddress) && Objects.equals(detailAddress, address.detailAddress);
+        return Objects.equals(zoneCode, address.zoneCode) &&
+            Objects.equals(fullAddress, address.fullAddress) &&
+            Objects.equals(jibunAddress, address.jibunAddress);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(zoneCode, fullAddress, jibunAddress, detailAddress);
+        return Objects.hash(zoneCode, fullAddress, jibunAddress);
     }
 
     @Override
@@ -52,7 +57,6 @@ public class Address {
             "zoneCode=" + zoneCode +
             ", fullAddress='" + fullAddress + '\'' +
             ", jibunAddress='" + jibunAddress + '\'' +
-            ", detailAddress='" + detailAddress + '\'' +
             '}';
     }
 }

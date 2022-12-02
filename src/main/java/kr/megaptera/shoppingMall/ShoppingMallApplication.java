@@ -2,10 +2,12 @@ package kr.megaptera.shoppingMall;
 
 import kr.megaptera.shoppingMall.interceptors.AuthenticationInterceptor;
 import kr.megaptera.shoppingMall.utils.JwtUtil;
+import kr.megaptera.shoppingMall.utils.KakaoPay;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,7 +39,13 @@ public class ShoppingMallApplication {
 
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*");
+                registry.addMapping("/**").allowedOrigins("*")
+                    .allowedMethods(
+                        HttpMethod.GET.name(),
+                        HttpMethod.POST.name(),
+                        HttpMethod.PATCH.name(),
+                        HttpMethod.DELETE.name()
+                    );
             }
         };
     }
@@ -55,5 +63,10 @@ public class ShoppingMallApplication {
     @Bean
     public JwtUtil jwtUtil() {
         return new JwtUtil(jwtSecret);
+    }
+
+    @Bean
+    public KakaoPay kakaoPay() {
+        return new KakaoPay();
     }
 }

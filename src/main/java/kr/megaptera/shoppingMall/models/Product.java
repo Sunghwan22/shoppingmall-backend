@@ -31,15 +31,15 @@ public class Product {
 
     private Long views;
 
-    private Long cumulativeSales;
-
-    private Long price;
+    private Long purchasesNumber;
 
     private Long stock;
 
     private Long maximumQuantity;
 
     private String description;
+
+    private Long price;
 
     private Long deliveryFee;
 
@@ -80,7 +80,7 @@ public class Product {
         this.maker = maker;
         this.category = category;
         this.views = views;
-        this.cumulativeSales = cumulativeSales;
+        this.purchasesNumber = cumulativeSales;
         this.price = price;
         this.stock = stock;
         this.maximumQuantity = maximumQuantity;
@@ -94,26 +94,11 @@ public class Product {
         return new ProductDto(
             id, productNumber, productName,
             maker, category,
-            views, cumulativeSales,
+            views, purchasesNumber,
             price, stock,
             maximumQuantity, description, deliveryFee,
             createdAt, updatedAt, optionDtos, productImageDtos
         );
-    }
-
-    public CartItem toCartItem(
-        Long quantity,
-        Long addAmount,
-        String optionName,
-        Long cartId,
-        ProductImage cartItemImage
-    ) {
-        Long cartItemPrice = (price + addAmount) * quantity;
-
-        return new CartItem(id, productName,
-            maker, category, cartItemPrice,
-            stock, description, deliveryFee,
-            quantity, optionName, cartId, cartItemImage);
     }
 
     public static Product fake(Long productId) {
@@ -172,10 +157,22 @@ public class Product {
     }
 
     public Long cumulativeSales() {
-        return cumulativeSales;
+        return purchasesNumber;
     }
 
     public Long deliveryFee() {
         return deliveryFee;
+    }
+
+    public void addPurchaseNumber() {
+        this.purchasesNumber += 1;
+    }
+
+    public void reduceProduct(Long quantity) {
+        this.stock -= quantity;
+    }
+
+    public Long stock() {
+        return stock;
     }
 }

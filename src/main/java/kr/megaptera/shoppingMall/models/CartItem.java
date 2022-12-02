@@ -1,11 +1,13 @@
 package kr.megaptera.shoppingMall.models;
 
 import kr.megaptera.shoppingMall.dtos.CartItemDto;
-import kr.megaptera.shoppingMall.dtos.ProductImageDto;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Entity
 public class CartItem {
@@ -13,109 +15,133 @@ public class CartItem {
     @GeneratedValue
     private Long id;
 
+    private Long quantity;
+
+    private Long addAmount;
+
+    private String description;
+
+    private Long totalPrice;
+
+    private Long deliveryFee;
+
+    private String name;
+
     private Long cartId;
 
     private Long productId;
 
-    private String productName;
+    private ProductImage cartItemImage;
 
-    private String maker;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
-    private String category;
-
-    private Long cartItemPrice;
-
-    private Long stock;
-
-    private String description;
-
-    private Long deliveryFee;
-
-    private Long quantity;
-
-    private String optionName;
-
-    private ProductImage image;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
     private CartItem() {
     }
 
-    public CartItem(Long productId,
-                    String productName,
-                    String maker,
-                    String category,
-                    Long cartItemPrice,
-                    Long stock,
+    public CartItem(Long quantity,
+                    Long addAmount,
                     String description,
+                    Long totalPrice,
                     Long deliveryFee,
-                    Long quantity,
-                    String optionName,
+                    String name,
                     Long cartId,
+                    Long productId,
                     ProductImage cartItemImage) {
-        this.productId = productId;
-        this.productName = productName;
-        this.maker = maker;
-        this.category = category;
-        this.cartItemPrice = cartItemPrice;
-        this.stock = stock;
-        this.description = description;
-        this.deliveryFee = deliveryFee;
+
         this.quantity = quantity;
-        this.optionName = optionName;
+        this.addAmount = addAmount;
+        this.description = description;
+        this.totalPrice = totalPrice;
+        this.deliveryFee = deliveryFee;
+        this.name = name;
         this.cartId = cartId;
-        this.image = cartItemImage;
+        this.productId = productId;
+        this.cartItemImage = cartItemImage;
     }
 
-    public Long getId() {
-        return id;
+    public CartItem(
+        Long id,
+        Long quantity,
+        Long addAmount,
+        String description,
+        Long totalPrice,
+        Long deliveryFee,
+        String name,
+        Long cartId,
+        Long productId,
+        ProductImage cartItemImage) {
+
+        this.id = id;
+        this.quantity = quantity;
+        this.addAmount = addAmount;
+        this.description = description;
+        this.totalPrice = totalPrice;
+        this.deliveryFee = deliveryFee;
+        this.name = name;
+        this.cartId = cartId;
+        this.productId = productId;
+        this.cartItemImage = cartItemImage;
     }
 
-    public Long getCartId() {
-        return cartId;
+    public CartItemDto toDto() {
+        return new CartItemDto(
+            id, quantity, addAmount, description, totalPrice, deliveryFee, name
+            , cartId, productId, cartItemImage.toDto()
+        );
     }
 
-    public Long getProductId() {
-        return productId;
+    public static CartItem fake() {
+        return new CartItem(
+            1L,
+            1L,
+            33000L,
+            "옵션명",
+            3000L,
+            3000L,
+            "아이폰14",
+            1L,
+            1L,
+            new ProductImage("image", true)
+        );
     }
 
-    public String getProductName() {
-        return productName;
+    public void addAmount(Long addAmount) {
+        this.addAmount = addAmount;
     }
 
-    public String getMaker() {
-        return maker;
+    public void quantity(Long quantity) {
+        this.quantity = quantity;
     }
 
-    public String getCategory() {
-        return category;
+    public void description(String description) {
+        this.description = description;
     }
 
-    public Long getCartItemPrice() {
-        return cartItemPrice;
-    }
-
-    public Long getStock() {
-        return stock;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Long getDeliveryFee() {
-        return deliveryFee;
+    public void totalPrice(Long totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public Long getQuantity() {
         return quantity;
     }
 
-    public String getOptionName() {
-        return optionName;
+    public Long getAddAmount() {
+        return addAmount;
     }
 
-    public CartItemDto toDto(ProductImageDto thumbNailImage) {
-        return new CartItemDto(productId, productName, maker, category, cartItemPrice, stock, description
-            , deliveryFee, quantity, optionName, thumbNailImage);
+    public String getDescription() {
+        return description;
+    }
+
+    public Long getTotalPrice() {
+        return totalPrice;
+    }
+
+    public Long productId() {
+        return productId;
     }
 }

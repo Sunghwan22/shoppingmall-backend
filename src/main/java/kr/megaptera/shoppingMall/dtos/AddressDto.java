@@ -9,16 +9,10 @@ public class AddressDto {
     public AddressDto() {
     }
 
-    public AddressDto(
-        Long zoneCode,
-        String fullAddress,
-        String jibunAddress,
-        String detailAddress) {
-
+    public AddressDto(Long zoneCode, String fullAddress, String jibunAddress) {
         this.zoneCode = zoneCode;
         this.fullAddress = fullAddress;
         this.jibunAddress = jibunAddress;
-        this.detailAddress = detailAddress;
     }
 
     public Long getZoneCode() {
@@ -31,9 +25,5 @@ public class AddressDto {
 
     public String getJibunAddress() {
         return jibunAddress;
-    }
-
-    public String getDetailAddress() {
-        return detailAddress;
     }
 }

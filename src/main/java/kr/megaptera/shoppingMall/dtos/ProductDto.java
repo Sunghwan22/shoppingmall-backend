@@ -1,9 +1,5 @@
 package kr.megaptera.shoppingMall.dtos;
 
-import kr.megaptera.shoppingMall.models.Option;
-import kr.megaptera.shoppingMall.models.ProductImage;
-import kr.megaptera.shoppingMall.models.Wish;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +18,7 @@ public class ProductDto {
 
     private Long views;
 
-    private Long cumulativeSales;
+    private Long purchasesNumber;
 
     private Long price;
 
@@ -51,7 +47,7 @@ public class ProductDto {
                       String maker,
                       String category,
                       Long views,
-                      Long cumulativeSales,
+                      Long purchasesNumber,
                       Long price,
                       Long stock,
                       Long maximumQuantity,
@@ -67,7 +63,7 @@ public class ProductDto {
         this.maker = maker;
         this.category = category;
         this.views = views;
-        this.cumulativeSales = cumulativeSales;
+        this.purchasesNumber = purchasesNumber;
         this.price = price;
         this.stock = stock;
         this.maximumQuantity = maximumQuantity;
@@ -103,8 +99,8 @@ public class ProductDto {
         return views;
     }
 
-    public Long getCumulativeSales() {
-        return cumulativeSales;
+    public Long getPurchasesNumber() {
+        return purchasesNumber;
     }
 
     public Long getPrice() {

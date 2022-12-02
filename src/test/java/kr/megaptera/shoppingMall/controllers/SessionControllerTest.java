@@ -37,8 +37,7 @@ class SessionControllerTest {
     @BeforeEach
     void setup() {
         AddressDto addressDto = new AddressDto(
-            44637L, "울산광역시 남구 정광로 3번길 20", "울산광역시 남구 1233-12번지",
-            "2층 왼쪽집"
+            44637L, "울산광역시 남구 정광로 3번길 20", "울산광역시 남구 1233-12번지"
         );
 
         LoginResultDto loginResultDto = new LoginResultDto(
@@ -52,6 +51,9 @@ class SessionControllerTest {
             .willReturn(loginResultDto);
 
         given(loginService.login("tidls45", "xxx"))
+            .willThrow(new LoginFailed());
+
+        given(loginService.login("tidls1234", "Tjdghks245@"))
             .willThrow(new LoginFailed());
 
         given(loginService.fetchUser(1L))
@@ -72,6 +74,34 @@ class SessionControllerTest {
             .andExpect(status().isCreated())
             .andExpect(content().string(
                 containsString("울산광역시 남구 정광로 3번길 20")
+            ));
+    }
+
+    @Test
+    void loginWithInvalidIdentifier() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/session")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{" +
+                    "\"identifier\":\"tidls1234\"," +
+                    " \"password\":\"Tjdghks245@\"" +
+                    "}"))
+            .andExpect(status().isBadRequest())
+            .andExpect(content().string(
+                containsString("아이디 혹은 비밀번호가 일치하지 않습니다")
+            ));
+    }
+
+    @Test
+    void loginWithInvalidPassword() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/session")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{" +
+                    "\"identifier\":\"tidls45\"," +
+                    " \"password\":\"xxx\"" +
+                    "}"))
+            .andExpect(status().isBadRequest())
+            .andExpect(content().string(
+                containsString("아이디 혹은 비밀번호가 일치하지 않습니다")
             ));
     }
 

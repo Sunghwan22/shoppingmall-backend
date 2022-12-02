@@ -69,7 +69,7 @@ class ReviewControllerTest {
         given(getReviewsService.getReviews(1L, 1))
             .willReturn(new ReviewDtos(reviewDtos, 1, 5.0, 2));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/reviews/products/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/products/1/reviews"))
             .andExpect(status().isOk())
             .andExpect(content().string(
                 containsString("")));
@@ -123,7 +123,7 @@ class ReviewControllerTest {
         given(getReviewsService.getReviews(1L, page))
             .willReturn(new ReviewDtos(reviewDtos, 1, 5.0, 2));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/reviews/best/products/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/products/1/reviews/best"))
             .andExpect(status().isOk())
             .andExpect(content().string(
                 containsString("")));

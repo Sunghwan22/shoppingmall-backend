@@ -381,15 +381,15 @@ public class BackdoorController {
             "tidls45", "조성환", "01031447938", now, now
         );
 
-        jdbcTemplate.update("" +
-                "INSERT INTO users(" +
-                "id, full_address, jibun_address, zone_code, detail_address,"  +
-                "encoded_password, identifier, name, phone_number, updated_at, created_at)" +
-                " VALUES(1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            "울산광역시 정광로 3번길 20", "울산광역시 남구 1233-12번지", 44637L, "2층 왼쪽",
-            "$argon2id$v=19$m=4096,t=3,p=1$q9lNW02J6Et3G/1ruyWk5g$dkWqsOxhUt4jt3LyXXVuTmEWrR/zsgLeQfJF134biqo",
-            "tidls45", "조성환", "01031447938", now, now
-        );
+//        jdbcTemplate.update("" +
+//                "INSERT INTO users(" +
+//                "id, full_address, jibun_address, zone_code, detail_address,"  +
+//                "encoded_password, identifier, name, phone_number, updated_at, created_at)" +
+//                " VALUES(2, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+//            "울산광역시 정광로 3번길 20", "울산광역시 남구 1233-12번지", 44637L, "2층 왼쪽",
+//            "$argon2id$v=19$m=4096,t=3,p=1$q9lNW02J6Et3G/1ruyWk5g$dkWqsOxhUt4jt3LyXXVuTmEWrR/zsgLeQfJF134biqo",
+//            "tidls45", "조성환", "01031447938", now, now
+//        );
 
         return "OK";
     }
