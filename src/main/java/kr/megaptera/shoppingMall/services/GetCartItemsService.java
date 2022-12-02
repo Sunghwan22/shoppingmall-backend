@@ -7,9 +7,6 @@ import kr.megaptera.shoppingMall.models.Cart;
 import kr.megaptera.shoppingMall.models.CartItem;
 import kr.megaptera.shoppingMall.repositoies.CartItemRepository;
 import kr.megaptera.shoppingMall.repositoies.CartRepository;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -28,21 +25,16 @@ public class GetCartItemsService {
         this.cartItemRepository = cartItemRepository;
     }
 
-    public CartItemDtos getCartItems(Long userId, Integer page) {
+    public CartItemDtos getCartItems(Long userId) {
         Cart cart = cartRepository.findByUserId(userId)
             .orElseThrow(CartNotFoundException::new);
 
-        Sort sort = Sort.by("createdAt");
-        Pageable pageable = PageRequest.of(page - 1, 20, sort);
-
         List<CartItemDto> cartItemDtos =
-            cartItemRepository.findAllByCartId(cart.getId(), pageable)
+            cartItemRepository.findAllByCartId(cart.getId())
                 .stream().map(CartItem::toDto).toList();
-
-        int pages = cartItemRepository.findAllByCartId(cart.getId(), pageable).getTotalPages();
 
         int totalNumber = cartItemRepository.findAllByCartId(cart.getId()).size();
 
-        return new CartItemDtos(cartItemDtos, pages, totalNumber);
+        return new CartItemDtos(cartItemDtos, totalNumber);
     }
 }
