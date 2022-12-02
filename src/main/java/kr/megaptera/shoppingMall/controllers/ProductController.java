@@ -34,7 +34,7 @@ public class ProductController {
     }
 
     @GetMapping()
-    public ProductListDtos products(
+    public ProductListDtos products( 
         @RequestParam(required = false, defaultValue = "1") Integer page
     ) {
 

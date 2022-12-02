@@ -35,6 +35,8 @@ public class CreateCartItemService {
       Long productId,
       Long userId,
       CreateCartItemDto createCartItemDto) {
+    String alternativeImage = "https://test-s3-image.s3.ap-northeast-2.amazonaws.com/NO+IMAGE.gif";
+
     Product product = productRepository.findById(productId)
         .orElseThrow(ProductNotFound::new);
 
@@ -43,19 +45,23 @@ public class CreateCartItemService {
 
     ProductImage cartItemImage = product.images().stream().
         filter(productImage -> productImage.getThumbnailImage().equals(true))
-        .findFirst().orElse(null);
+        .findFirst().orElse(new ProductImage(alternativeImage, true));
 
-    CartItem cartItem = product.toCartItem(
+    CartItem cartItem = new CartItem(
         createCartItemDto.getQuantity(),
         createCartItemDto.getOption().getAddAmount(),
         createCartItemDto.getOption().getDescription(),
+        createCartItemDto.getTotalPayment(),
+        product.deliveryFee(),
+        product.name(),
         cart.getId(),
+        productId,
         cartItemImage);
 
     cart.addCartItem();
 
     cartItemRepository.save(cartItem);
 
-    return cartItem.toDto(cartItemImage.toDto());
+    return cartItem.toDto();
   }
 }

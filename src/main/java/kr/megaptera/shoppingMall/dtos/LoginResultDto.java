@@ -39,7 +39,7 @@ public class LoginResultDto {
         return phoneNumber;
     }
 
-    public AddressDto getAddressDto() {
+    public AddressDto getAddress() {
         return addressDto;
     }
 

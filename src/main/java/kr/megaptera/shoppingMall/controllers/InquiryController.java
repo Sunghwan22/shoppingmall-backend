@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/inquiries")
 public class InquiryController {
     private final GetInquiryListService getInquiryListService;
     private final GetMyInquiryListService getMyInquiryListService;
@@ -40,7 +39,7 @@ public class InquiryController {
         this.getInquiryDetailService = getInquiryDetailService;
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/products/{id}/inquiries")
     public InquiryDtos inquiryList(
         @PathVariable("id") Long productId,
         @RequestAttribute(value = "userId", required = false) Long userId,
@@ -49,7 +48,7 @@ public class InquiryController {
         return getInquiryListService.getInquiryList(productId, userId, page);
     }
 
-    @GetMapping("/products/{id}/users")
+    @GetMapping("/products/{id}/inquiries/user/me")
     public InquiryDtos myInquiryList(
         @PathVariable("id") Long productId,
         @RequestAttribute("userId") Long userId,
@@ -58,7 +57,7 @@ public class InquiryController {
         return getMyInquiryListService.getMyInquiryList(productId, userId, page);
     }
 
-    @PostMapping("/products/{id}")
+    @PostMapping("/products/{id}/inquiries")
     @ResponseStatus(HttpStatus.CREATED)
     public InquiryDto createInquiry(
         @PathVariable("id") Long productId,
@@ -68,7 +67,7 @@ public class InquiryController {
         return createInquiryService.createInquiry(productId, userId, createInquiryDto);
     }
 
-    @GetMapping("/{inquiry_id}")
+    @GetMapping("/inquiries/{inquiry_id}")
     public InquiryDto detail(
         @PathVariable("inquiry_id") Long inquiryId,
         @RequestAttribute(value = "userId", required = false) Long userId) {

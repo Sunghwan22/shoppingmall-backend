@@ -7,12 +7,15 @@ public class CreateCartItemDto {
 
   private Option option;
 
+  private Long totalPayment;
+
   public CreateCartItemDto() {
   }
 
-  public CreateCartItemDto(Long quantity, Option option) {
+  public CreateCartItemDto(Long quantity, Option option, Long totalPayment) {
     this.quantity = quantity;
     this.option = option;
+    this.totalPayment = totalPayment;
   }
 
   public Long getQuantity() {
@@ -21,5 +24,9 @@ public class CreateCartItemDto {
 
   public Option getOption() {
     return option;
+  }
+
+  public Long getTotalPayment() {
+    return totalPayment;
   }
 }

@@ -2,6 +2,7 @@ package kr.megaptera.shoppingMall.dtos;
 
 public abstract class ErrorDto {
     public static int USER_NOT_FOUND = 1001;
+    public static int LOGIN_FAILED = 1002;
 
     private final Integer code;
 

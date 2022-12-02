@@ -1,6 +1,5 @@
 package kr.megaptera.shoppingMall.services;
 
-import kr.megaptera.shoppingMall.controllers.LoginRequestDto;
 import kr.megaptera.shoppingMall.dtos.LoginResultDto;
 import kr.megaptera.shoppingMall.exceptions.LoginFailed;
 import kr.megaptera.shoppingMall.exceptions.UserNotFoundException;

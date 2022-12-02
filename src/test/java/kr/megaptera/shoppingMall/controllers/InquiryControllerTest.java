@@ -64,7 +64,7 @@ class InquiryControllerTest {
         given(inquiryRepository.findAllByProductId(1L))
             .willReturn(inquiryList);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/inquiries/products/1")
+        mockMvc.perform(MockMvcRequestBuilders.get("/products/1/inquiries")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + accessToken))
@@ -88,7 +88,7 @@ class InquiryControllerTest {
         given(inquiryRepository.findAllByProductId(1L))
             .willReturn(inquiryList);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/inquiries/products/1/users")
+        mockMvc.perform(MockMvcRequestBuilders.get("/products/1/inquiries/user/me")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + accessToken))
@@ -104,7 +104,7 @@ class InquiryControllerTest {
 
         String accessToken = jwtUtil.encode(userId);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/inquiries/products/1")
+        mockMvc.perform(MockMvcRequestBuilders.post("/products/1/inquiries")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + accessToken)
@@ -126,7 +126,7 @@ class InquiryControllerTest {
 
         String accessToken = jwtUtil.encode(userId);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/inquiries/products/1")
+        mockMvc.perform(MockMvcRequestBuilders.post("/products/1/inquiries")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + accessToken)
