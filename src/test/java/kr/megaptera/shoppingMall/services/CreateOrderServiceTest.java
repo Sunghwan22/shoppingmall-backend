@@ -1,5 +1,6 @@
 package kr.megaptera.shoppingMall.services;
 
+import kr.megaptera.shoppingMall.repositoies.CartItemRepository;
 import kr.megaptera.shoppingMall.repositoies.OrderRepository;
 import kr.megaptera.shoppingMall.repositoies.ProductRepository;
 import kr.megaptera.shoppingMall.utils.KakaoPay;
@@ -11,13 +12,16 @@ class CreateOrderServiceTest {
     OrderRepository orderRepository;
     CreateOrderService createOrderService;
     ProductRepository productRepository;
+    CartItemRepository cartItemRepository;
 
     @BeforeEach
     void setup() {
         orderRepository = mock(OrderRepository.class);
         productRepository = mock(ProductRepository.class);
+        cartItemRepository = mock(CartItemRepository.class);
         KakaoPay kakaoPay = mock(KakaoPay.class);
-        createOrderService = new CreateOrderService(productRepository, orderRepository, kakaoPay);
+        createOrderService = new CreateOrderService(
+            productRepository, orderRepository, cartItemRepository,  kakaoPay);
     }
 
 //    @Test

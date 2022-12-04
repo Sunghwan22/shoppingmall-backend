@@ -43,10 +43,10 @@ public class CreateCartItemService {
     Cart cart = cartRepository.findByUserId(userId)
         .orElseThrow(CartNotFoundException::new);
 
-    ProductImage cartItemImage = product.images().stream().
+    String image = product.images().stream().
         filter(productImage -> productImage.getThumbnailImage().equals(true))
-        .findFirst().orElse(new ProductImage(alternativeImage, true));
-
+        .findFirst().orElse(new ProductImage(alternativeImage, true)).getUrl();  // 이거는 그냥 url만 같고 있게 해야할 것 같다.
+                                                                        // 이거는 그냥 이미지만 같고 있게 해야할 것 같다 그러면 가능 할 것 같음// 이미지 객체를가지게 하지 말고 그냥 url만 가지고 있게 해야
     CartItem cartItem = new CartItem(
         createCartItemDto.getQuantity(),
         createCartItemDto.getOption().getAddAmount(),
@@ -56,7 +56,7 @@ public class CreateCartItemService {
         product.name(),
         cart.getId(),
         productId,
-        cartItemImage);
+        image);
 
     cart.addCartItem();
 

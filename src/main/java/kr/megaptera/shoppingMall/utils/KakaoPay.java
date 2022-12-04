@@ -21,11 +21,11 @@ public class KakaoPay {
 
     private KakaoPayApproval kakaoPayApproval;
 
-    private Long orderId;
+    private String orderId;
 
     private Long userId;
 
-    public String kakaoPayReady(Long orderId,
+    public String kakaoPayReady(String orderId,
                                 Long userId,
                                 String productName,
                                 Long quantity,
@@ -41,7 +41,7 @@ public class KakaoPay {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
         params.add("cid", "TC0ONETIME");
-        params.add("partner_order_id", String.valueOf(orderId));
+        params.add("partner_order_id", orderId);
         params.add("partner_user_id", String.valueOf(userId));
         params.add("item_name", productName);
         params.add("quantity", String.valueOf(quantity));
@@ -77,7 +77,7 @@ public class KakaoPay {
 
         params.add("cid", "TC0ONETIME");
         params.add("tid", kakaoPayReady.getTid());
-        params.add("partner_order_id", String.valueOf(orderId));
+        params.add("partner_order_id", orderId);
         params.add("partner_user_id", String.valueOf(userId));
         params.add("pg_token", pg_token);
 
