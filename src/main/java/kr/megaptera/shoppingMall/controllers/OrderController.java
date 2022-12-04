@@ -31,10 +31,11 @@ public class OrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public OrderDto order(
+    public String order(
         @RequestAttribute("userId") Long userId,
         @Validated @RequestBody OrderRequestDto orderRequestDto
     ) {
+
         return createOrderService.createOrder(userId, orderRequestDto);
     }
 

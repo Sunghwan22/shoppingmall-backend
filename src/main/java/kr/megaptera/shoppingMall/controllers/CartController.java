@@ -58,11 +58,10 @@ public class CartController {
 
     @GetMapping
     public CartItemDtos list(
-        @RequestAttribute Long userId,
-        @RequestParam(required = false, defaultValue = "1") Integer page
+        @RequestAttribute Long userId
     ) {
 
-        return getCartItemsService.getCartItems(userId, page);
+        return getCartItemsService.getCartItems(userId);
     }
 
     @GetMapping("/cartItems/{cartItem_id}")

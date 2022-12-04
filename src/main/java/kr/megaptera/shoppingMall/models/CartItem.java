@@ -31,7 +31,7 @@ public class CartItem {
 
     private Long productId;
 
-    private ProductImage cartItemImage;
+    private String image;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -50,7 +50,7 @@ public class CartItem {
                     String name,
                     Long cartId,
                     Long productId,
-                    ProductImage cartItemImage) {
+                    String image) {
 
         this.quantity = quantity;
         this.addAmount = addAmount;
@@ -60,7 +60,7 @@ public class CartItem {
         this.name = name;
         this.cartId = cartId;
         this.productId = productId;
-        this.cartItemImage = cartItemImage;
+        this.image = image;
     }
 
     public CartItem(
@@ -73,7 +73,7 @@ public class CartItem {
         String name,
         Long cartId,
         Long productId,
-        ProductImage cartItemImage) {
+        String image) {
 
         this.id = id;
         this.quantity = quantity;
@@ -84,13 +84,13 @@ public class CartItem {
         this.name = name;
         this.cartId = cartId;
         this.productId = productId;
-        this.cartItemImage = cartItemImage;
+        this.image = image;
     }
 
     public CartItemDto toDto() {
         return new CartItemDto(
             id, quantity, addAmount, description, totalPrice, deliveryFee, name
-            , cartId, productId, cartItemImage.toDto()
+            , cartId, productId, image
         );
     }
 
@@ -105,7 +105,7 @@ public class CartItem {
             "아이폰14",
             1L,
             1L,
-            new ProductImage("image", true)
+            "imageUrl"
         );
     }
 

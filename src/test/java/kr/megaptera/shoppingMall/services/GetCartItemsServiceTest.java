@@ -43,20 +43,13 @@ class GetCartItemsServiceTest {
             CartItem.fake()
         );
 
-        int page = 1;
-
-        Sort sort = Sort.by("createdAt");
-        Pageable pageable = PageRequest.of(page - 1, 20, sort);
-
-        given(cartItemRepository.findAllByCartId(1L, pageable))
-            .willReturn(new PageImpl<>(cartItems, pageable, 1));
+        given(cartItemRepository.findAllByCartId(1L))
+            .willReturn(cartItems);
 
         CartItemDtos cartItemDtos = getCartItemsService.getCartItems(
-            userId, page);
-
+            userId);
 
         assertThat(cartItemDtos.getCartItems()).hasSize(2);
-        assertThat(cartItemDtos.getPages()).isEqualTo(1);
 
         assertThat(cartItemDtos.getCartItems().get(0).getName()).isEqualTo("아이폰14");
     }

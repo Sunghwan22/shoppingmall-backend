@@ -90,14 +90,13 @@ class CartControllerTest {
 
         CartItemDtos cartItemDtos = new CartItemDtos(
             List.of(CartItem.fake().toDto(), CartItem.fake().toDto()),
-            1,
             1
         );
 
         given(createCartItemService.create(1L, 1L, createCartItemDto))
             .willReturn(CartItem.fake().toDto());
 
-        given(getCartItemsService.getCartItems(1L, 1))
+        given(getCartItemsService.getCartItems(1L))
             .willReturn(cartItemDtos);
 
         given(getCartItemService.getCartItem(1L))
@@ -144,7 +143,7 @@ class CartControllerTest {
                 "아이폰14"
             )));
 
-        verify(getCartItemsService).getCartItems(1L, 1);
+        verify(getCartItemsService).getCartItems(1L);
     }
 
 

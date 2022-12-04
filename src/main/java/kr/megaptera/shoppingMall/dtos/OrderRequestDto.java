@@ -1,45 +1,43 @@
 package kr.megaptera.shoppingMall.dtos;
 
+import javax.validation.constraints.NotBlank;
+import java.util.List;
+
 public class OrderRequestDto {
     private String name;
 
     private String phoneNumber;
 
-    private Long productId;
+    private List<OrderProductDto> orderProducts;
+
+    private Long totalOrderPayment;
 
     private AddressDto address;
 
-    private Long quantity;
-
-    private Long orderPayment;
-
     private String deliveryRequest;
 
+    @NotBlank
     private String detailAddress;
 
-    private String productOptionDescription;
 
     public OrderRequestDto() {
     }
 
-    public OrderRequestDto(String name,
-                           String phoneNumber,
-                           Long productId,
-                           AddressDto address,
-                           Long quantity,
-                           Long orderPayment,
-                           String deliveryRequest,
-                           String detailAddress,
-                           String productOptionDescription) {
+    public OrderRequestDto(
+        String name,
+        String phoneNumber,
+        AddressDto address,
+        List<OrderProductDto> orderProducts,
+        String deliveryRequest,
+        String detailAddress,
+        Long totalOrderPayment) {
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.productId = productId;
         this.address = address;
-        this.quantity = quantity;
-        this.orderPayment = orderPayment;
+        this.orderProducts = orderProducts;
         this.deliveryRequest = deliveryRequest;
         this.detailAddress = detailAddress;
-        this.productOptionDescription = productOptionDescription;
+        this.totalOrderPayment = totalOrderPayment;
     }
 
     public String getName() {
@@ -50,20 +48,12 @@ public class OrderRequestDto {
         return phoneNumber;
     }
 
-    public Long getProductId() {
-        return productId;
-    }
-
     public AddressDto getAddress() {
         return address;
     }
 
-    public Long getQuantity() {
-        return quantity;
-    }
-
-    public Long getOrderPayment() {
-        return orderPayment;
+    public List<OrderProductDto> getOrderProducts() {
+        return orderProducts;
     }
 
     public String getDeliveryRequest() {
@@ -74,7 +64,7 @@ public class OrderRequestDto {
         return detailAddress;
     }
 
-    public String getProductOptionDescription() {
-        return productOptionDescription;
+    public Long getTotalOrderPayment() {
+        return totalOrderPayment;
     }
 }

@@ -19,7 +19,7 @@ public class CartItemDto {
 
   private Long productId;
 
-  private ProductImageDto cartItemImage;
+  private String image;
 
   public CartItemDto() {
   }
@@ -33,7 +33,7 @@ public class CartItemDto {
                      String name,
                      Long cartId,
                      Long productId,
-                     ProductImageDto cartItemImage) {
+                     String image) {
     this.id = id;
     this.quantity = quantity;
     this.addAmount = addAmount;
@@ -43,7 +43,7 @@ public class CartItemDto {
     this.name = name;
     this.cartId = cartId;
     this.productId = productId;
-    this.cartItemImage = cartItemImage;
+    this.image = image;
   }
 
   public Long getId() {
@@ -82,7 +82,7 @@ public class CartItemDto {
     return productId;
   }
 
-  public ProductImageDto getCartItemImage() {
-    return cartItemImage;
+  public String getImage() {
+    return image;
   }
 }
