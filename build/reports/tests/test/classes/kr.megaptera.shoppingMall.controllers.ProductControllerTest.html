@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">1</div>
+<div class="counter">2</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.015s</div>
+<div class="counter">0.029s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,6 +79,11 @@
 </thead>
 <tr>
 <td class="success">productDetail()</td>
+<td class="success">0.014s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">products()</td>
 <td class="success">0.015s</td>
 <td class="success">passed</td>
 </tr>
@@ -87,12 +92,12 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2022-11-21 17:33:41.106  INFO 67117 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [kr.megaptera.shoppingMall.controllers.ProductControllerTest], using SpringBootContextLoader
-2022-11-21 17:33:41.107  INFO 67117 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [kr.megaptera.shoppingMall.controllers.ProductControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-2022-11-21 17:33:41.107  INFO 67117 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [kr.megaptera.shoppingMall.controllers.ProductControllerTest]: ProductControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2022-11-21 17:33:41.111  INFO 67117 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration kr.megaptera.shoppingMall.ShoppingMallApplication for test class kr.megaptera.shoppingMall.controllers.ProductControllerTest
-2022-11-21 17:33:41.112  INFO 67117 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-2022-11-21 17:33:41.113  INFO 67117 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@197bf5ef, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@681ba763, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@19cc697c, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@33012e6f, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@7593716d, org.springframework.test.context.support.DirtiesContextTestExecutionListener@4086e003, org.springframework.test.context.transaction.TransactionalTestExecutionListener@3a7be6e6, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@33c590, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@6ec5c4e2, org.springframework.test.context.event.EventPublishingTestExecutionListener@1934a7c1, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@7c9d2ed7, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@621c7b91, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@223e51e4, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@1e08f0cd, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@b768e4d, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@ab7ac41, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@5ad67d82]
+<pre>2022-12-05 22:47:52.863  INFO 39707 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [kr.megaptera.shoppingMall.controllers.ProductControllerTest], using SpringBootContextLoader
+2022-12-05 22:47:52.864  INFO 39707 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [kr.megaptera.shoppingMall.controllers.ProductControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-12-05 22:47:52.864  INFO 39707 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [kr.megaptera.shoppingMall.controllers.ProductControllerTest]: ProductControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-12-05 22:47:52.869  INFO 39707 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration kr.megaptera.shoppingMall.ShoppingMallApplication for test class kr.megaptera.shoppingMall.controllers.ProductControllerTest
+2022-12-05 22:47:52.870  INFO 39707 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-12-05 22:47:52.870  INFO 39707 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@50c2ef56, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@560d6d2, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@3514237f, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@520ee6b3, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@15f11bfb, org.springframework.test.context.support.DirtiesContextTestExecutionListener@16a499d1, org.springframework.test.context.transaction.TransactionalTestExecutionListener@2bf4fa1, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@27210a3b, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@3a12f3e7, org.springframework.test.context.event.EventPublishingTestExecutionListener@84a9f65, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@70700b8a, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@5fafa76d, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@720ffab4, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@2e62e227, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@5ebe903a, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@7c88d04f, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@71df5f30]
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -102,21 +107,21 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.7.5)
 
-2022-11-21 17:33:41.138  INFO 67117 --- [    Test worker] k.m.s.controllers.ProductControllerTest  : Starting ProductControllerTest using Java 17 on seonghwan-ui-MacBookPro.local with PID 67117 (started by seonghwan in /Users/seonghwan/work/shoppingmall-backend)
-2022-11-21 17:33:41.139  INFO 67117 --- [    Test worker] k.m.s.controllers.ProductControllerTest  : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2022-11-21 17:33:41.499  WARN 67117 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+2022-12-05 22:47:52.897  INFO 39707 --- [    Test worker] k.m.s.controllers.ProductControllerTest  : Starting ProductControllerTest using Java 17 on seonghwan-ui-MacBookPro.local with PID 39707 (started by seonghwan in /Users/seonghwan/work/shoppingmall-backend)
+2022-12-05 22:47:52.897  INFO 39707 --- [    Test worker] k.m.s.controllers.ProductControllerTest  : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2022-12-05 22:47:53.424  WARN 39707 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
 
-Using generated security password: 6cda5cc0-6ef1-41f6-bf7a-7be02dcc48f5
+Using generated security password: ba86da8b-6e77-46b2-9cfb-b29ec5ddcb20
 
 This generated password is for development use only. Your security configuration must be updated before running your application in production.
 
-2022-11-21 17:33:41.575  INFO 67117 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@16124894, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4dd56393, org.springframework.security.web.context.SecurityContextPersistenceFilter@7861a433, org.springframework.security.web.header.HeaderWriterFilter@228c854f, org.springframework.security.web.csrf.CsrfFilter@230383a7, org.springframework.security.web.authentication.logout.LogoutFilter@5a4ceb1, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5a5c041f, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@e87c4cf, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@7793eaca, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@7a4ea134, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@f2e28c7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@494e7290, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@785ba20d, org.springframework.security.web.session.SessionManagementFilter@47c019d7, org.springframework.security.web.access.ExceptionTranslationFilter@6222a343, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@423325e0]
-2022-11-21 17:33:41.578  WARN 67117 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2022-11-21 17:33:41.578  INFO 67117 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/**']
-2022-11-21 17:33:41.603  INFO 67117 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2022-11-21 17:33:41.603  INFO 67117 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2022-11-21 17:33:41.603  INFO 67117 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
-2022-11-21 17:33:41.612  INFO 67117 --- [    Test worker] k.m.s.controllers.ProductControllerTest  : Started ProductControllerTest in 0.495 seconds (JVM running for 8.851)
+2022-12-05 22:47:53.488  INFO 39707 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@66596c4c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@15ce261, org.springframework.security.web.context.SecurityContextPersistenceFilter@c3d4bd7, org.springframework.security.web.header.HeaderWriterFilter@7efa366, org.springframework.security.web.csrf.CsrfFilter@5d67b2b3, org.springframework.security.web.authentication.logout.LogoutFilter@3980b44f, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@233ece92, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@4c614d8c, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@54c3e686, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@4a14f7d7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2626aa35, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5ca8c904, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@39840986, org.springframework.security.web.session.SessionManagementFilter@6c2f8ecb, org.springframework.security.web.access.ExceptionTranslationFilter@49bc71b4, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@55665086]
+2022-12-05 22:47:53.491  WARN 39707 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-12-05 22:47:53.491  INFO 39707 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/**']
+2022-12-05 22:47:53.519  INFO 39707 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-12-05 22:47:53.520  INFO 39707 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-05 22:47:53.520  INFO 39707 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2022-12-05 22:47:53.533  INFO 39707 --- [    Test worker] k.m.s.controllers.ProductControllerTest  : Started ProductControllerTest in 0.66 seconds (JVM running for 4.858)
 </pre>
 </span>
 </div>
@@ -128,7 +133,7 @@ This generated password is for development use only. Your security configuration
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.5.1</a> at 2022. 11. 21. 오후 5:33:43</p>
+<a href="http://www.gradle.org">Gradle 7.5.1</a> at 2022. 12. 5. 오후 10:47:59</p>
 </div>
 </div>
 </body>

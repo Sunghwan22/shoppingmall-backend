@@ -13,7 +13,9 @@ public class Address {
 
     private String jibunAddress;
 
-    private Address() {
+    private String detailAddress;
+
+    public Address() {
     }
 
     public Address(
@@ -24,16 +26,11 @@ public class Address {
         this.zoneCode = zoneCode;
         this.fullAddress = fullAddress;
         this.jibunAddress = jibunAddress;
-    }
-
-    public Address(Long zoneCode, String fullAddress, String jibunAddress) {
-        this.zoneCode = zoneCode;
-        this.fullAddress = fullAddress;
-        this.jibunAddress = jibunAddress;
+        this.detailAddress = detailAddress;
     }
 
     public AddressDto toDto() {
-        return new AddressDto(zoneCode, fullAddress, jibunAddress);
+        return new AddressDto(zoneCode, fullAddress, jibunAddress, detailAddress);
     }
 
     @Override
@@ -41,14 +38,12 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return Objects.equals(zoneCode, address.zoneCode) &&
-            Objects.equals(fullAddress, address.fullAddress) &&
-            Objects.equals(jibunAddress, address.jibunAddress);
+        return Objects.equals(zoneCode, address.zoneCode) && Objects.equals(fullAddress, address.fullAddress) && Objects.equals(jibunAddress, address.jibunAddress) && Objects.equals(detailAddress, address.detailAddress);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(zoneCode, fullAddress, jibunAddress);
+        return Objects.hash(zoneCode, fullAddress, jibunAddress, detailAddress);
     }
 
     @Override
@@ -57,6 +52,39 @@ public class Address {
             "zoneCode=" + zoneCode +
             ", fullAddress='" + fullAddress + '\'' +
             ", jibunAddress='" + jibunAddress + '\'' +
+            ", detailAddress='" + detailAddress + '\'' +
             '}';
+    }
+
+    public Long zoneCode() {
+        return zoneCode;
+    }
+
+    public String fullAddress() {
+        return fullAddress;
+    }
+
+    public String jibunAddress() {
+        return jibunAddress;
+    }
+
+    public String detailAddress() {
+        return detailAddress;
+    }
+
+    public void setZoneCode(Long zoneCode) {
+        this.zoneCode = zoneCode;
+    }
+
+    public void setFullAddress(String fullAddress) {
+        this.fullAddress = fullAddress;
+    }
+
+    public void setJibunAddress(String jibunAddress) {
+        this.jibunAddress = jibunAddress;
+    }
+
+    public void setDetailAddress(String detailAddress) {
+        this.detailAddress = detailAddress;
     }
 }

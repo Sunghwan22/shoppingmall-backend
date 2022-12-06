@@ -32,8 +32,8 @@ public class Order {
 
     private String deliveryRequest;
 
-    private String detailAddress;
     private String productOptionDescription;
+
     private String kakaoPayUrl;
 
     private Order() {
@@ -48,7 +48,6 @@ public class Order {
         Long quantity,
         Long orderPayment,
         String deliveryRequest,
-        String detailAddress,
         String productOptionDescription) {
         this.userId = userId;
         this.name = name;
@@ -58,7 +57,6 @@ public class Order {
         this.quantity = quantity;
         this.orderPayment = orderPayment;
         this.deliveryRequest = deliveryRequest;
-        this.detailAddress = detailAddress;
         this.productOptionDescription = productOptionDescription;
     }
 
@@ -73,7 +71,6 @@ public class Order {
             quantity,
             orderPayment,
             deliveryRequest,
-            detailAddress,
             productOptionDescription,
             kakaoPayUrl
         );

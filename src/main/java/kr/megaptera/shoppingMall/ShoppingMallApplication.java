@@ -1,7 +1,9 @@
 package kr.megaptera.shoppingMall;
 
 import kr.megaptera.shoppingMall.interceptors.AuthenticationInterceptor;
+import kr.megaptera.shoppingMall.repositoies.CartItemRepository;
 import kr.megaptera.shoppingMall.utils.JwtUtil;
+import kr.megaptera.shoppingMall.utils.KakaoAuthUtil;
 import kr.megaptera.shoppingMall.utils.KakaoPay;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -19,6 +21,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class ShoppingMallApplication {
     @Value("${jwt.secret}")
     private String jwtSecret;
+
+    private CartItemRepository cartItemRepository;
+
+    // 패치할떄 정보가 이상하게 들어가는 것 같음 확인해보기
 
     public static void main(String[] args) {
         SpringApplication.run(ShoppingMallApplication.class, args);
@@ -67,6 +73,11 @@ public class ShoppingMallApplication {
 
     @Bean
     public KakaoPay kakaoPay() {
-        return new KakaoPay();
+        return new KakaoPay(cartItemRepository);
+    }
+
+    @Bean
+    public KakaoAuthUtil kakaoAuthUtil() {
+        return new KakaoAuthUtil();
     }
 }

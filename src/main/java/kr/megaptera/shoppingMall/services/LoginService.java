@@ -1,8 +1,10 @@
 package kr.megaptera.shoppingMall.services;
 
 import kr.megaptera.shoppingMall.dtos.LoginResultDto;
+import kr.megaptera.shoppingMall.dtos.SocialLoginProcessResultDto;
 import kr.megaptera.shoppingMall.exceptions.LoginFailed;
 import kr.megaptera.shoppingMall.exceptions.UserNotFoundException;
+import kr.megaptera.shoppingMall.models.Address;
 import kr.megaptera.shoppingMall.models.User;
 import kr.megaptera.shoppingMall.repositoies.UserRepository;
 import kr.megaptera.shoppingMall.utils.JwtUtil;
@@ -43,11 +45,53 @@ public class LoginService {
     }
 
     public LoginResultDto fetchUser(Long userId) {
-        User user = userRepository.findById(userId)
-            .orElseThrow(UserNotFoundException::new);
+        System.out.println("유저아이디" + userId);
+
+        User user = userRepository.findBySocialLoginId(String.valueOf(userId))
+            .orElse(null);
+
+        if (user == null) {
+            user = userRepository.findById(userId)
+                .orElseThrow(UserNotFoundException::new);
+        }
 
         return new LoginResultDto(
-            user.name(), user.phoneNumber(), user.address().toDto()
+            user.recipient(), user.phoneNumber(), user.address().toDto()
         );
+    }
+
+    public LoginResultDto socialLogin(SocialLoginProcessResultDto kakaoDto) {
+        String nickname = kakaoDto.getNickname();
+        String email = kakaoDto.getEmail();
+        String socialLoginId = kakaoDto.getKakaoUserId();
+
+        User foundUser = userRepository.findBySocialLoginId(socialLoginId)
+            .orElse(null);
+
+        if (foundUser == null) {
+            String passwordForSocialLogin = socialLoginId;
+
+            User user = new User(
+                socialLoginId,
+                email,
+                passwordForSocialLogin,
+                nickname,
+                new Address(0L, "", "", ""),
+                "",
+                User.UNREGISTERED
+            );
+            user.changePassword(passwordForSocialLogin, passwordEncoder);
+
+            String accessToken = jwtUtil.encode(Long.valueOf(socialLoginId));
+
+            userRepository.save(user);
+
+            return new LoginResultDto(user.id(), accessToken, nickname, user.state());
+        }
+
+        String accessToken = jwtUtil.encode(Long.valueOf(socialLoginId));
+
+        return new LoginResultDto(foundUser.id(), accessToken, foundUser.name(),
+            foundUser.state());
     }
 }

@@ -70,7 +70,7 @@ class LoginServiceTest {
     void fetchUserWithBlankDetailAddress() {
         User user = new User(
             1L, "tidls45", "Tjdghks245@", "조성환",
-            new Address(44637L, "울산광역시 정광로 3번길 20", "울산광역시 남구 무거동 1233-12번지", ""),
+            new Address(44637L, "울산광역시 정광로 3번길 20", "울산광역시 남구 무거동 1233-12번지", "2층왼쪽a"),
             "010-3144-7938"
         );
 

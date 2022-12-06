@@ -37,7 +37,7 @@ class SessionControllerTest {
     @BeforeEach
     void setup() {
         AddressDto addressDto = new AddressDto(
-            44637L, "울산광역시 남구 정광로 3번길 20", "울산광역시 남구 1233-12번지"
+            44637L, "울산광역시 남구 정광로 3번길 20", "울산광역시 남구 1233-12번지", "2층왼쪽"
         );
 
         LoginResultDto loginResultDto = new LoginResultDto(
