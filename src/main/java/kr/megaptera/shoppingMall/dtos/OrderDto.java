@@ -22,8 +22,6 @@ public class OrderDto {
 
     private String deliveryRequest;
 
-    private String detailAddress;
-
     private String productOptionDescription;
 
     private String kakaoPayUrl;
@@ -40,7 +38,6 @@ public class OrderDto {
                     Long quantity,
                     Long orderPayment,
                     String deliveryRequest,
-                    String detailAddress,
                     String productOptionDescription,
                     String kakaoPayUrl) {
         this.id = id;
@@ -52,7 +49,6 @@ public class OrderDto {
         this.quantity = quantity;
         this.orderPayment = orderPayment;
         this.deliveryRequest = deliveryRequest;
-        this.detailAddress = detailAddress;
         this.productOptionDescription = productOptionDescription;
         this.kakaoPayUrl = kakaoPayUrl;
     }
@@ -91,10 +87,6 @@ public class OrderDto {
 
     public String getDeliveryRequest() {
         return deliveryRequest;
-    }
-
-    public String getDetailAddress() {
-        return detailAddress;
     }
 
     public String getProductOptionDescription() {

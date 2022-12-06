@@ -14,9 +14,14 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "users")
 public class User {
+    public static final String UNREGISTERED = "UNREGISTERED";
+    public static final String REGISTERED = "REGISTERED";
+
     @Id
     @GeneratedValue
     private Long id;
+
+    private String socialLoginId;
 
     private String identifier;
 
@@ -27,7 +32,11 @@ public class User {
 
     private String name;
 
+    private String recipient;
+
     private String phoneNumber;
+
+    private String state;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -35,7 +44,26 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    private String profileImage;
+
     private User() {
+    }
+
+    public User(
+        String socialLoginId,
+        String identifier,
+        String passwordForSocialLogin,
+        String name,
+        Address address,
+        String phoneNumber,
+        String state) {
+        this.socialLoginId = socialLoginId;
+        this.identifier = identifier;
+        this.encodedPassword = passwordForSocialLogin;
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.state = state;
     }
 
     public Long id() {
@@ -58,7 +86,12 @@ public class User {
         return phoneNumber;
     }
 
-    public User(Long id, String identifier, String encodedPassword,
+    public String state() {
+        return state;
+    }
+
+    public User(
+        Long id, String identifier, String encodedPassword,
                 String name, Address address, String phoneNumber) {
         this.id = id;
         this.identifier = identifier;
@@ -86,9 +119,20 @@ public class User {
             "tidls45",
             "TJdghks245",
             "조성환",
-            new Address(44637L, "울산광역시 정광로 3번길 20", "울산광역시 남구 무거동 1233-12번지"
-                , "2층 왼쪽집"),
+            new Address(44637L, "울산광역시 정광로 3번길 20", "울산광역시 남구 무거동 1233-12번지", "2층왼쪽"),
             "010-3144-7938"
         );
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
+    }
+
+    public String recipient() {
+        return recipient;
     }
 }

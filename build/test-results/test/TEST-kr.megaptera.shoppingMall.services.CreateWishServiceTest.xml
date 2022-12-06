@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="kr.megaptera.shoppingMall.services.CreateWishServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-11-21T08:33:43" hostname="seonghwan-ui-MacBookPro.local" time="0.004">
+<testsuite name="kr.megaptera.shoppingMall.services.CreateWishServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-12-05T13:47:59" hostname="seonghwan-ui-MacBookPro.local" time="0.003">
   <properties/>
   <testcase name="create()" classname="kr.megaptera.shoppingMall.services.CreateWishServiceTest" time="0.002"/>
   <testcase name="alreadyExistWish()" classname="kr.megaptera.shoppingMall.services.CreateWishServiceTest" time="0.001"/>

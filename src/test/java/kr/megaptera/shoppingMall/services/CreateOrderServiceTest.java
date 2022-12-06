@@ -21,7 +21,7 @@ class CreateOrderServiceTest {
         cartItemRepository = mock(CartItemRepository.class);
         KakaoPay kakaoPay = mock(KakaoPay.class);
         createOrderService = new CreateOrderService(
-            productRepository, orderRepository, cartItemRepository,  kakaoPay);
+            productRepository, orderRepository, kakaoPay);
     }
 
 //    @Test

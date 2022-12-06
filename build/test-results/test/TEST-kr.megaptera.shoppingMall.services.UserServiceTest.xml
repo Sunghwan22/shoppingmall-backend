@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="kr.megaptera.shoppingMall.services.UserServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-11-21T08:33:43" hostname="seonghwan-ui-MacBookPro.local" time="0.001">
+<testsuite name="kr.megaptera.shoppingMall.services.UserServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-12-05T13:47:59" hostname="seonghwan-ui-MacBookPro.local" time="0.047">
   <properties/>
-  <testcase name="findById()" classname="kr.megaptera.shoppingMall.services.UserServiceTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="findById()" classname="kr.megaptera.shoppingMall.services.UserServiceTest" time="0.047"/>
+  <system-out><![CDATA[$argon2id$v=19$m=4096,t=3,p=1$rqCD9I6k7ynyI/wRt59CmA$/4FZSLytATWzgrQvTurJQ72mqs5jLbTD7KN/fF2s0xY
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

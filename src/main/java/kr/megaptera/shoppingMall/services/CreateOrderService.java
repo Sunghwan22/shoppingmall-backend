@@ -7,7 +7,6 @@ import kr.megaptera.shoppingMall.exceptions.SoldOutException;
 import kr.megaptera.shoppingMall.models.Address;
 import kr.megaptera.shoppingMall.models.Order;
 import kr.megaptera.shoppingMall.models.Product;
-import kr.megaptera.shoppingMall.repositoies.CartItemRepository;
 import kr.megaptera.shoppingMall.repositoies.OrderRepository;
 import kr.megaptera.shoppingMall.repositoies.ProductRepository;
 import kr.megaptera.shoppingMall.utils.KakaoPay;
@@ -22,17 +21,14 @@ import java.util.UUID;
 public class CreateOrderService {
     private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
-    private final CartItemRepository cartItemRepository;
     private final KakaoPay kakaoPay;
 
     public CreateOrderService(
         ProductRepository productRepository,
         OrderRepository orderRepository,
-        CartItemRepository cartItemRepository,
         KakaoPay kakaoPay) {
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
-        this.cartItemRepository = cartItemRepository;
         this.kakaoPay = kakaoPay;
     }
 
@@ -41,41 +37,37 @@ public class CreateOrderService {
 
         List<OrderProductDto> orderProducts = orderRequestDto.getOrderProducts();
 
-        for (int i = 0; i < orderProducts.size(); i += 1) {
-            Product product = productRepository.findById(orderProducts.get(i).getProductId())
+        for (OrderProductDto orderProductDto : orderProducts) {
+            Product product = productRepository.findById(orderProductDto.getProductId())
                 .orElseThrow(ProductNotFound::new);
 
-            if (product.stock() < orderProducts.get(i).getQuantity()) {
+            if (product.stock() < orderProductDto.getQuantity()) {
                 throw new SoldOutException();
             }
 
             Address address = new Address(
                 orderRequestDto.getAddress().getZoneCode(),
                 orderRequestDto.getAddress().getFullAddress(),
-                orderRequestDto.getAddress().getJibunAddress()
+                orderRequestDto.getAddress().getJibunAddress(),
+                orderRequestDto.getAddress().getDetailAddress()
             );
 
             Order order = new Order(
                 userId,
-                orderProducts.get(i).getName(),
+                orderProductDto.getName(),
                 orderRequestDto.getPhoneNumber(),
-                orderProducts.get(i).getImage(),
+                orderProductDto.getImage(),
                 address,
-                orderProducts.get(i).getQuantity(),
-                orderProducts.get(i).getTotalPayment(),
+                orderProductDto.getQuantity(),
+                orderProductDto.getTotalPayment(),
                 orderRequestDto.getDeliveryRequest(),
-                orderRequestDto.getDetailAddress(),
-                orderProducts.get(i).getOptionDescription()
+                orderProductDto.getOptionDescription()
             );
 
             orderRepository.save(order);
 
             product.addPurchaseNumber();
-            product.reduceProduct(orderProducts.get(i).getQuantity());
-
-            if(orderProducts.get(i).getId() != null) {
-                cartItemRepository.deleteById(orderProducts.get(i).getId());
-            }
+            product.reduceProduct(orderProductDto.getQuantity());
         }
 
         String productName = orderProducts.get(0).getName();
@@ -86,9 +78,9 @@ public class CreateOrderService {
                 orderProducts.get(0).getName() + " 외 " +
                     "" + (orderProducts.size() - 1) + "건";
 
-            for (int i = 0; i < orderProducts.size(); i += 1) {
+            for (OrderProductDto orderProduct : orderProducts) {
                 quantity = 0L;
-                quantity += orderProducts.get(i).getQuantity();
+                quantity += orderProduct.getQuantity();
             }
         }
 
@@ -99,7 +91,8 @@ public class CreateOrderService {
             userId,
             productName,
             quantity,
-            orderRequestDto.getTotalOrderPayment()
+            orderRequestDto.getTotalOrderPayment(),
+            orderProducts
         );
     }
 }

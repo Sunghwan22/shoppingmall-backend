@@ -1,10 +1,9 @@
 package kr.megaptera.shoppingMall.dtos;
 
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 public class OrderRequestDto {
-    private String name;
+    private String recipient;
 
     private String phoneNumber;
 
@@ -16,32 +15,22 @@ public class OrderRequestDto {
 
     private String deliveryRequest;
 
-    @NotBlank
-    private String detailAddress;
-
-
     public OrderRequestDto() {
     }
 
     public OrderRequestDto(
-        String name,
+        String recipient,
         String phoneNumber,
         AddressDto address,
         List<OrderProductDto> orderProducts,
         String deliveryRequest,
-        String detailAddress,
         Long totalOrderPayment) {
-        this.name = name;
+        this.recipient = recipient;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.orderProducts = orderProducts;
         this.deliveryRequest = deliveryRequest;
-        this.detailAddress = detailAddress;
         this.totalOrderPayment = totalOrderPayment;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getPhoneNumber() {
@@ -60,11 +49,11 @@ public class OrderRequestDto {
         return deliveryRequest;
     }
 
-    public String getDetailAddress() {
-        return detailAddress;
-    }
-
     public Long getTotalOrderPayment() {
         return totalOrderPayment;
+    }
+
+    public String getRecipient() {
+        return recipient;
     }
 }
