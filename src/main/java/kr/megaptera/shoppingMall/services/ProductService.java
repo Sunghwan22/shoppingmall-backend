@@ -45,6 +45,8 @@ public class ProductService {
         List<ProductImageDto> productImageDtos = product.images()
             .stream().map(ProductImage::toDto).toList();
 
+        product.increaseViews();
+
         return product.toDto(optionDtos, productImageDtos);
     }
 }

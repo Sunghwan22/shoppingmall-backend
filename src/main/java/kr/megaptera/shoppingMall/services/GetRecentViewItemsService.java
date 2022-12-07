@@ -1,0 +1,63 @@
+package kr.megaptera.shoppingMall.services;
+
+import kr.megaptera.shoppingMall.dtos.OptionDto;
+import kr.megaptera.shoppingMall.dtos.ProductDto;
+import kr.megaptera.shoppingMall.dtos.ProductImageDto;
+import kr.megaptera.shoppingMall.dtos.RecentViewItemDtos;
+import kr.megaptera.shoppingMall.exceptions.ProductNotFound;
+import kr.megaptera.shoppingMall.models.Option;
+import kr.megaptera.shoppingMall.models.Product;
+import kr.megaptera.shoppingMall.models.ProductImage;
+import kr.megaptera.shoppingMall.repositoies.ProductRepository;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+@Transactional
+public class GetRecentViewItemsService {
+    private final ProductRepository productRepository;
+
+    public GetRecentViewItemsService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
+    public RecentViewItemDtos getRecentViewItems(String productIds) {
+        String alternativeImage = "https://test-s3-image.s3.ap-no" +
+            "rtheast-2.amazonaws.com/NO+IMAGE.gif";
+
+        String removeBrackets = productIds.substring(1, productIds.length() - 1);
+
+        String[] productIdArray = removeBrackets.split(",");
+
+        List<ProductDto> productDtos = new ArrayList<>();
+
+        for(int i =0; i< productIdArray.length; i+=1) {
+            Product product = productRepository.findById(Long.valueOf(productIdArray[i]))
+                .orElseThrow(ProductNotFound::new);
+
+            List<OptionDto> optionDtos = product.options()
+                .stream().map(Option::toDto).toList();
+
+            if (product.images().size() == 0 || product.images().size() == 0) {
+                product.images().add(new ProductImage(
+                    alternativeImage, true
+                ));
+
+                product.images().add(new ProductImage(
+                    alternativeImage, false
+                ));
+            }
+
+            List<ProductImageDto> productImageDtos = product.images()
+                .stream().map(ProductImage::toDto).toList();
+
+            productDtos.add(product.toDto(optionDtos, productImageDtos));
+        }
+
+        return new RecentViewItemDtos(productDtos);
+
+    }
+}

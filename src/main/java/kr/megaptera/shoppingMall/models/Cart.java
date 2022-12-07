@@ -22,6 +22,10 @@ public class Cart {
     this.userId = userId;
   }
 
+  public Cart(Long userId) {
+    this.userId = userId;
+  }
+
   public Long getId() {
     return id;
   }

@@ -42,7 +42,7 @@ public class WishController {
     @GetMapping("/products/{id}")
     public WishDtos productWishes(
         @PathVariable("id") Long productId
-    ) {
-         return getProductWishesService.getProductWishes(productId);
+        ) {
+        return getProductWishesService.getProductWishes(productId);
     }
 }

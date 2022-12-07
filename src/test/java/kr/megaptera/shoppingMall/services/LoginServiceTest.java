@@ -4,6 +4,7 @@ import kr.megaptera.shoppingMall.dtos.LoginResultDto;
 import kr.megaptera.shoppingMall.exceptions.LoginFailed;
 import kr.megaptera.shoppingMall.models.Address;
 import kr.megaptera.shoppingMall.models.User;
+import kr.megaptera.shoppingMall.repositoies.CartRepository;
 import kr.megaptera.shoppingMall.repositoies.UserRepository;
 import kr.megaptera.shoppingMall.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +31,9 @@ class LoginServiceTest {
         userRepository = mock(UserRepository.class);
         jwtUtil = new JwtUtil("MYSECRET");
         passwordEncoder = new Argon2PasswordEncoder();
-        loginService = new LoginService(userRepository, jwtUtil, passwordEncoder);
+        CartRepository cartRepository = mock(CartRepository.class);
+        loginService = new LoginService(
+            userRepository, jwtUtil, passwordEncoder, cartRepository);
     }
 
     @Test
@@ -59,27 +62,7 @@ class LoginServiceTest {
 
         LoginResultDto loginResultDto = loginService.fetchUser(1L);
 
-        assertThat(loginResultDto.getName()).isEqualTo("조성환");
-        assertThat(loginResultDto.getPhoneNumber()).isEqualTo("010-3144-7938");
-        assertThat(loginResultDto.getAddress().getZoneCode()).isEqualTo(44637L);
-        assertThat(loginResultDto.getAddress().getFullAddress()).isEqualTo("울산광역시 정광로 3번길 20");
-        assertThat(loginResultDto.getAddress().getJibunAddress()).isEqualTo("울산광역시 남구 무거동 1233-12번지");
-    }
-
-    @Test
-    void fetchUserWithBlankDetailAddress() {
-        User user = new User(
-            1L, "tidls45", "Tjdghks245@", "조성환",
-            new Address(44637L, "울산광역시 정광로 3번길 20", "울산광역시 남구 무거동 1233-12번지", "2층왼쪽a"),
-            "010-3144-7938"
-        );
-
-        given(userRepository.findById(1L))
-            .willReturn(Optional.of(user));
-
-        LoginResultDto loginResultDto = loginService.fetchUser(1L);
-
-        assertThat(loginResultDto.getName()).isEqualTo("조성환");
+        assertThat(loginResultDto.getRecipient()).isEqualTo("조성환");
         assertThat(loginResultDto.getPhoneNumber()).isEqualTo("010-3144-7938");
         assertThat(loginResultDto.getAddress().getZoneCode()).isEqualTo(44637L);
         assertThat(loginResultDto.getAddress().getFullAddress()).isEqualTo("울산광역시 정광로 3번길 20");

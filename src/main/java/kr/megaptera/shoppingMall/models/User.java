@@ -91,12 +91,18 @@ public class User {
     }
 
     public User(
-        Long id, String identifier, String encodedPassword,
-                String name, Address address, String phoneNumber) {
+        Long id,
+        String identifier,
+        String encodedPassword,
+        String name,
+        String recipient,
+        Address address,
+        String phoneNumber) {
         this.id = id;
         this.identifier = identifier;
         this.encodedPassword = encodedPassword;
         this.name = name;
+        this.recipient = recipient;
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
@@ -118,6 +124,7 @@ public class User {
             1L,
             "tidls45",
             "TJdghks245",
+            "조성환",
             "조성환",
             new Address(44637L, "울산광역시 정광로 3번길 20", "울산광역시 남구 무거동 1233-12번지", "2층왼쪽"),
             "010-3144-7938"

@@ -175,4 +175,8 @@ public class Product {
     public Long stock() {
         return stock;
     }
+
+    public void increaseViews() {
+        this.views += 1;
+    }
 }
