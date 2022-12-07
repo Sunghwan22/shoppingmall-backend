@@ -5,7 +5,9 @@ import kr.megaptera.shoppingMall.dtos.SocialLoginProcessResultDto;
 import kr.megaptera.shoppingMall.exceptions.LoginFailed;
 import kr.megaptera.shoppingMall.exceptions.UserNotFoundException;
 import kr.megaptera.shoppingMall.models.Address;
+import kr.megaptera.shoppingMall.models.Cart;
 import kr.megaptera.shoppingMall.models.User;
+import kr.megaptera.shoppingMall.repositoies.CartRepository;
 import kr.megaptera.shoppingMall.repositoies.UserRepository;
 import kr.megaptera.shoppingMall.utils.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,14 +21,17 @@ public class LoginService {
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
+    private final CartRepository cartRepository;
 
     public LoginService(
         UserRepository userRepository,
         JwtUtil jwtUtil,
-        PasswordEncoder passwordEncoder) {
+        PasswordEncoder passwordEncoder,
+        CartRepository cartRepository) {
         this.userRepository = userRepository;
         this.jwtUtil = jwtUtil;
         this.passwordEncoder = passwordEncoder;
+        this.cartRepository = cartRepository;
     }
 
     public LoginResultDto login(String identifier, String password) {
@@ -45,8 +50,6 @@ public class LoginService {
     }
 
     public LoginResultDto fetchUser(Long userId) {
-        System.out.println("유저아이디" + userId);
-
         User user = userRepository.findBySocialLoginId(String.valueOf(userId))
             .orElse(null);
 
@@ -85,6 +88,10 @@ public class LoginService {
             String accessToken = jwtUtil.encode(Long.valueOf(socialLoginId));
 
             userRepository.save(user);
+
+            Cart cart = new Cart(Long.valueOf(socialLoginId));
+
+            cartRepository.save(cart);
 
             return new LoginResultDto(user.id(), accessToken, nickname, user.state());
         }

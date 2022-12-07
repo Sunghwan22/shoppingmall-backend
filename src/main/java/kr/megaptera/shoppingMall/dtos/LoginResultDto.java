@@ -12,6 +12,7 @@ public class LoginResultDto {
     private String phoneNumber;
 
     private AddressDto addressDto;
+
     private String recipient;
 
     private Long id;
@@ -37,6 +38,7 @@ public class LoginResultDto {
         this.phoneNumber = phoneNumber;
         this.addressDto = addressDto;
         this.recipient = recipient;
+        this.name = recipient;
     }
 
     public LoginResultDto(Long id, String accessToken, String name, String state) {

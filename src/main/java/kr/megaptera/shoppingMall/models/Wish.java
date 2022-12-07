@@ -39,4 +39,8 @@ public class Wish {
   public WishDto toDto() {
     return new WishDto(id, productId, userId);
   }
+
+  public Long productId() {
+    return productId;
+  }
 }
