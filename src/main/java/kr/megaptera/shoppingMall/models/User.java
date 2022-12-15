@@ -44,7 +44,8 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    private String profileImage;
+    @Embedded
+    private ProfileImage profileImage;
 
     private User() {
     }
@@ -143,3 +144,4 @@ public class User {
         return recipient;
     }
 }
+

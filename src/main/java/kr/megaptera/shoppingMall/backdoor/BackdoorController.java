@@ -143,6 +143,8 @@ public class BackdoorController {
     public String setupReviews() {
         LocalDateTime now = LocalDateTime.now();
 
+        String reviewImage ="https://img.gqkorea.co.kr/gq/2021/10/style_616f710161913-819x1024.jpg";
+
         jdbcTemplate.execute("DELETE FROM review_images");
         jdbcTemplate.execute("DELETE FROM review_recommendations");
         jdbcTemplate.execute("DELETE FROM review");
@@ -224,19 +226,19 @@ public class BackdoorController {
                 "INSERT INTO review_images(" +
                 "review_id, url)" +
                 "VALUES(?, ?)",
-            1L, "imageUrl");
+            1L, reviewImage);
 
         jdbcTemplate.update("" +
                 "INSERT INTO review_images(" +
                 "review_id, url)" +
                 "VALUES(?, ?)",
-            2L, "imageUrl");
+            2L, reviewImage);
 
         jdbcTemplate.update("" +
                 "INSERT INTO review_images(" +
                 "review_id, url)" +
                 "VALUES(? , ?)",
-            3L, "imageUrl");
+            3L, reviewImage);
 
         return "OK";
     }
@@ -377,7 +379,7 @@ public class BackdoorController {
                 "encoded_password, identifier, name, phone_number, updated_at, created_at)" +
                 " VALUES(1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             "울산광역시 정광로 3번길 20", "울산광역시 남구 1233-12번지", 44637L, "2층 왼쪽",
-            "$argon2id$v=19$m=4096,t=3,p=1$q9lNW02J6Et3G/1ruyWk5g$dkWqsOxhUt4jt3LyXXVuTmEWrR/zsgLeQfJF134biqo",
+            passwordEncoder.encode("Tjdghks245@"),
             "tidls45", "조성환", "01031447938", now, now
         );
 

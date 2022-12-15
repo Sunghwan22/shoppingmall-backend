@@ -15,6 +15,8 @@ public class OrderRequestDto {
 
     private String deliveryRequest;
 
+    private String description;
+
     public OrderRequestDto() {
     }
 
@@ -24,13 +26,15 @@ public class OrderRequestDto {
         AddressDto address,
         List<OrderProductDto> orderProducts,
         String deliveryRequest,
-        Long totalOrderPayment) {
+        Long totalOrderPayment,
+        String description) {
         this.recipient = recipient;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.orderProducts = orderProducts;
         this.deliveryRequest = deliveryRequest;
         this.totalOrderPayment = totalOrderPayment;
+        this.description = description;
     }
 
     public String getPhoneNumber() {
@@ -55,5 +59,9 @@ public class OrderRequestDto {
 
     public String getRecipient() {
         return recipient;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

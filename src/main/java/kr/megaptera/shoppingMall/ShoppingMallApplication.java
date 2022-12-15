@@ -22,10 +22,6 @@ public class ShoppingMallApplication {
     @Value("${jwt.secret}")
     private String jwtSecret;
 
-    private CartItemRepository cartItemRepository;
-
-    // 패치할떄 정보가 이상하게 들어가는 것 같음 확인해보기
-
     public static void main(String[] args) {
         SpringApplication.run(ShoppingMallApplication.class, args);
     }
@@ -73,7 +69,7 @@ public class ShoppingMallApplication {
 
     @Bean
     public KakaoPay kakaoPay() {
-        return new KakaoPay(cartItemRepository);
+        return new KakaoPay();
     }
 
     @Bean

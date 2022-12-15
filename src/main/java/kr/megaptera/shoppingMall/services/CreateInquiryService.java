@@ -30,8 +30,12 @@ public class CreateInquiryService {
         Long userId,
         CreateInquiryDto createInquiryDto) {
 
-        User user = userRepository.findById(userId)
-            .orElseThrow(UserNotFoundException::new);
+        User user = userRepository.findById(userId).orElse(null);
+
+        if(user == null) {
+            user = userRepository.findBySocialLoginId(String.valueOf(userId))
+                .orElseThrow(UserNotFoundException::new);
+        }
 
         if (createInquiryDto.getContent().isBlank()) {
             throw new InquiryContentBlankException();

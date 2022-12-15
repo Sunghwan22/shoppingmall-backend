@@ -6,6 +6,7 @@ import kr.megaptera.shoppingMall.dtos.ProductImageDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,6 +38,7 @@ public class Product {
 
     private Long maximumQuantity;
 
+    @Column(length = 1000)
     private String description;
 
     private Long price;

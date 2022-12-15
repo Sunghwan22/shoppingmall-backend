@@ -1,7 +1,6 @@
 package kr.megaptera.shoppingMall.controllers;
 
 import kr.megaptera.shoppingMall.dtos.KakaoPayApprovalDto;
-import kr.megaptera.shoppingMall.dtos.OrderDto;
 import kr.megaptera.shoppingMall.dtos.OrderRequestDto;
 import kr.megaptera.shoppingMall.services.CreateOrderService;
 import kr.megaptera.shoppingMall.utils.KakaoPay;
