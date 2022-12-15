@@ -8,10 +8,7 @@ import kr.megaptera.shoppingMall.models.Recommendation;
 import kr.megaptera.shoppingMall.models.Review;
 import kr.megaptera.shoppingMall.models.ReviewImage;
 import kr.megaptera.shoppingMall.repositoies.ReviewRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

@@ -5,7 +5,6 @@ import kr.megaptera.shoppingMall.dtos.OrderProductDto;
 import kr.megaptera.shoppingMall.exceptions.KakaoPayReadyException;
 import kr.megaptera.shoppingMall.infraStucture.KakaoPayApproval;
 import kr.megaptera.shoppingMall.infraStucture.KakaoPayReady;
-import kr.megaptera.shoppingMall.repositoies.CartItemRepository;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.LinkedMultiValueMap;
@@ -19,7 +18,6 @@ import java.util.List;
 
 public class KakaoPay {
     private static final String HOST = "https://kapi.kakao.com";
-    private final CartItemRepository cartItemRepository;
 
     private KakaoPayReady kakaoPayReady;
 
@@ -28,11 +26,8 @@ public class KakaoPay {
     private String orderId;
 
     private Long userId;
-    private List<OrderProductDto> orderProducts;
 
-    public KakaoPay(CartItemRepository cartItemRepository) {
-        this.cartItemRepository = cartItemRepository;
-    }
+    private List<OrderProductDto> orderProducts;
 
     public String kakaoPayReady(String orderId,
                                 Long userId,
@@ -95,12 +90,6 @@ public class KakaoPay {
         HttpEntity<MultiValueMap<String, String>> requestBody = new HttpEntity<>(params, headers);
 
         try {
-            for (OrderProductDto orderProduct : orderProducts) {
-                if (orderProduct.getId() != null) {
-                    cartItemRepository.deleteById(orderProduct.getId());
-                }
-            }
-
             return restTemplate
                 .postForObject(new URI(HOST + "/v1/payment/approve"),
                     requestBody, KakaoPayApproval.class);

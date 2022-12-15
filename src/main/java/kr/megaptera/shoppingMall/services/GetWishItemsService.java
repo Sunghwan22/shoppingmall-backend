@@ -34,7 +34,8 @@ public class GetWishItemsService {
             "rtheast-2.amazonaws.com/NO+IMAGE.gif";
 
         List<Wish> wishList = wishRepository.findAllByUserId(userId);
-        List<ProductDto> productDtos = new ArrayList<>();
+
+        List<ProductDto> productDtos= new ArrayList<>();
 
         for (Wish wish : wishList) {
             Product product = productRepository.findById(

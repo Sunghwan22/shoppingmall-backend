@@ -8,6 +8,8 @@ public class OrderDto {
 
     private Long userId;
 
+    private Long productId;
+
     private String name;
 
     private String phoneNumber;
@@ -22,14 +24,13 @@ public class OrderDto {
 
     private String deliveryRequest;
 
-    private String productOptionDescription;
-
-    private String kakaoPayUrl;
+    private String description;
 
     private OrderDto() {
     }
 
     public OrderDto(Long id,
+                    Long productId,
                     Long userId,
                     String name,
                     String phoneNumber,
@@ -38,10 +39,10 @@ public class OrderDto {
                     Long quantity,
                     Long orderPayment,
                     String deliveryRequest,
-                    String productOptionDescription,
-                    String kakaoPayUrl) {
+                    String description) {
         this.id = id;
         this.userId = userId;
+        this.productId = productId;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.imageUrl = imageUrl;
@@ -49,8 +50,7 @@ public class OrderDto {
         this.quantity = quantity;
         this.orderPayment = orderPayment;
         this.deliveryRequest = deliveryRequest;
-        this.productOptionDescription = productOptionDescription;
-        this.kakaoPayUrl = kakaoPayUrl;
+        this.description = description;
     }
 
     public Long getId() {
@@ -89,12 +89,12 @@ public class OrderDto {
         return deliveryRequest;
     }
 
-    public String getProductOptionDescription() {
-        return productOptionDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public String getKakaoPayUrl() {
-        return kakaoPayUrl;
+    public Long getProductId() {
+        return productId;
     }
 
     public String getCreatedAt() {

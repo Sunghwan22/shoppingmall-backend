@@ -5,7 +5,7 @@ public class OrderProductDto {
 
     private String image;
 
-    private String optionDescription;
+    private String description;
 
     private String name;
 
@@ -23,7 +23,7 @@ public class OrderProductDto {
     public OrderProductDto(
         Long id,
         String image,
-        String optionDescription,
+        String description,
         String name,
         Long deliveryFee,
         Long quantity,
@@ -31,7 +31,7 @@ public class OrderProductDto {
         Long productId) {
         this.id = id;
         this.image = image;
-        this.optionDescription = optionDescription;
+        this.description = description;
         this.name = name;
         this.deliveryFee = deliveryFee;
         this.quantity = quantity;
@@ -41,10 +41,6 @@ public class OrderProductDto {
 
     public String getImage() {
         return image;
-    }
-
-    public String getOptionDescription() {
-        return optionDescription;
     }
 
     public String getName() {
@@ -57,6 +53,10 @@ public class OrderProductDto {
 
     public Long getQuantity() {
         return quantity;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public Long getTotalPayment() {

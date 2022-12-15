@@ -11,11 +11,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "orders")
 public class Order {
+    public static final String REVIEW_WRITING_COMPLETE = "REVIEW_WRITING_COMPLETE";
+    public static final String NO_REVIEW = "NO_REVIEW";
+
     @Id
     @GeneratedValue
     private Long id;
 
     private Long userId;
+
+    private Long productId;
 
     private String name;
 
@@ -32,15 +37,16 @@ public class Order {
 
     private String deliveryRequest;
 
-    private String productOptionDescription;
+    private String description;
 
-    private String kakaoPayUrl;
+    private String state;
 
     private Order() {
     }
 
     public Order(
         Long userId,
+        Long productId,
         String name,
         String phoneNumber,
         String imageUrl,
@@ -48,8 +54,10 @@ public class Order {
         Long quantity,
         Long orderPayment,
         String deliveryRequest,
-        String productOptionDescription) {
+        String description,
+        String state) {
         this.userId = userId;
+        this.productId = productId;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.imageUrl = imageUrl;
@@ -57,12 +65,14 @@ public class Order {
         this.quantity = quantity;
         this.orderPayment = orderPayment;
         this.deliveryRequest = deliveryRequest;
-        this.productOptionDescription = productOptionDescription;
+        this.description = description;
+        this.state = state;
     }
 
-    public OrderDto toDto(String kakaoPayUrl) {
+    public OrderDto toDto() {
         return new OrderDto(
             id,
+            productId,
             userId,
             name,
             phoneNumber,
@@ -71,12 +81,35 @@ public class Order {
             quantity,
             orderPayment,
             deliveryRequest,
-            productOptionDescription,
-            kakaoPayUrl
+            description
         );
+    }
+
+    public String state() {
+        return state;
     }
 
     public Long id() {
         return id;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public static Order fake(String reviewState) {
+        return new Order(
+            1L,
+            1L,
+            "아이폰 14",
+            "010-3144-7938",
+            "imageUrl",
+            new Address(44637L, "도로명주소", "지번주소", "상세주소"),
+            1L,
+            10000L,
+            "배송요청사항",
+            "옵션명블랙",
+            reviewState
+        );
     }
 }
