@@ -23,6 +23,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -30,6 +31,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -69,7 +72,7 @@ class ProductControllerTest {
             ProductImage.fake().stream().map(
                 ProductImage::toDto).toList();
 
-        List<OptionDto> optionDtos  = Option.fake().stream().map(
+        List<OptionDto> optionDtos = Option.fake().stream().map(
             Option::toDto).toList();
 
         given(productRepository.findById(1L))
@@ -93,6 +96,8 @@ class ProductControllerTest {
 
     @Test
     void products() throws Exception {
+        String keyword = "아이폰14";
+
         List<Product> products = List.of(
             Product.fake(1L),
             Product.fake(2L)
@@ -113,7 +118,7 @@ class ProductControllerTest {
         Sort sort = Sort.by("createdAt");
         Pageable pageable = PageRequest.of(page - 1, 6, sort);
 
-        given(productRepository.findAll(pageable))
+        given(productRepository.findAll(any(Specification.class), eq(pageable)))
             .willReturn(new PageImpl<>(products, pageable, 2));
 
         given(reviewRepository.findAllByProductId(1L))
@@ -122,9 +127,9 @@ class ProductControllerTest {
         given(wishRepository.findAllByProductId(1L))
             .willReturn(wishes);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/products"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/products?page=1&keyword=아이폰14"))
             .andExpect(status().isOk());
 
-        verify(getProductsService).getProducts(page);
+        verify(getProductsService).getProducts(page, keyword);
     }
 }

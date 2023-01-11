@@ -3,15 +3,18 @@ package kr.megaptera.shoppingMall.services;
 import kr.megaptera.shoppingMall.dtos.ProductAlternativeImageDto;
 import kr.megaptera.shoppingMall.dtos.ProductImageDto;
 import kr.megaptera.shoppingMall.dtos.ProductListDto;
+import kr.megaptera.shoppingMall.dtos.ProductListDtos;
 import kr.megaptera.shoppingMall.models.Product;
 import kr.megaptera.shoppingMall.models.ProductImage;
 import kr.megaptera.shoppingMall.repositoies.ProductRepository;
 import kr.megaptera.shoppingMall.repositoies.ReviewRepository;
 import kr.megaptera.shoppingMall.repositoies.WishRepository;
+import kr.megaptera.shoppingMall.spectificartions.ProductSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -25,6 +28,7 @@ public class GetProductsService {
     private final ReviewRepository reviewRepository;
     private final WishRepository wishRepository;
     private Pageable pageable;
+    private Specification<Product> specification;
 
     public GetProductsService(
         ProductRepository productRepository,
@@ -35,15 +39,15 @@ public class GetProductsService {
         this.wishRepository = wishRepository;
     }
 
-    public List<ProductListDto> getProducts(Integer page) {
+    public ProductListDtos getProducts(Integer page, String keyword) {
         String alternativeImage = "https://test-s3-image.s3.ap-northeast-2.amazonaws.com/NO+IMAGE.gif";
+        specification = Specification.where(ProductSpecification.likeProductName(keyword));
 
         Sort sort = Sort.by("id");
-         pageable = PageRequest.of(page - 1, 6, sort);
+        pageable = PageRequest.of(page - 1, 6, sort);
 
         List<ProductListDto> productListDtos = new ArrayList<>();
-
-        Page<Product> products = productRepository.findAll(pageable);
+        Page<Product> products = productRepository.findAll(specification, pageable);
 
         List<Long> productIdList = products.stream().map(
             Product::id).toList();
@@ -64,7 +68,6 @@ public class GetProductsService {
                     alternativeImage,
                     true
                 ));
-//
 
             ProductListDto productListDto = new ProductListDto(
                 product.id(), productImageDto, product.name(), product.price(),
@@ -74,11 +77,10 @@ public class GetProductsService {
             productListDtos.add(productListDto);
         }
 
-
-        return productListDtos;
+        return new ProductListDtos(productListDtos, pages());
     }
 
     public int pages() {
-        return productRepository.findAll(pageable).getTotalPages();
+        return productRepository.findAll(specification, pageable).getTotalPages();
     }
 }

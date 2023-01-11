@@ -22,7 +22,7 @@ public class WriteableReviewOrderController {
         this.getWriteableReviewOrderService = getWriteableReviewOrderService;
     }
 
-    @GetMapping("/user/me/writeableReviewProducts")
+    @GetMapping("/user/me/writeableReviewOrders")
     public WriteableReviewProductsDto productList(
         @RequestAttribute("userId") Long userId,
         @RequestParam(required = false, defaultValue = "1") Integer page
@@ -31,7 +31,7 @@ public class WriteableReviewOrderController {
         return getWriteableReviewOrdersService.getOrders(userId, page);
     }
 
-    @GetMapping("/user/me/writeableReviewProducts/{id}")
+    @GetMapping("/user/me/writeableReviewOrders/{id}")
     public OrderDto detail(
         @PathVariable("id") Long id
     ) {

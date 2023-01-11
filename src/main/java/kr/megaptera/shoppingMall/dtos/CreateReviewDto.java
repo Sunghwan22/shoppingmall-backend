@@ -9,17 +9,19 @@ public class CreateReviewDto {
 
     private String description;
 
-    private List<String> imageUrl;
+    private Long orderId;
 
-    public CreateReviewDto(
-        Long rating,
-        String content,
-        String description,
-        List<String> imageUrl) {
+    public CreateReviewDto() {
+    }
+
+    public CreateReviewDto(Long rating,
+                           String content,
+                           String description,
+                           Long orderId) {
         this.rating = rating;
         this.content = content;
         this.description = description;
-        this.imageUrl = imageUrl;
+        this.orderId = orderId;
     }
 
     public Long getRating() {
@@ -34,7 +36,7 @@ public class CreateReviewDto {
         return description;
     }
 
-    public List<String> getImageUrl() {
-        return imageUrl;
+    public Long getOrderId() {
+        return orderId;
     }
 }

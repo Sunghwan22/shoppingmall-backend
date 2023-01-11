@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
@@ -111,5 +112,15 @@ public class Order {
             "옵션명블랙",
             reviewState
         );
+    }
+
+    public void changeState() {
+        if(Objects.equals(this.state, NO_REVIEW)) {
+            this.state = REVIEW_WRITING_COMPLETE;
+        }
+
+        if(Objects.equals(this.state, REVIEW_WRITING_COMPLETE)) {
+            this.state = NO_REVIEW;
+        }
     }
 }
