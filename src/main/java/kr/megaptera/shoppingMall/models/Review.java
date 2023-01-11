@@ -35,10 +35,10 @@ public class Review {
     private Boolean isBestReview;
 
     @ElementCollection
-    private List<Recommendation> recommendations = new ArrayList<>();
+    private List<Recommendation> recommendations;
 
     @ElementCollection
-    private List<ReviewImage> images = new ArrayList<>();
+    private List<ReviewImage> images;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -69,6 +69,28 @@ public class Review {
         this.userNickName = userNickName;
         this.images = reviewImages;
         this.recommendations = recommendations;
+    }
+
+    public Review(
+        Long productId,
+        Long rating,
+        Long userId,
+        String description,
+        String content,
+        String userNickName,
+        List<Recommendation> recommendations,
+        List<ReviewImage> reviewImages,
+        boolean isBestReview) {
+
+        this.productId = productId;
+        this.rating = rating;
+        this.content = content;
+        this.userId = userId;
+        this.optionName = description;
+        this.userNickName = userNickName;
+        this.images = reviewImages;
+        this.recommendations = recommendations;
+        this.isBestReview = isBestReview;
     }
 
     public Long id() {
@@ -105,6 +127,14 @@ public class Review {
 
     public String userNickName() {
         return userNickName;
+    }
+
+    public List<Recommendation> recommendations() {
+        return recommendations;
+    }
+
+    public List<ReviewImage> images() {
+        return images;
     }
 
     public static Review fake(Long reviewId) {
@@ -161,14 +191,6 @@ public class Review {
         );
     }
 
-
-    public List<Recommendation> recommendations() {
-        return recommendations;
-    }
-
-    public List<ReviewImage> images() {
-        return images;
-    }
 
     public ReviewDto toDto(
         List<ReviewImageDto> reviewImageDtos,

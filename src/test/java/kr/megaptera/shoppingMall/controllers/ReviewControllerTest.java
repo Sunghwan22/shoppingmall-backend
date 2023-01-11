@@ -7,9 +7,11 @@ import kr.megaptera.shoppingMall.dtos.ReviewImageDto;
 import kr.megaptera.shoppingMall.models.Review;
 import kr.megaptera.shoppingMall.repositoies.ReviewRepository;
 import kr.megaptera.shoppingMall.services.CreateRecommendationService;
+import kr.megaptera.shoppingMall.services.CreateReviewService;
 import kr.megaptera.shoppingMall.services.GetBestReviewsService;
 import kr.megaptera.shoppingMall.services.GetReviewService;
 import kr.megaptera.shoppingMall.services.GetReviewsService;
+import kr.megaptera.shoppingMall.utils.AwsS3Uploader;
 import kr.megaptera.shoppingMall.utils.JwtUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +19,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -50,6 +55,12 @@ class ReviewControllerTest {
 
     @MockBean
     private CreateRecommendationService createRecommendationService;
+
+    @MockBean
+    private AwsS3Uploader awsS3Uploader;
+
+    @MockBean
+    private CreateReviewService createReviewService;
 
     @Test
     void getReviews() throws Exception {
@@ -162,4 +173,22 @@ class ReviewControllerTest {
 
         verify(createRecommendationService).create(reviewId, userId);
     }
+//
+//    @Test
+//    void create() throws Exception {
+//        given(createReviewService.createReview(any(), any(), any(), any()))
+//            .willReturn(Review.fake(1L).toDto());
+//
+//        MockMultipartFile jsonFile = new MockMultipartFile("Review" ,"",
+//            "application/json", (
+//                "{" +
+//                    "\"rating\":\"5\"," +
+//                    "\"content\":\"리뷰 내용입니다\"," +
+//                    "\"description\":\"옵션 이름입니다\"," +
+//                    "\"writeReviewId\":\"1\" +" +
+//                    "}"
+//            ).getBytes());
+//
+//        mockMvc.perform(MockMvcRequestBuilders.multipart("/"))
+//    }
 }

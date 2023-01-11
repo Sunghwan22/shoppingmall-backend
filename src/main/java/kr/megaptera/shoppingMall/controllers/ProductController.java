@@ -34,14 +34,11 @@ public class ProductController {
     }
 
     @GetMapping()
-    public ProductListDtos products( 
-        @RequestParam(required = false, defaultValue = "1") Integer page
+    public ProductListDtos products(
+        @RequestParam(required = false, defaultValue = "1") Integer page,
+        @RequestParam(required = false) String keyword
     ) {
 
-        List<ProductListDto> productListDtos = getProductsService.getProducts(page);
-
-        int pages = getProductsService.pages();
-
-        return new ProductListDtos(productListDtos, pages);
+        return getProductsService.getProducts(page, keyword);
     }
 }
